@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Students</string>
+    <string name="students_list">Список студентов</string>
+    <string name="add_student">Добавить студента</string>
 </resources>
