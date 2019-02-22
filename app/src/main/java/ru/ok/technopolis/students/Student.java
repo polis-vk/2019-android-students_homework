@@ -1,11 +1,16 @@
 package ru.ok.technopolis.students;
 
-public class Student {
+import android.graphics.Bitmap;
+
+import java.io.Serializable;
+
+public class Student implements Serializable {
 
     private String firstName;
     private String secondName;
     private boolean maleGender;
     private int photo;
+    private Bitmap bitmap;
 
     public Student(String firstName, String secondName, boolean maleGender, int photo) {
         this.firstName = firstName;
@@ -13,6 +18,7 @@ public class Student {
         this.maleGender = maleGender;
         this.photo = photo;
     }
+
 
     public String getFirstName() {
         return firstName;
@@ -42,7 +48,22 @@ public class Student {
         return photo;
     }
 
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
     public void setPhoto(int photo) {
         this.photo = photo;
     }
+
+    @Override
+    public String toString() {
+        return firstName + " " + secondName + (isMaleGender() ? " М" : " Ж");
+    }
+
+
 }

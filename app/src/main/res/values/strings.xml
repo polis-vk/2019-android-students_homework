@@ -1,3 +1,46 @@
 <resources>
     <string name="app_name">Students</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="name">Имя</string>
+    <string name="lastname">Фамилия</string>
+
+    <string-array name="mans_first_names">
+        <item>Кирилл</item>
+        <item>Пьер</item>
+        <item>Дмитрий</item>
+        <item>Павел</item>
+        <item>Аркадий</item>
+        <item>Василий</item>
+        <item>Евгений</item>
+        <item>Лев</item>
+        <item>Илья</item>
+        <item>Родион</item>
+    </string-array>
+
+    <string-array name="women_first_names">
+        <item>Анна</item>
+        <item>Катерина</item>
+        <item>Марфа</item>
+        <item>Евгения</item>
+        <item>Мария</item>
+        <item>Софья</item>
+        <item>Инна</item>
+        <item>Арина</item>
+        <item>Елена</item>
+        <item>Татьяна</item>
+    </string-array>
+
+    <string-array name="last_names">
+        <item>Каренин</item>
+        <item>Безухов</item>
+        <item>Кабанов</item>
+        <item>Ковалев</item>
+        <item>Логинов</item>
+        <item>Тёркин</item>
+        <item>Онегин</item>
+        <item>Мышкин</item>
+        <item>Обломов</item>
+        <item>Расскольников</item>
+    </string-array>
 </resources>
