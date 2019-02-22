@@ -4,12 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:divider="@drawable/divider_vertical"
+    android:dividerPadding="10dp"
+    android:showDividers="middle">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="50"/>
+        android:layout_weight="50"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"/>
 
     <include
         layout="@layout/create_layout"
