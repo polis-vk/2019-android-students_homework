@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         }
         RecyclerView recyclerView = findViewById(R.id.main_activity__rv_students);
         if(BuildConfig.LOG){
-            Log.d(BuildConfig.LOG_TAG, "Im still work!");
+            Log.d(BuildConfig.LOG_TAG, "Im still work!!");
         }
         StudentAdapter studentAdapter =  new StudentAdapter(generateStudentList());
         recyclerView.setAdapter(studentAdapter);
