@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if(BuildConfig.LOG){
-            Log.d(BuildConfig.LOG_TAG, "Im work!");
+            Log.d(BuildConfig.LOG_TAG, "Im work!!");
         }
         RecyclerView recyclerView = findViewById(R.id.main_activity__rv_students);
         if(BuildConfig.LOG){
