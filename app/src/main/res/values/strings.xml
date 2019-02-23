@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Students</string>
+    <string name="student_list">Student list</string>
+    <string name="add_student">Add student</string>
+    <string name="student">Student</string>
+    <string name="surname">Surname</string>
+    <string name="name">Name</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="delete">delete</string>
+    <string name="save">save</string>
 </resources>
