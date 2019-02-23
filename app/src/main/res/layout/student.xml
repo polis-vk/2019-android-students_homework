@@ -9,49 +9,68 @@
     <!--android:shape="ring"-->
     <!--android:thicknessRatio="1.9">-->
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/student__cv_card"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:cardCornerRadius="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_centerVertical="true"
+        android:shape="ring"
+        android:elevation="12dp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
     <ImageView
         android:id="@+id/student__iv_photo"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_margin="10dp"
         android:scaleType="centerCrop"
         android:src="@drawable/male_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    </android.support.v7.widget.CardView>
 
     <TextView
         android:id="@+id/student__tv_second_name"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:ellipsize="end"
         android:maxLines="2"
         android:paddingStart="10dp"
-        android:paddingLeft="10dp"
         android:paddingEnd="0dp"
-        android:paddingRight="0dp"
-        android:text="Second name"
+        android:text="Second Name"
         android:textSize="20sp"
         app:fontFamily="sans-serif-medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@id/student__tv_first_name"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@id/student__iv_photo"
+        app:layout_constraintStart_toEndOf="@id/student__cv_card"
         app:layout_constraintTop_toTopOf="parent"
-
         />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="student__tv_second_name" />
+
 
     <TextView
         android:id="@+id/student__tv_first_name"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
         android:paddingStart="10dp"
-        android:paddingLeft="10dp"
         android:paddingEnd="0dp"
-        android:paddingRight="0dp"
         android:text="First name"
         android:textSize="20sp"
         app:fontFamily="sans-serif-medium"
