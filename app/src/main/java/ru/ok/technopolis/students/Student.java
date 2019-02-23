@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 import java.io.Serializable;
 
-public class Student {
+public class Student implements Serializable {
 
     private String firstName;
     private String secondName;

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity implements StudentAdderDialog.OnAdderStudentListener {
+public class MainActivity extends AppCompatActivity implements StudentAdderDialog.OnAdderStudentListener, StudentAdderDialog.OnUpdateStudentListener {
 
     private String[] mansFirstNames;
     private String[] womenFirstNames;
@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements StudentAdderDialo
             }
         });
 
-        Log.d("MainActivity", "START");
         students = createStudents();
         adapter = new StudentsAdapter(students, new StudentsAdapter.OnStudentClickListener() {
             @Override
@@ -67,12 +66,11 @@ public class MainActivity extends AppCompatActivity implements StudentAdderDialo
         recyclerView.setAdapter(adapter);
         LinearLayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
-        Log.d("MainActivity", "END");
     }
 
-    private void showDialog(Student student) {
-        ImageView view  = (ImageView) LayoutInflater.from(MainActivity.this).inflate(R.layout.image_student, null);
-        if(student.getBitmap() == null){
+    private void showDialog(final Student student) {
+        ImageView view = (ImageView) LayoutInflater.from(MainActivity.this).inflate(R.layout.image_student, null);
+        if (student.getBitmap() == null) {
 
             view.setImageResource(student.getPhoto());
         } else {
@@ -82,14 +80,34 @@ public class MainActivity extends AppCompatActivity implements StudentAdderDialo
 
         builder.setView(view);
         builder.setTitle(student.getFirstName() + " " + student.getSecondName());
-        builder.setMessage(student.isMaleGender() ? "Парень" : "Девушка");
-        builder.setPositiveButton("Ок", new DialogInterface.OnClickListener() {
+        builder.setMessage(student.isMaleGender() ? R.string.guy : R.string.girl);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.cancel();
             }
         });
 
+        builder.setNegativeButton(R.string.edit, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                DialogFragment dialog = new StudentAdderDialog();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(StudentAdderDialog.STUDENT_TAG, student);
+                dialog.setArguments(bundle);
+                dialog.show(getSupportFragmentManager(), "DialogAdder");
+                dialogInterface.cancel();
+            }
+        });
+
+        builder.setNeutralButton(R.string.delete, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                students.remove(student);
+                adapter.notifyDataSetChanged();
+                dialogInterface.cancel();
+            }
+        });
         builder.create().show();
     }
 
@@ -99,34 +117,37 @@ public class MainActivity extends AppCompatActivity implements StudentAdderDialo
         for (int i = 0; i < 20; i++) {
             students.add(nextStudent(i % 2 == 0));
         }
-        Log.d("MainActivity", "STUDENTS = " + Arrays.toString(students.toArray()));
         return students;
     }
 
 
     Student nextStudent(boolean maleGender) {
-        manPhotoIndex %= 3;
-        womanPhotoIndex %= 3;
         if (maleGender) {
             int nameIndex = random.nextInt(mansFirstNames.length);
             int lastNameIndex = random.nextInt(mansFirstNames.length);
-            return new Student(mansFirstNames[nameIndex], lastNames[lastNameIndex], true, manPhotos[manPhotoIndex++]);
+            return new Student(mansFirstNames[nameIndex], lastNames[lastNameIndex], true, manPhotos[manPhotoIndex++ % 3]);
         }
         int nameIndex = random.nextInt(womenFirstNames.length);
         int lastNameIndex = random.nextInt(womenFirstNames.length);
-        return new Student(womenFirstNames[nameIndex], lastNames[lastNameIndex] + "a", false, womanPhotos[womanPhotoIndex++]);
+        return new Student(womenFirstNames[nameIndex], lastNames[lastNameIndex] + "a", false, womanPhotos[womanPhotoIndex++ % 3]);
     }
 
 
     @Override
     public void add(String firstname, String lastname, boolean maleGender, Bitmap bitmap) {
-        manPhotoIndex %= 3;
-        womanPhotoIndex %= 3;
-        Student student = new Student(firstname, lastname, maleGender, maleGender ? manPhotos[manPhotoIndex++] : womanPhotos[womanPhotoIndex++]);
+        Student student = new Student(firstname, lastname, maleGender, maleGender ? manPhotos[manPhotoIndex++ % 3] : womanPhotos[womanPhotoIndex++ % 3]);
         if (bitmap != null) {
             student.setBitmap(bitmap);
         }
         students.add(student);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void update(Student oldStudent, Student newStudent) {
+        int index = students.indexOf(oldStudent);
+        students.remove(oldStudent);
+        students.add(index, newStudent);
         adapter.notifyDataSetChanged();
     }
 }

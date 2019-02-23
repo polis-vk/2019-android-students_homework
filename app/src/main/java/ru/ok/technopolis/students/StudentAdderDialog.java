@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import javax.crypto.spec.OAEPParameterSpec;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -29,17 +28,29 @@ public class StudentAdderDialog extends DialogFragment implements DialogInterfac
     private Bitmap bitmap;
 
     private static final int GALLERY_REQUEST = 1;
-    final String STUDENT_TAG = "STUDENT_TAG";
+    public static final String STUDENT_TAG = "STUDENT_TAG";
     EditText fnEdit, lnEdit;
     ImageView imageView;
     RadioGroup radioGroup;
     Context context;
+    Student oldStudent;
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         context = getContext();
+        Bundle args = getArguments();
+        if (args != null) {
+            oldStudent = (Student) args.getSerializable(STUDENT_TAG);
+            if (oldStudent != null) {
+                bitmap = oldStudent.getBitmap();
+            }
+        }
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_student_adder, null);
         initView(view);
-        AlertDialog.Builder adb = new AlertDialog.Builder(context).setView(view).setTitle("Студент").setMessage("Попробуйте нажать на Android").setPositiveButton(R.string.yes, this).setNegativeButton(R.string.no, this);
+        AlertDialog.Builder adb = new AlertDialog.Builder(context)
+                .setView(view).setTitle(R.string.student)
+                .setMessage(R.string.trydroid)
+                .setPositiveButton(R.string.ok, this)
+                .setNegativeButton(R.string.back, this);
         return adb.create();
     }
 
@@ -57,6 +68,17 @@ public class StudentAdderDialog extends DialogFragment implements DialogInterfac
                 startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
             }
         });
+
+        if (oldStudent != null) {
+            fnEdit.setText(oldStudent.getFirstName());
+            lnEdit.setText(oldStudent.getSecondName());
+            if (bitmap == null) {
+                imageView.setImageResource(oldStudent.getPhoto());
+            } else {
+                imageView.setImageBitmap(bitmap);
+            }
+            radioGroup.clearCheck();
+        }
     }
 
     public void onClick(DialogInterface dialog, int which) {
@@ -67,13 +89,22 @@ public class StudentAdderDialog extends DialogFragment implements DialogInterfac
                 boolean maleGender = radioGroup.getCheckedRadioButtonId() == R.id.radioButton1;
 
                 if (name.length() == 0 || lastName.length() == 0) {
-                    Toast.makeText(context, "Данные введены некорректно", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.incorrect, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                OnAdderStudentListener listener = (OnAdderStudentListener) context;
-                if (listener != null) {
-                  listener.add(name, lastName, maleGender, bitmap);
+                if (oldStudent == null) {
+                    OnAdderStudentListener listener = (OnAdderStudentListener) context;
+                    if (listener != null) {
+                        listener.add(name, lastName, maleGender, bitmap);
+                    }
+                } else {
+                    OnUpdateStudentListener listener = (OnUpdateStudentListener) context;
+                    if (listener != null) {
+                        Student student = new Student(name, lastName, maleGender, oldStudent.getPhoto());
+                        student.setBitmap(bitmap);
+                        listener.update(oldStudent, student);
+                    }
                 }
                 break;
         }
@@ -89,6 +120,9 @@ public class StudentAdderDialog extends DialogFragment implements DialogInterfac
                     Uri selectedImage = data.getData();
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), selectedImage);
+                        int width = 1000;
+                        int height = (int) ((double) width / bitmap.getWidth() * bitmap.getHeight());
+                        bitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
                         assert selectedImage != null;
                         imageView.setImageBitmap(bitmap);
                     } catch (IOException e) {
@@ -100,5 +134,10 @@ public class StudentAdderDialog extends DialogFragment implements DialogInterfac
 
     interface OnAdderStudentListener {
         void add(String firstname, String lastname, boolean maleGender, Bitmap bitmap);
+    }
+
+
+    interface OnUpdateStudentListener {
+        void update(Student oldStudent, Student newStudent);
     }
 }

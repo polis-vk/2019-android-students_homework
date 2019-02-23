@@ -4,6 +4,17 @@
     <string name="no">Нет</string>
     <string name="name">Имя</string>
     <string name="lastname">Фамилия</string>
+    <string name="ok">ОК</string>
+    <string name="back">Назад</string>
+    <string name="delete">Удалить</string>
+    <string name="guy">Парень</string>
+    <string name="girl">Девушка</string>
+    <string name="edit">Изменить</string>
+    <string name="incorrect">Данные введены некорректно</string>
+    <string name="student">Студент</string>
+    <string name="trydroid">Попробуйте нажать на Android</string>
+    <string name="enter_name">Введите имя</string>
+    <string name="enter_last_name">Введите фамилию</string>
 
     <string-array name="mans_first_names">
         <item>Кирилл</item>

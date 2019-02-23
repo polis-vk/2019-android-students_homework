@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
-            android:text="Имя"
+            tools:text="Имя"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@id/item_student__last_name"
 
@@ -69,7 +69,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
             android:textSize="18sp"
-            android:text="Фамилия"
+            tools:text="Фамилия"
             app:layout_constraintBottom_toTopOf="@id/item_student__first_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
