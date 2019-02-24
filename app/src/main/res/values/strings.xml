@@ -9,4 +9,5 @@
     <string name="main__female_radio">Female</string>
     <string name="main__last_name_hint">Last name</string>
     <string name="main__first_name_hint">First name</string>
+    <string name="student_item_default_name">Empty name</string>
 </resources>

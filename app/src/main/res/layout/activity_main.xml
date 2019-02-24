@@ -150,6 +150,7 @@
         app:layout_constraintEnd_toStartOf="@id/main__right_border">
 
         <RadioButton
+            android:id="@+id/main__male_radio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -157,6 +158,7 @@
             />
 
         <RadioButton
+            android:id="@+id/main__female_radio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
