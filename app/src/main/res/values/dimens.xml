@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_main_button_horizontal_padding">20dp</dimen>
+    <dimen name="activity_main_photo_dimen">120dp</dimen>
+    <dimen name="activity_main_photo_corner_radius">60dp</dimen>
+</resources>
