@@ -1,5 +1,7 @@
 package ru.ok.technopolis.students;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean edit = false;
     private String prevName;
     private  String prevSurname;
-    private boolean prevMaleGender;
     private int prevPhoto;
     private int newPhoto;
 
@@ -63,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         edit = true;
         prevName = student.getFirstName();
         prevSurname = student.getSecondName();
-//        prevMaleGender = student.isMaleGender();
         prevPhoto = student.getPhoto();
     }
 
@@ -83,15 +83,20 @@ public class MainActivity extends AppCompatActivity {
     private void onAddClick() {
         TextView name = findViewById(R.id.activity_main__enter_name);
         TextView surname = findViewById(R.id.activity_main__enter_surname);
-        ImageView photo = findViewById(R.id.activity_main__image);
         name.setText("Name");
         surname.setText("Surname");
-        photo.setImageResource(getFemalePhoto());
+        setFemalePhoto();
         CheckBox male = findViewById(R.id.activity_main__cbox1);
         CheckBox female = findViewById(R.id.activity_main__cbox2);
         male.setChecked(false);
         female.setChecked(false);
         edit = false;
+    }
+
+    private Bitmap bitmapResource(int resource, int width){
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resource);
+        int heigth = (int) ((double) width / bitmap.getWidth() * bitmap.getHeight());
+        return Bitmap.createScaledBitmap(bitmap, width, heigth, true);
     }
 
     private int getMalePhoto(){
@@ -117,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView photo = findViewById(R.id.activity_main__image);
         CheckBox male = findViewById(R.id.activity_main__cbox1);
         if (male.isChecked()) {
-            photo.setImageResource(getMalePhoto());
+            photo.setImageBitmap(bitmapResource(getMalePhoto(), 200));
         }
     }
 
@@ -144,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView photo = findViewById(R.id.activity_main__image);
         CheckBox female = findViewById(R.id.activity_main__cbox2);
         if (female.isChecked()) {
-            photo.setImageResource(getFemalePhoto());
+            photo.setImageBitmap(bitmapResource(getFemalePhoto(), 200));
         }
     }
 
@@ -154,9 +159,18 @@ public class MainActivity extends AppCompatActivity {
         String stringName = name.getText().toString();
         TextView surname = findViewById(R.id.activity_main__enter_surname);
         String stringSurname = surname.getText().toString();
+        name.setText("Name");
+        surname.setText("Surname");
+        setFemalePhoto();
+        CheckBox male = findViewById(R.id.activity_main__cbox1);
+        CheckBox female = findViewById(R.id.activity_main__cbox2);
+        edit = false;
         for (Student student : students) {
-            if (student.getSecondName().equals(stringSurname) && student.getFirstName().equals(stringName)) {
+            if (student.getSecondName().equals(stringSurname) && student.getFirstName().equals(stringName)
+                    && (student.isMaleGender() && male.isChecked() || !student.isMaleGender() && female.isChecked())) {
                 students.remove(student);
+                male.setChecked(false);
+                female.setChecked(false);
                 studentAdapter.notifyDataSetChanged();
                 return;
             }
@@ -168,7 +182,6 @@ public class MainActivity extends AppCompatActivity {
         String stringName = name.getText().toString();
         TextView surname = findViewById(R.id.activity_main__enter_surname);
         String stringSurname = surname.getText().toString();
-        ImageView photo = findViewById(R.id.activity_main__image);
         CheckBox male = findViewById(R.id.activity_main__cbox1);
         CheckBox female = findViewById(R.id.activity_main__cbox2);
         boolean maleGender = false;
@@ -203,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
                         surname.setText("Surname");
                         male.setChecked(false);
                         female.setChecked(false);
-                        photo.setImageResource(getFemalePhoto());
+                        setFemalePhoto();
                         studentAdapter.notifyDataSetChanged();
                     }
                 }
