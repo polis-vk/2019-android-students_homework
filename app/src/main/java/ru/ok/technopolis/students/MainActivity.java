@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,8 @@ public class MainActivity extends AppCompatActivity
 
     private List<Student> students;
     private StudentAdapter studentAdapter;
-
+    private RecyclerView recyclerView;
+    private Button addStudentButton;
 
 
     @Override
@@ -24,12 +27,33 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         students = generateStudentList();
         setupRecyclerView();
+        setupAddButton();
 
     }
 
+    private void setupAddButton()
+    {
+        addStudentButton = findViewById(R.id.activity_main__add_button);
+        addStudentButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                clickAddStudentButton();
+            }
+        });
+    }
+
+    private void clickAddStudentButton()
+    {
+
+    }
+
+
+
     private void setupRecyclerView()
     {
-        RecyclerView recyclerView = findViewById(R.id.activity_main__recyclerview);
+        recyclerView = findViewById(R.id.activity_main__recyclerview);
         studentAdapter = new StudentAdapter(students);
         recyclerView.setAdapter(studentAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

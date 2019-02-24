@@ -3,14 +3,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
-    <view class="android.support.v7.app.AlertController$RecycleListView"
+    <TextView
+        android:id="@+id/activity_main__list_students"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin = "8dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/list_students"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@id/activity_main__recyclerview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/activity_main__recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/activity_main__list_students"
+        tools:layout_editor_absoluteX="0dp">
 
-    </view>
+    </android.support.v7.widget.RecyclerView>
 
+    <Button
+        android:id="@+id/activity_main__add_button"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
+        android:text="@string/activity_main__add_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_main__recyclerview"
+        />
 
 </android.support.constraint.ConstraintLayout>
