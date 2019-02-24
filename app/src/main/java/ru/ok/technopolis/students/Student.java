@@ -1,5 +1,15 @@
 package ru.ok.technopolis.students;
 
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.List;
+
 public class Student {
 
     private String firstName;
@@ -45,4 +55,6 @@ public class Student {
     public void setPhoto(int photo) {
         this.photo = photo;
     }
+
+
 }
