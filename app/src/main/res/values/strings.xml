@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Students</string>
+    <string name="main__student_list_title">Student list</string>
+    <string name="main__student_title">Student</string>
+    <string name="main__add_student">+ Add student</string>
+    <string name="main__delete_button">Delete</string>
+    <string name="main__save_button">Save</string>
+    <string name="main__male_radio">Male</string>
+    <string name="main__female_radio">Female</string>
+    <string name="main__last_name_hint">Last name</string>
+    <string name="main__first_name_hint">First name</string>
 </resources>
