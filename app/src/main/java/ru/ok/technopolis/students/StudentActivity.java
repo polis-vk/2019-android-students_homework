@@ -1,8 +1,64 @@
 package ru.ok.technopolis.students;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
 
-public class StudentActivity extends AppCompatActivity
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class StudentActivity extends AppCompatActivity implements View.OnClickListener
 {
+    private int studentProfilePhoto;
+    private EditText studentFirstName;
+    private EditText studentSecondName;
+    private Button deleteStudent, saveStudent;
+    private CheckBox genderCheckbox;
+    private List <Student> students;
 
+    @Override
+    protected  void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.student_profile);
+        studentFirstName = findViewById(R.id.set_text__first_name_student);
+        studentSecondName = findViewById(R.id.set_text__second_name_student);
+        deleteStudent = findViewById(R.id.activity_student__delete_button);
+        saveStudent = findViewById(R.id.activity_student__save_button);
+        genderCheckbox = findViewById(R.id.checkBox__gender);
+        students = (ArrayList <Student>) getIntent().getSerializableExtra("Students");
+        setupStudent();
+    }
+
+    private void setupStudent()
+    {
+        String firstName, secondName;
+        boolean isMale = false;
+        firstName = studentFirstName.getText().toString();
+        secondName = studentSecondName.getText().toString();
+        if(genderCheckbox.isChecked()) {
+            studentProfilePhoto = R.drawable.male_3;
+            isMale = true;
+        }
+        else {
+            studentProfilePhoto = R.drawable.female_2;
+        }
+        students.add(new Student(firstName,secondName,isMale, studentProfilePhoto));
+        saveStudent.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        if(v.getId() == R.id.activity_student__save_button)
+        {
+            startActivity(new Intent(this, MainActivity.class).putExtra("Students", (Serializable) students));
+        }
+    }
 }

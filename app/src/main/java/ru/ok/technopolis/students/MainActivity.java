@@ -1,6 +1,8 @@
 package ru.ok.technopolis.students;
 
 
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,16 +10,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
 
     private List<Student> students;
     private StudentAdapter studentAdapter;
     private RecyclerView recyclerView;
-    private Button addStudentButton;
 
 
     @Override
@@ -28,28 +30,12 @@ public class MainActivity extends AppCompatActivity
         students = generateStudentList();
         setupRecyclerView();
         setupAddButton();
-
     }
 
     private void setupAddButton()
     {
-        addStudentButton = findViewById(R.id.activity_main__add_button);
-        addStudentButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                clickAddStudentButton();
-            }
-        });
+        findViewById(R.id.activity_main__add_button).setOnClickListener(this);
     }
-
-    private void clickAddStudentButton()
-    {
-
-    }
-
-
 
     private void setupRecyclerView()
     {
@@ -60,7 +46,7 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
-    private List <Student> generateStudentList ()
+    private List <Student> generateStudentList()
     {
         return new ArrayList<Student>()
         {
@@ -72,4 +58,9 @@ public class MainActivity extends AppCompatActivity
         };
     }
 
+    @Override
+    public void onClick(View v)
+    {
+        startActivity(new Intent(this, StudentActivity.class).putExtra("Students", (Serializable) students));
+    }
 }
