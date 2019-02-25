@@ -14,11 +14,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 {
 
     private final List<Student> students;
-    private final Listener onStudentClickListenner;
+    private final Listener onStudentClickListener;
 
     public StudentAdapter(List <Student> students, Listener onStudentClickListenner)
     {
-        this.onStudentClickListenner = onStudentClickListenner;
+        this.onStudentClickListener = onStudentClickListenner;
         this.students = students;
     }
 
@@ -32,7 +32,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             @Override
             public void onClick(View v)
             {
-                onStudentClickListenner.onStudentClick((Student) v.getTag());
+                onStudentClickListener.onStudentClick((Student) v.getTag());
             }
         });
 
@@ -73,7 +73,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         }
     }
 
-    interface Listener
+     interface Listener
     {
         void onStudentClick(Student student);
     }

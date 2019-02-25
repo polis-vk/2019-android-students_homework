@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void onStudentClick(Student student)
     {
+        //TODO: Student == null, Fix the problem
         startActivityForResult(new Intent(this, StudentActivity.class).putExtra("Student", student), 2);
     }
 
