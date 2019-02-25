@@ -14,9 +14,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 {
 
     private final List<Student> students;
+    private final Listener onStudentClickListenner;
 
-    public StudentAdapter(List <Student> students)
+    public StudentAdapter(List <Student> students, Listener onStudentClickListenner)
     {
+        this.onStudentClickListenner = onStudentClickListenner;
         this.students = students;
     }
 
@@ -25,6 +27,15 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
     {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student, viewGroup, false);
+        view.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                onStudentClickListenner.onStudentClick((Student) v.getTag());
+            }
+        });
+
         return new StudentViewHolder(view);
     }
 
@@ -46,7 +57,9 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         private TextView studentInitials;
         private ImageView studentPhoto;
 
-        public StudentViewHolder(@NonNull View itemView)
+
+
+        private StudentViewHolder(@NonNull View itemView)
         {
             super(itemView);
             studentInitials = itemView.findViewById(R.id.student_initials);
@@ -58,5 +71,10 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             studentInitials.setText(student.getFirstName() + " " + student.getSecondName());
             studentPhoto.setImageResource(student.getPhoto());
         }
+    }
+
+    interface Listener
+    {
+        void onStudentClick(Student student);
     }
 }

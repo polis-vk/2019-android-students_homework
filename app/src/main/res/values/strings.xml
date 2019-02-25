@@ -3,7 +3,7 @@
     <string name="list_students">List of Students</string>
     <string name="activity_main__add_button">+ Add new student</string>
     <string name="student_activity__student">Student</string>
-    <string name="activity_student__delete_student_button">Delete Student</string>
-    <string name="activity_student__save_student_button">Save Student</string>
+    <string name="activity_student__delete_student_button">Delete</string>
+    <string name="activity_student__save_student_button">Save</string>
     <string name="activity_student__checkbox_gender">Male Gender</string>
 </resources>

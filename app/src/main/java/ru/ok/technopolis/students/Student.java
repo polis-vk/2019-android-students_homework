@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 public class Student implements Serializable {
 
@@ -19,12 +20,24 @@ public class Student implements Serializable {
     private String secondName;
     private boolean maleGender;
     private int photo;
+    private UUID id;
 
     public Student(String firstName, String secondName, boolean maleGender, int photo) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.maleGender = maleGender;
         this.photo = photo;
+        id = UUID.randomUUID();
+    }
+
+    public Student()
+    {
+
+    }
+
+    public UUID getId()
+    {
+        return id;
     }
 
     public String getFirstName() {
