@@ -6,14 +6,15 @@
     xmlns:tools="http://schemas.android.com/tools">
     <ImageView
         android:id="@+id/students_item__student_avatar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_margin="10dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/male_4" />
+        tools:src="@drawable/img_avatar_photo" />
 
     <TextView
         android:id="@+id/students_item__student_name"

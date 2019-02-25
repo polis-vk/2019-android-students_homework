@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FAFAFA"
+    >
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -11,9 +14,12 @@
         android:layout_weight="50">
 
         <TextView
+
             android:id="@+id/main_acivity__title_text"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="@string/students_list"
             android:textSize="20sp"
@@ -21,36 +27,173 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="spread_inside" />
+            android:textColor="#424242"
+            />
 
-        <view
+        <android.support.v7.widget.RecyclerView
+            android:visibility="gone"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/main_activity__rv_students"
-            class="android.support.v7.app.AlertController$RecycleListView"
+
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/main_activity_button_main"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@+id/main_activity_add_button_main"
             app:layout_constraintTop_toBottomOf="@+id/main_acivity__title_text"
-             />
+            android:textColor="#424242"
+            />
+
+        <TextView
+            android:id="@+id/main_activity__text_without_rv"
+            android:visibility="visible"
+
+            android:text="@string/text_without_rv"
+            android:textColor="#424242"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@+id/main_activity_add_button_main"
+            app:layout_constraintTop_toBottomOf="@+id/main_acivity__title_text"
+
+            />
 
         <Button
-            android:id="@+id/main_activity_button_main"
+            android:id="@+id/main_activity_add_button_main"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+
+            android:padding="10dp"
             android:text="@string/add_student"
+            android:textColor="#424242"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_activity__rv_students" />
+            app:layout_constraintTop_toBottomOf="@+id/main_activity__rv_students"
+             />
+
+
 
 
     </android.support.constraint.ConstraintLayout>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/main_activity_input_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="50">
+        android:layout_weight="50"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+
+            app:layout_constraintVertical_bias="0.0"
+            android:id="@+id/main_activity_line"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"
+            android:layout_weight="1"
 
 
-    </android.support.constraint.ConstraintLayout>
+             />
+
+        <TextView
+
+            android:id="@+id/main_acivity__name_student_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="@string/student_title"
+            android:textColor="#424242"
+            android:textSize="20sp"
+            android:layout_weight="20"
+
+             />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="60">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/main_activity_avatar_full"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/male_4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/main_activity_edit_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/main_activity_edit_name"
+                app:layout_constraintBottom_toTopOf="@+id/main_activity_edit_lastname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/main_activity_avatar_full"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:hint="@string/first_name"
+                />
+
+            <EditText
+                android:id="@+id/main_activity_edit_lastname"
+                app:layout_constraintTop_toBottomOf="@+id/main_activity_edit_name"
+                app:layout_constraintBottom_toBottomOf="@+id/main_activity_gender_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/main_activity_avatar_full"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:hint="@string/last_name" />
+            <CheckBox
+                android:id="@+id/main_activity_gender_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/main_activity_edit_lastname"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/main_activity_avatar_full"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:hint="@string/is_male"
+                />
+        </android.support.constraint.ConstraintLayout>
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="19">
+            <Button
+                android:id="@+id/main_activity_button_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/main_activity_button_save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+            <Button
+                android:id="@+id/main_activity_button_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="@string/save_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/main_activity_button_delete"
+                />
+        </android.support.constraint.ConstraintLayout>
+
+
+
+    </LinearLayout>
 </LinearLayout>

@@ -2,4 +2,11 @@
     <string name="app_name">Students</string>
     <string name="students_list">Список студентов</string>
     <string name="add_student">Добавить студента</string>
+    <string name="student_title">Студент</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="is_male">Мужской пол</string>
+    <string name="delete_button">Удалить</string>
+    <string name="save_button">Сохранить</string>
+    <string name="text_without_rv">пока что пуст</string>
 </resources>
