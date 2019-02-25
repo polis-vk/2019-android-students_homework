@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
         Animation shakeAnimations = AnimationUtils.loadAnimation(this, R.anim.shake);
         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-        String secondName = studentSecondName.getText().toString();
-        String firstName = studentFirstName.getText().toString();
+        String secondName = studentSecondName.getText().toString().trim();
+        String firstName = studentFirstName.getText().toString().trim();
         Boolean isMale = maleGender.isChecked();
 
         if (secondName.equals("") || firstName.equals("")) {
