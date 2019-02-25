@@ -1,5 +1,7 @@
 package ru.ok.technopolis.students;
 
+import android.media.Image;
+
 public class Student {
 
     public final String firstName;

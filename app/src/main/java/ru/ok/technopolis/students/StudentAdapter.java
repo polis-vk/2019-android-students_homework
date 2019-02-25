@@ -33,6 +33,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder studentViewHolder, int i) {
+        studentViewHolder.photo.setImageResource(students.get(i).photo);
         studentViewHolder.second_name.setText(students.get(i).secondName);
         studentViewHolder.first_name.setText(students.get(i).firstName);
     }
@@ -44,22 +45,17 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     static final class StudentViewHolder extends RecyclerView.ViewHolder {
 
-        //        private final ImageView photo;
+        private final ImageView photo;
         public final TextView second_name;
         public final TextView first_name;
 
 
         private StudentViewHolder(@NonNull View itemView) {
             super(itemView);
-//            photo = itemView.findViewById(R.id.student__iv_photo);
+            photo = itemView.findViewById(R.id.student__iv_photo);
             second_name = itemView.findViewById(R.id.student__tv_second_name);
             first_name = itemView.findViewById(R.id.student__tv_first_name);
         }
 
-/*        private void bind(@NonNull Student student) {
-//            photo.setImageResource(student.photo);
-//            second_name.setText(student.secondName);
-//            first_name.setText(student.firstName);
-        }*/
     }
 }

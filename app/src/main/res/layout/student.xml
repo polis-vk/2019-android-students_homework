@@ -80,5 +80,4 @@
         app:layout_constraintStart_toEndOf="@id/student__tv_second_name"
         app:layout_constraintTop_toTopOf="@id/student__tv_second_name" />
 
-
 </android.support.constraint.ConstraintLayout>
