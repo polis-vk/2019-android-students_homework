@@ -118,15 +118,17 @@ public class MainActivity extends AppCompatActivity {
             student.setFirstName(name);
             student.setSecondName(lastname);
             student.setMaleGender(gender);
-            int indexPhoto = random.nextInt(3);
-            if(BuildConfig.LOG){
-                Log.d(BuildConfig.LOG_TAG, "" + indexPhoto + "");
-            }
-            if(student.isMaleGender()){
-                student.setPhoto(malePhoto[indexPhoto]);
+            if(indexArr == -1) {
+                int indexPhoto = random.nextInt(3);
+                if (BuildConfig.LOG) {
+                    Log.d(BuildConfig.LOG_TAG, "" + indexPhoto + "");
+                }
+                if (student.isMaleGender()) {
+                    student.setPhoto(malePhoto[indexPhoto]);
 
-            } else {
-                student.setPhoto(femalePhoto[indexPhoto]);
+                } else {
+                    student.setPhoto(femalePhoto[indexPhoto]);
+                }
             }
             if(BuildConfig.LOG){
                 Log.d(BuildConfig.LOG_TAG, "Change Saved");
