@@ -20,7 +20,7 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
     private EditText studentSecondName;
     private Button deleteStudent, saveStudent;
     private CheckBox genderCheckbox;
-    private List <Student> students;
+    private Student currentStudent;
 
     @Override
     protected  void onCreate(Bundle savedInstanceState)
@@ -32,7 +32,6 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
         deleteStudent = findViewById(R.id.activity_student__delete_button);
         saveStudent = findViewById(R.id.activity_student__save_button);
         genderCheckbox = findViewById(R.id.checkBox__gender);
-        students = (ArrayList <Student>) getIntent().getSerializableExtra("Students");
         setupStudent();
     }
 
@@ -49,7 +48,7 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
         else {
             studentProfilePhoto = R.drawable.female_2;
         }
-        students.add(new Student(firstName,secondName,isMale, studentProfilePhoto));
+        currentStudent = new Student(firstName,secondName,isMale,studentProfilePhoto);
         saveStudent.setOnClickListener(this);
     }
 
@@ -58,7 +57,7 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
     {
         if(v.getId() == R.id.activity_student__save_button)
         {
-            startActivity(new Intent(this, MainActivity.class).putExtra("Students", (Serializable) students));
+            startActivity(new Intent(this, MainActivity.class).putExtra("Student", (Serializable) currentStudent));
         }
     }
 }

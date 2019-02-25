@@ -2,7 +2,6 @@ package ru.ok.technopolis.students;
 
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<Student> students;
     private StudentAdapter studentAdapter;
     private RecyclerView recyclerView;
-
+    private Button addButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,7 +33,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setupAddButton()
     {
-        findViewById(R.id.activity_main__add_button).setOnClickListener(this);
+        addButton = findViewById(R.id.activity_main__add_button);
+        addButton.setOnClickListener(this);
+
+    }
+
+
+    private Student generateNewStudent()
+    {
+        return (Student) getIntent().getSerializableExtra("Student");
     }
 
     private void setupRecyclerView()
@@ -58,9 +65,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
     }
 
+
     @Override
     public void onClick(View v)
     {
-        startActivity(new Intent(this, StudentActivity.class).putExtra("Students", (Serializable) students));
+        startActivity(new Intent(this, StudentActivity.class));
+        students.add(generateNewStudent());
+        studentAdapter.notifyDataSetChanged();
     }
 }
