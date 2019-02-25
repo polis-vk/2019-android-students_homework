@@ -2,6 +2,7 @@ package ru.ok.technopolis.students;
 
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,12 +39,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
-    private Student generateNewStudent()
-    {
-        return (Student) getIntent().getSerializableExtra("Student");
-    }
-
     private void setupRecyclerView()
     {
         recyclerView = findViewById(R.id.activity_main__recyclerview);
@@ -69,8 +64,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v)
     {
-        startActivity(new Intent(this, StudentActivity.class));
-        students.add(generateNewStudent());
+        startActivityForResult(new Intent(this, StudentActivity.class),1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        Student currentStudent = (Student) data.getSerializableExtra("Student");
+        students.add(currentStudent);
         studentAdapter.notifyDataSetChanged();
     }
 }

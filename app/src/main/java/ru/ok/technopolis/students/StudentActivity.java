@@ -57,7 +57,11 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
     {
         if(v.getId() == R.id.activity_student__save_button)
         {
-            startActivity(new Intent(this, MainActivity.class).putExtra("Student", (Serializable) currentStudent));
+            Intent intent = new Intent();
+            intent.putExtra("Student", currentStudent);
+            setResult(1,intent);
+            finish();
+           // startActivity(new Intent(this, MainActivity.class).putExtra("Student", (Serializable) currentStudent));
         }
     }
 }
