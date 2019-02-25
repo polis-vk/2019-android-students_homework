@@ -2,6 +2,7 @@ package ru.ok.technopolis.students;
 
 public class Student {
 
+    private int index;
     private int _id;
     private String firstName;
     private String secondName;
@@ -16,11 +17,12 @@ public class Student {
         this.photo = photo;
     }
 
-    public Student(String firstName, String secondName, boolean maleGender, int photo) {
+    public Student(String firstName, String secondName, boolean maleGender, int photo, int index) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.maleGender = maleGender;
         this.photo = photo;
+        this.index =index;
     }
 
     public Student(){
@@ -28,6 +30,14 @@ public class Student {
         secondName = "";
         maleGender = false;
         photo = 0;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     int getID(){

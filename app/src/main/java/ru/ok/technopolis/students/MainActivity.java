@@ -114,11 +114,12 @@ public class MainActivity extends AppCompatActivity {
         }
         if(name.length() != 0 && lastname.length() != 0){
 
-            int indexArr = students.indexOf(student);
-            student.setFirstName(name);
-            student.setSecondName(lastname);
+            int indexArr = student.getIndex();
+            student.setFirstName(name.trim());
+            student.setSecondName(lastname.trim());
+            boolean genderLast = student.isMaleGender();
             student.setMaleGender(gender);
-            if(indexArr == -1) {
+            if(indexArr == -1 || (gender ^ genderLast)) {
                 int indexPhoto = random.nextInt(3);
                 if (BuildConfig.LOG) {
                     Log.d(BuildConfig.LOG_TAG, "" + indexPhoto + "");
@@ -134,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(BuildConfig.LOG_TAG, "Change Saved");
             }
             if(indexArr == -1){
+                student.setIndex(students.size());
                 students.add(student);
                 dbHandler.addStudent(student);
             } else {
@@ -187,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void generateNewStudent(){
-        Student student = new Student(null, null, false, 0);
+        Student student = new Student(null, null, false, 0, -1);
 
         setupMenu(student);
     }
