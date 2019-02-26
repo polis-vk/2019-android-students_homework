@@ -1,6 +1,7 @@
 package ru.ok.technopolis.students;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
@@ -28,11 +30,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Random random = new Random();
+        random = new Random();
         setContentView(R.layout.activity_main);
         RecyclerView recyclerView = findViewById(R.id.activity_main__rv_students);
-        students = generateStudentsList();
+
         image_names = getResources().getStringArray(R.array.image_names);
+        students = generateStudentsList();
         studentAdapter = new StudentAdapter(this, students);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -47,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    .getResources().getIdentifier(arrayOfStrings[position], "drawable", mApplicationContext.getPackageName())
-
     public void startAddingActivity() {
         Intent intent = new Intent(this, AdditionActivity.class);
         startActivityForResult(intent, 1);
@@ -57,20 +58,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String secondName = data.getStringExtra("secondName");
-        String firstName = data.getStringExtra("firstName");
-        int photo_id = random.nextInt(5);
-        int id = (int) getResources().getIdentifier(image_names[photo_id], "drawable", String.valueOf(this));
-        Student newStudent = new Student(firstName, secondName, data.getBooleanExtra("sex",false), id);
-        students.add(newStudent);
-        studentAdapter.notifyDataSetChanged();
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            String secondName = data.getStringExtra("secondName");
+            String firstName = data.getStringExtra("firstName");
+            int photo_id = random.nextInt(6);
+            int id = getResources().getIdentifier(image_names[photo_id], "drawable", getPackageName());
+            Student newStudent = new Student(firstName, secondName, data.getBooleanExtra("sex", false), id);
+            students.add(newStudent);
+            studentAdapter.notifyDataSetChanged();
+        }
     }
 
     private ArrayList<Student> generateStudentsList() {
         ArrayList<Student> students = new ArrayList<>();
-        students.add(new Student("Иван", "Иванов", true, R.drawable.male_1));
-        students.add(new Student("Петр", "Петров", true, R.drawable.male_2));
-        students.add(new Student("Анастасия", "Курочкина", false, R.drawable.female_1));
+        int id = getResources().getIdentifier(image_names[random.nextInt(6)], "drawable", getPackageName());
+        students.add(new Student("Иван", "Иванов", true, id));
+        id = getResources().getIdentifier(image_names[random.nextInt(6)], "drawable", getPackageName());
+
+        students.add(new Student("Петр", "Петров", true, id));
+        id = getResources().getIdentifier(image_names[random.nextInt(6)], "drawable", getPackageName());
+
+        students.add(new Student("Анастасия", "Курочкина", false, id));
         return students;
     }
 }

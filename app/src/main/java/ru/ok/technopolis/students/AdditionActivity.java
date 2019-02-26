@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.Random;
+
 public class AdditionActivity extends AppCompatActivity implements View.OnClickListener {
 
     Student student;
@@ -23,6 +25,8 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     RadioButton isMale;
     Button saver;
 
+    private String[] image_names;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +34,13 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
         secondName = (EditText) findViewById(R.id.student_add__et_second_name);
         firstName = (EditText) findViewById(R.id.student_add__et_first_name);
+        image_names = getResources().getStringArray(R.array.image_names);
         photo = (ImageView) findViewById(R.id.student_add__iv_photo);
         isFemale = findViewById(R.id.student_add__rb_female);
         isMale = findViewById(R.id.student_add__rb_male);
         saver = findViewById(R.id.student_add__b_save);
+        int id = getResources().getIdentifier(image_names[new Random().nextInt(6)], "drawable", getPackageName());
+        photo.setImageResource(id);
         saver.setOnClickListener(this);
     }
 

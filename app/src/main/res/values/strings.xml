@@ -2,9 +2,9 @@
     <string name="app_name">Students</string>
 
     <string-array name="image_names">
-        <item>female_1.jpg</item>
-        <item>female_2.jpg</item>
-        <item>female_3.jpg</item>
+        <item>female_1</item>
+        <item>female_2</item>
+        <item>female_3</item>
         <item>male_1</item>
         <item>male_2</item>
         <item>male_3</item>
