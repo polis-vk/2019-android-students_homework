@@ -31,36 +31,35 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
         saveStudent = findViewById(R.id.activity_student__save_button);
         genderCheckbox = findViewById(R.id.checkBox__gender);
         studentImageViewPhoto = findViewById(R.id.student_activity__photo);
-        if (getIntent().getExtras() != null)
+        if (getIntent().getExtras() != null) {
             currentStudent = (Student) getIntent().getExtras().getSerializable("Student");
+            setStudent();
+        }
         else
             currentStudent = new Student();
         saveStudent.setOnClickListener(this);
         deleteStudent.setOnClickListener(this);
     }
 
+    private void setStudent()
+    {
+        studentFirstName.setText(currentStudent.getFirstName());
+        studentSecondName.setText(currentStudent.getSecondName());
+        if(currentStudent.isMaleGender())
+            genderCheckbox.isChecked();
+        studentImageViewPhoto.setImageResource(currentStudent.getPhoto());
+    }
+
 
     private void modifyStudent()
     {
-        if(currentStudent.getFirstName() != null)
-        {
-            studentFirstName.setText(currentStudent.getFirstName());
-            studentSecondName.setText(currentStudent.getSecondName());
-            if(currentStudent.isMaleGender())
-                genderCheckbox.isChecked();
-            studentImageViewPhoto.setImageResource(currentStudent.getPhoto());
-
-        }
-        else {
-            currentStudent.setFirstName(studentFirstName.getText().toString());
-            currentStudent.setSecondName(studentSecondName.getText().toString());
-            currentStudent.setMaleGender(genderCheckbox.isChecked());
-            if (currentStudent.isMaleGender())
-                currentStudent.setPhoto(R.drawable.male_3);
-            else
-                currentStudent.setPhoto(R.drawable.female_2);
-        }
-
+        currentStudent.setFirstName(studentFirstName.getText().toString());
+        currentStudent.setSecondName(studentSecondName.getText().toString());
+        currentStudent.setMaleGender(genderCheckbox.isChecked());
+        if (currentStudent.isMaleGender())
+            currentStudent.setPhoto(R.drawable.male_3);
+        else
+            currentStudent.setPhoto(R.drawable.female_2);
     }
 
 

@@ -45,17 +45,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setupRecyclerView() {
         recyclerView = findViewById(R.id.activity_main__recyclerview);
-        studentAdapter = new StudentAdapter(students, this::onStudentClick);
+        studentAdapter = new StudentAdapter(this, students);
         recyclerView.setAdapter(studentAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
-    private void onStudentClick(Student student)
-    {
-        //TODO: Student == null, Fix the problem
-        startActivityForResult(new Intent(this, StudentActivity.class).putExtra("Student", student), 2);
-    }
+
 
     private List<Student> generateStudentList() {
         return new ArrayList<Student>()
