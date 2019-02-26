@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/student_form__header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Студент"
+        android:textSize="@dimen/header_text_size"
+        app:layout_constraintBottom_toTopOf="@id/student_form_photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/student_form_photo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:contentDescription="Student photo"
+        android:scaleType="centerCrop"
+        android:src="@drawable/male_1"
+        app:civ_border_color="@color/colorAccent"
+        app:civ_border_width="1dp"
+        app:layout_constraintBottom_toTopOf="@id/student_form__barrier"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toStartOf="@id/student_form__guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/student_form__header" />
+
+    <EditText
+        android:id="@+id/student_form__first_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Имя"
+        app:layout_constraintBottom_toTopOf="@id/student_form__second_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/student_form__guideline"
+        app:layout_constraintTop_toBottomOf="@id/student_form__header"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+    <EditText
+        android:id="@+id/student_form__second_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Фамилия"
+        app:layout_constraintBottom_toTopOf="@id/student_form__is_male"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/student_form__guideline"
+        app:layout_constraintTop_toBottomOf="@id/student_form__first_name" />
+
+    <CheckBox
+        android:id="@+id/student_form__is_male"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Мужской пол"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@id/student_form__barrier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/student_form__guideline"
+        app:layout_constraintTop_toBottomOf="@id/student_form__second_name" />
+
+    <Button
+        android:id="@+id/student_form__remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="Удалить"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/student_form__save"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/student_form__barrier" />
+
+    <Button
+        android:id="@+id/student_form__save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="Сохранить"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/student_form__remove"
+        app:layout_constraintTop_toBottomOf="@id/student_form__barrier" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/student_form__barrier"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="student_form_photo,student_form__is_male" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/student_form__guideline"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+</android.support.constraint.ConstraintLayout>
