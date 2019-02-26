@@ -1,6 +1,5 @@
 package ru.ok.technopolis.students;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean VISIBILITY_LAYOUTS = false;
     private DataBaseHandler dbHandler;
-    private SQLiteDatabase db;
 
     private List<Student> students;
     private StudentAdapter studentAdapter;
@@ -59,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupDataBase(){
         dbHandler = new DataBaseHandler(this);
-        db = dbHandler.getWritableDatabase();
     }
 
     private void setupRecyclerView() {

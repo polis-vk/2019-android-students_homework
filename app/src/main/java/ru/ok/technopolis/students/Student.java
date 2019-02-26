@@ -1,6 +1,6 @@
 package ru.ok.technopolis.students;
 
-public class Student {
+class Student {
 
     private int index;
     private int _id;
@@ -9,7 +9,7 @@ public class Student {
     private boolean maleGender;
     private int photo;
 
-    public Student(int _id, String firstName, String secondName, boolean maleGender, int photo) {
+    Student(int _id, String firstName, String secondName, boolean maleGender, int photo) {
         this._id = _id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -17,7 +17,7 @@ public class Student {
         this.photo = photo;
     }
 
-    public Student(String firstName, String secondName, boolean maleGender, int photo, int index) {
+    Student(String firstName, String secondName, boolean maleGender, int photo, int index) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.maleGender = maleGender;
@@ -25,18 +25,18 @@ public class Student {
         this.index =index;
     }
 
-    public Student(){
+    Student(){
         firstName = "";
         secondName = "";
         maleGender = false;
         photo = 0;
     }
 
-    public void setIndex(int index) {
+    void setIndex(int index) {
         this.index = index;
     }
 
-    public int getIndex() {
+    int getIndex() {
         return index;
     }
 
@@ -48,35 +48,35 @@ public class Student {
         this._id = _id;
     }
 
-    public String getFirstName() {
+    String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public String getSecondName() {
+    String getSecondName() {
         return secondName;
     }
 
-    public void setSecondName(String secondName) {
+    void setSecondName(String secondName) {
         this.secondName = secondName;
     }
 
-    public boolean isMaleGender() {
+    boolean isMaleGender() {
         return maleGender;
     }
 
-    public void setMaleGender(boolean maleGender) {
+    void setMaleGender(boolean maleGender) {
         this.maleGender = maleGender;
     }
 
-    public int getPhoto() {
+    int getPhoto() {
         return photo;
     }
 
-    public void setPhoto(int photo) {
+    void setPhoto(int photo) {
         this.photo = photo;
     }
 }

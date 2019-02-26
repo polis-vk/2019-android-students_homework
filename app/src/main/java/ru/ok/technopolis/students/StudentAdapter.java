@@ -18,7 +18,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.Students
     private List<Student> students;
     private Listener onItemClickListner;
 
-    public StudentAdapter(List<Student> students, Listener onItemClickListner){
+    StudentAdapter(List<Student> students, Listener onItemClickListner){
         this.students = students;
         this.onItemClickListner = onItemClickListner;
     }
@@ -49,7 +49,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.Students
         private final TextView nameTextView;
 
 
-        public StudentsViewHolder(@NonNull View itemView) {
+        StudentsViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.students_item__student_name);
             avatarImageView = itemView.findViewById((R.id.students_item__student_avatar));
@@ -60,7 +60,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.Students
                     Log.d(LOG_TAG, "Student info in Adapter " + student.getFirstName()+ " " + student.getSecondName() +  " " + student.isMaleGender() + " " + student.getPhoto() );
 
             avatarImageView.setImageResource(student.getPhoto());
-            nameTextView.setText(student.getFirstName() + " " + student.getSecondName());
+            nameTextView.setText(String.format("%s %s", student.getFirstName(), student.getSecondName()));
             if(BuildConfig.LOG){
                 Log.d(LOG_TAG, "bind ok");
             }

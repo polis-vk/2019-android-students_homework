@@ -9,7 +9,6 @@ import android.util.Log;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class DataBaseHandler extends SQLiteOpenHelper implements IDataBaseHendle
 
 
 
-    public DataBaseHandler(@Nullable Context context) {
+    DataBaseHandler(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         //DATABASE_PATH = context.getApplicationInfo().dataDir + "/databases/";
     }
@@ -79,8 +78,13 @@ public class DataBaseHandler extends SQLiteOpenHelper implements IDataBaseHendle
             cursor.moveToFirst();
         }
         boolean gender = false;
-        if((cursor.getInt(4)) == 1){
-            gender = true;
+        try {
+            if ((cursor.getInt(4)) == 1) {
+                gender = true;
+            }
+        } catch (NullPointerException e){
+            Log.d(LOG_TAG, "Something happend in cursor");
+            e.printStackTrace();
         }
         Student student = new Student(cursor.getInt(0) ,cursor.getString(1),
                 cursor.getString(2), gender, Integer.parseInt(cursor.getString(3)));
