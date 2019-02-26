@@ -26,6 +26,7 @@
             android:text="@string/students_list" />
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
@@ -60,7 +61,6 @@
             android:layout_width="@dimen/activity_main_photo_dimen"
             android:layout_height="@dimen/activity_main_photo_dimen"
             android:layout_marginTop="12dp"
-            android:background="@color/colorBackgroundAccent"
             android:shape="ring"
             app:cardCornerRadius="@dimen/activity_main_photo_corner_radius"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -71,8 +71,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:background="@color/colorBackgroundAccent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/female_1" />
+                tools:src="@drawable/female_1" />
         </android.support.v7.widget.CardView>
 
         <EditText
@@ -81,6 +82,7 @@
             android:layout_height="0dp"
             android:layout_marginLeft="12dp"
             android:hint="@string/second_name"
+            android:textSize="@dimen/text_size_default"
             app:layout_constraintBottom_toTopOf="@id/activity_main_student_first_name"
             app:layout_constraintLeft_toRightOf="@+id/activity_main_student_photo_wrapper"
             app:layout_constraintRight_toRightOf="parent"
@@ -92,6 +94,7 @@
             android:layout_height="0dp"
             android:layout_marginLeft="12dp"
             android:hint="@string/first_name"
+            android:textSize="@dimen/text_size_default"
             app:layout_constraintBottom_toTopOf="@id/activity_main_student_gender"
             app:layout_constraintLeft_toRightOf="@+id/activity_main_student_photo_wrapper"
             app:layout_constraintRight_toRightOf="parent"
