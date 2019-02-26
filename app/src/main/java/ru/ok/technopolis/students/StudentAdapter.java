@@ -1,6 +1,6 @@
 package ru.ok.technopolis.students;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -18,9 +17,9 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 {
 
     private final List<Student> students;
-    private final Context context;
+    private final Activity context;
 
-    public StudentAdapter(Context context, List <Student> students)
+    public StudentAdapter(Activity context, List <Student> students)
     {
         this.students = students;
         this.context = context;
@@ -40,8 +39,9 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         studentViewHolder.bind(students.get(i));
         studentViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                context.startActivity(new Intent(context, StudentActivity.class).putExtra("Student", students.get(i)));
+            public void onClick(View v)
+            {
+                context.startActivityForResult(new Intent(context, StudentActivity.class).putExtra("Student", students.get(i)), 3);
             }
         });
     }
