@@ -9,17 +9,23 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
+
 
 public class StudentActivity extends AppCompatActivity implements View.OnClickListener
 {
-    private int studentProfilePhoto;
     private ImageView studentImageViewPhoto;
     private EditText studentFirstName;
     private EditText studentSecondName;
-    private Button deleteStudent;
-    private Button saveStudent;
     private CheckBox genderCheckbox;
     private Student currentStudent;
+    private UUID currentStudentId;
+    private List <Integer> femalePhoto;
+    private List <Integer> malePhoto;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +33,8 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.student_profile);
         studentFirstName = findViewById(R.id.set_text__first_name_student);
         studentSecondName = findViewById(R.id.set_text__second_name_student);
-        deleteStudent = findViewById(R.id.activity_student__delete_button);
-        saveStudent = findViewById(R.id.activity_student__save_button);
+        Button deleteStudent = findViewById(R.id.activity_student__delete_button);
+        Button saveStudent = findViewById(R.id.activity_student__save_button);
         genderCheckbox = findViewById(R.id.checkBox__gender);
         studentImageViewPhoto = findViewById(R.id.student_activity__photo);
         if (getIntent().getExtras() != null) {
@@ -39,6 +45,19 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
             currentStudent = new Student();
         saveStudent.setOnClickListener(this);
         deleteStudent.setOnClickListener(this);
+        setFreePhoto();
+    }
+
+    private void setFreePhoto()
+    {
+        femalePhoto = new ArrayList<>();
+        malePhoto = new ArrayList<>();
+        femalePhoto.add(R.drawable.female_1);
+        femalePhoto.add(R.drawable.female_2);
+        femalePhoto.add(R.drawable.female_3);
+        malePhoto.add(R.drawable.male_1);
+        malePhoto.add(R.drawable.male_2);
+        malePhoto.add(R.drawable.male_3);
     }
 
     private void setStudent()
@@ -51,15 +70,28 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    private void modifyStudent()
+    private boolean modifyStudent()
     {
+        int indexCurrentPhoto;
         currentStudent.setFirstName(studentFirstName.getText().toString());
         currentStudent.setSecondName(studentSecondName.getText().toString());
         currentStudent.setMaleGender(genderCheckbox.isChecked());
-        if (currentStudent.isMaleGender())
-            currentStudent.setPhoto(R.drawable.male_3);
-        else
-            currentStudent.setPhoto(R.drawable.female_2);
+        if(currentStudent.getPhoto() == 0) {
+            if (currentStudent.isMaleGender()) {
+                indexCurrentPhoto = new Random().nextInt(malePhoto.size());
+                currentStudent.setPhoto(malePhoto.get(indexCurrentPhoto));
+                malePhoto.remove(indexCurrentPhoto);
+            } else if (!currentStudent.isMaleGender()) {
+                indexCurrentPhoto = new Random().nextInt(femalePhoto.size());
+                currentStudent.setPhoto(femalePhoto.get(indexCurrentPhoto));
+                femalePhoto.remove(indexCurrentPhoto);
+            }
+        }
+        if(currentStudent.getFirstName().equals("") || currentStudent.getSecondName().equals(""))
+        {
+            return false;
+        }
+        return true;
     }
 
 
@@ -72,13 +104,21 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
         {
             case R.id.activity_student__save_button:
             {
-                modifyStudent();
-                setResult(1, new Intent().putExtra("Student", currentStudent));
+                if(modifyStudent()){
+                    setResult(1, new Intent().putExtra("Student", currentStudent));
+                    studentImageViewPhoto.setImageResource(currentStudent.getPhoto());
+                }
                 finish();
                 break;
             }
             case  R.id.activity_student__delete_button:
             {
+                if(currentStudent.isMaleGender()){
+                    malePhoto.add(currentStudent.getPhoto());
+                }
+                else {
+                    femalePhoto.add(currentStudent.getPhoto());
+                }
                 setResult(3,new Intent().putExtra("StudentId",currentStudent.getId()));
                 finish();
                 break;
@@ -86,5 +126,4 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
 
         }
     }
-
 }

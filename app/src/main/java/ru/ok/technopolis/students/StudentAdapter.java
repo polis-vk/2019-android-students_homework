@@ -41,7 +41,8 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             @Override
             public void onClick(View v)
             {
-                context.startActivityForResult(new Intent(context, StudentActivity.class).putExtra("Student", students.get(i)), 3);
+                context.startActivityForResult(new Intent(context, StudentActivity.class).
+                        putExtra("Student", students.get(i)), 3);
             }
         });
     }

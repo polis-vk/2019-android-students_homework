@@ -2,15 +2,12 @@ package ru.ok.technopolis.students;
 
 
 import android.content.Intent;
-import android.os.Build;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
@@ -18,12 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private List<Student> students;
     private StudentAdapter studentAdapter;
-    private RecyclerView recyclerView;
-    private FloatingActionButton addButton;
 
 
     @Override
@@ -31,44 +27,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        students = generateStudentList();
+        students = new ArrayList<>();
         setupRecyclerView();
         setupAddButton();
     }
 
 
+
     private void setupAddButton()
     {
-        addButton = findViewById(R.id.activity_main__add_button);
+        FloatingActionButton addButton = findViewById(R.id.activity_main__add_button);
         addButton.setOnClickListener(this);
     }
 
     private void setupRecyclerView() {
-        recyclerView = findViewById(R.id.activity_main__recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.activity_main__recyclerview);
         studentAdapter = new StudentAdapter(this, students);
         recyclerView.setAdapter(studentAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
-
-
-    private List<Student> generateStudentList() {
-        return new ArrayList<Student>()
-        {
-            {
-                this.add(new Student("Greig", "Eisenhorn", true, R.drawable.male_1));
-                this.add(new Student("Dmitry", "Poloz", true, R.drawable.male_2));
-                this.add(new Student("Anna", "Kostushko", false, R.drawable.female_1));
-            }
-        };
-    }
-
-
     @Override
     public void onClick(View v)
     {
-        startActivityForResult(new Intent(this, StudentActivity.class), 1);
+        startActivityForResult(new Intent(this, StudentActivity.class),1);
     }
 
     @Override
@@ -78,7 +61,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (resultCode)
         {
             case 1:
-                students.add((Student) data.getSerializableExtra("Student"));
+                Student student = (Student) data.getSerializableExtra("Student");
+                students.add(student);
                 break;
             case 3:
                 UUID id = (UUID) data.getSerializableExtra("StudentId");
@@ -90,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
                 break;
-
         }
         studentAdapter.notifyDataSetChanged();
     }

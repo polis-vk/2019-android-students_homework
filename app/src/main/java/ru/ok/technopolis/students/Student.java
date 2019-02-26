@@ -32,7 +32,7 @@ public class Student implements Serializable {
 
     public Student()
     {
-
+        id = UUID.randomUUID();
     }
 
     public UUID getId()
