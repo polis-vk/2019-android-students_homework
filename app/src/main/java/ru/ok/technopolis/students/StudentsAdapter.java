@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.StudentViewHolder> {
 
-    private final List<Student> students;
+    private final StudentsRepository repository;
+    private final View.OnClickListener onClickListener;
 
-    public StudentsAdapter(List<Student> students) {
-        this.students = students;
+    StudentsAdapter(StudentsRepository repository, View.OnClickListener onClickListener) {
+        this.repository = repository;
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
@@ -28,12 +28,31 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
 
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder viewHolder, int i) {
-        viewHolder.bind(students.get(i));
+        viewHolder.bind(repository.get(i));
+        viewHolder.itemView.setTag(i);
+
+        Integer active = repository.getActive();
+        if (active != null && active.equals(i)) {
+            viewHolder.itemView.setBackgroundResource(R.color.colorLightGray);
+        } else {
+            viewHolder.itemView.setBackgroundResource(R.color.colorWhite);
+        }
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = (int) v.getTag();
+                repository.setActive(position);
+                onClickListener.onClick(v);
+                notifyDataSetChanged();
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
-        return students.size();
+        return repository.size();
     }
 
     static final class StudentViewHolder extends RecyclerView.ViewHolder {

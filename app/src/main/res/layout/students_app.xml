@@ -4,39 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".StudentsApp">
 
     <TextView
-        android:id="@+id/activity_main__header"
+        android:id="@+id/students_app__header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_xs"
         android:gravity="center"
         android:text="Список студентов"
         android:textSize="@dimen/header_text_size"
-        app:layout_constraintBottom_toTopOf="@id/activity_main__student_list"
+        app:layout_constraintBottom_toTopOf="@id/students_app__student_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/activity_main__student_list"
+        android:id="@+id/students_app__student_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/activity_main__student_form"
+        app:layout_constraintBottom_toTopOf="@id/students_app__create"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_main__header"
+        app:layout_constraintTop_toBottomOf="@+id/students_app__header"
         tools:listitem="@layout/student_list_item" />
 
-    <include
-        android:id="@+id/activity_main__student_form"
-        layout="@layout/student_form"
+    <Button
+        android:id="@+id/students_app__create"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="+ Добавить студента"
+        app:layout_constraintBottom_toTopOf="@id/students_app__student_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/students_app__student_list" />
+
+    <ru.ok.technopolis.students.StudentView
+        android:id="@+id/students_app__student_view"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_main__student_list" />
+        app:layout_constraintTop_toBottomOf="@id/students_app__create" />
 
 </android.support.constraint.ConstraintLayout>
