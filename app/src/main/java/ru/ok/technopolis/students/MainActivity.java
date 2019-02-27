@@ -11,15 +11,22 @@ import android.view.View;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.UUID;
+
+import ru.ok.technopolis.students.Repository.FemalePhotoRepository;
+import ru.ok.technopolis.students.Repository.MalePhotoRepository;
+import ru.ok.technopolis.students.Repository.PhotoRepository;
+import ru.ok.technopolis.students.Repository.StudentDataRepository;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private List<Student> students;
+    private StudentDataRepository studentDataRepository = StudentDataRepository.getInstance();
+    private List<Student> students = studentDataRepository.studentsOnRepository();
     private StudentAdapter studentAdapter;
+    private MalePhotoRepository malePhotoRepository = MalePhotoRepository.getInstance();
+    private FemalePhotoRepository femalePhotoRepository = FemalePhotoRepository.getInstance();
 
 
     @Override
@@ -27,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        students = new ArrayList<>();
         setupRecyclerView();
         setupAddButton();
     }
@@ -64,20 +70,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
+        Student student;
         switch (resultCode)
         {
             case 1:
-                Student student = (Student) data.getSerializableExtra("Student");
-                students.add(student);
+                student = (Student) data.getSerializableExtra("Student");
+                if(studentDataRepository.add(student)){
+                    students.add(student);
+                }
                 break;
             case 3:
-                UUID id = (UUID) data.getSerializableExtra("StudentId");
-                for(int i = 0; i < students.size(); i++)
-                {
-                    if(students.get(i).getId().equals(id))
-                    {
-                        students.remove(i);
-                    }
+                student = (Student) data.getSerializableExtra("StudentForDelete");
+                if(studentDataRepository.delete(student)){
+                    students.remove(student);
                 }
                 break;
         }

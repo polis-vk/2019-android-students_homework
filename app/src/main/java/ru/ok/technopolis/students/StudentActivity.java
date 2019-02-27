@@ -8,11 +8,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
+import java.util.NoSuchElementException;
+import ru.ok.technopolis.students.Repository.FemalePhotoRepository;
+import ru.ok.technopolis.students.Repository.MalePhotoRepository;
+import ru.ok.technopolis.students.Repository.PhotoRepository;
+import ru.ok.technopolis.students.Repository.StudentDataRepository;
+import ru.ok.technopolis.students.Repository.StudentRepository;
 
 
 public class StudentActivity extends AppCompatActivity implements View.OnClickListener
@@ -22,9 +25,7 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
     private EditText studentSecondName;
     private CheckBox genderCheckbox;
     private Student currentStudent;
-    private List <Integer> femalePhoto;
-    private List <Integer> malePhoto;
-
+    private StudentRepository studentRepository = StudentDataRepository.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +45,9 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
             currentStudent = new Student();
         saveStudent.setOnClickListener(this);
         deleteStudent.setOnClickListener(this);
-        setFreePhoto();
     }
 
-    private void setFreePhoto()
-    {
-        femalePhoto = new ArrayList<>();
-        malePhoto = new ArrayList<>();
-        femalePhoto.add(R.drawable.female_1);
-        femalePhoto.add(R.drawable.female_2);
-        femalePhoto.add(R.drawable.female_3);
-        malePhoto.add(R.drawable.male_1);
-        malePhoto.add(R.drawable.male_2);
-        malePhoto.add(R.drawable.male_3);
-    }
+
 
     private void setStudent()
     {
@@ -71,24 +61,36 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
 
     private boolean modifyStudent()
     {
-        int indexCurrentPhoto;
-        currentStudent.setFirstName(studentFirstName.getText().toString());
-        currentStudent.setSecondName(studentSecondName.getText().toString());
-        currentStudent.setMaleGender(genderCheckbox.isChecked());
-        if(currentStudent.getPhoto() == 0) {
-            if (currentStudent.isMaleGender()) {
-                indexCurrentPhoto = new Random().nextInt(malePhoto.size() - 1);
-                currentStudent.setPhoto(malePhoto.get(indexCurrentPhoto));
-                malePhoto.remove(indexCurrentPhoto);
-            } else if (!currentStudent.isMaleGender()) {
-                indexCurrentPhoto = new Random().nextInt(femalePhoto.size() - 1);
-                currentStudent.setPhoto(femalePhoto.get(indexCurrentPhoto));
-                femalePhoto.remove(indexCurrentPhoto);
-            }
-        }
-        if(currentStudent.getFirstName().equals("") || currentStudent.getSecondName().equals(""))
+
+        if(studentSecondName.getText().toString().equals("") || studentSecondName.getText().toString().equals(""))
         {
             return false;
+        }
+        if(studentRepository.isAlreadyInRepository(currentStudent)){
+            currentStudent.setMaleGender(genderCheckbox.isChecked());
+            currentStudent.setFirstName(studentFirstName.getText().toString());
+            currentStudent.setSecondName(studentSecondName.getText().toString());
+            return true;
+        }
+        if(currentStudent.getPhoto() == 0) {
+            try {
+                PhotoRepository photoRepository;
+                if (currentStudent.isMaleGender()) {
+                    photoRepository = MalePhotoRepository.getInstance();
+                    currentStudent.setPhoto(photoRepository.getPhotoInRepository());
+
+                } else {
+                    photoRepository = FemalePhotoRepository.getInstance();
+                    currentStudent.setPhoto(photoRepository.getPhotoInRepository());
+                }
+            }
+            catch (NoSuchElementException e) {
+                Toast.makeText(StudentActivity.this, "No Photo in DataBase", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            currentStudent.setMaleGender(genderCheckbox.isChecked());
+            currentStudent.setFirstName(studentFirstName.getText().toString());
+            currentStudent.setSecondName(studentSecondName.getText().toString());
         }
         return true;
     }
@@ -112,17 +114,10 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
             }
             case  R.id.activity_student__delete_button:
             {
-                if(currentStudent.isMaleGender()){
-                    malePhoto.add(currentStudent.getPhoto());
-                }
-                else {
-                    femalePhoto.add(currentStudent.getPhoto());
-                }
-                setResult(3,new Intent().putExtra("StudentId",currentStudent.getId()));
+                setResult(3,new Intent().putExtra("StudentForDelete",currentStudent));
                 finish();
                 break;
             }
-
         }
     }
 }

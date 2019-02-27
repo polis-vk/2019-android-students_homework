@@ -22,13 +22,7 @@ public class Student implements Serializable {
     private int photo;
     private UUID id;
 
-    public Student(String firstName, String secondName, boolean maleGender, int photo) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.maleGender = maleGender;
-        this.photo = photo;
-        id = UUID.randomUUID();
-    }
+
 
     public Student()
     {
