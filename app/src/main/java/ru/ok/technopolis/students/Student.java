@@ -1,17 +1,18 @@
 package ru.ok.technopolis.students;
 
+import android.graphics.Bitmap;
+
 public class Student {
 
     private String firstName;
     private String secondName;
     private boolean maleGender;
-    private int photo;
+    private Bitmap bitmap;
 
-    public Student(String firstName, String secondName, boolean maleGender, int photo) {
+    public Student(String firstName, String secondName, boolean maleGender) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.maleGender = maleGender;
-        this.photo = photo;
     }
 
     public String getFirstName() {
@@ -38,11 +39,12 @@ public class Student {
         this.maleGender = maleGender;
     }
 
-    public int getPhoto() {
-        return photo;
+    public Bitmap getBitmap() {
+        return bitmap;
     }
 
-    public void setPhoto(int photo) {
-        this.photo = photo;
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
+
 }
