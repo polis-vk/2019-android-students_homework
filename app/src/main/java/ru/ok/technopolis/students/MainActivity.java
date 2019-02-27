@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+
     private void setupAddButton()
     {
         FloatingActionButton addButton = findViewById(R.id.activity_main__add_button);
@@ -42,10 +43,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setupRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.activity_main__recyclerview);
-        studentAdapter = new StudentAdapter(this, students);
+        studentAdapter = new StudentAdapter (students, this::onStudentClick);
         recyclerView.setAdapter(studentAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
+    }
+
+    private void onStudentClick(Student student)
+    {
+        startActivityForResult(new Intent(this, StudentActivity.class).putExtra("Student", student), 2);
     }
 
     @Override

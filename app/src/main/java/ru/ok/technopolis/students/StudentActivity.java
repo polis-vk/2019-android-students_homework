@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
+
 
 
 public class StudentActivity extends AppCompatActivity implements View.OnClickListener
@@ -22,7 +22,6 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
     private EditText studentSecondName;
     private CheckBox genderCheckbox;
     private Student currentStudent;
-    private UUID currentStudentId;
     private List <Integer> femalePhoto;
     private List <Integer> malePhoto;
 
@@ -78,11 +77,11 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
         currentStudent.setMaleGender(genderCheckbox.isChecked());
         if(currentStudent.getPhoto() == 0) {
             if (currentStudent.isMaleGender()) {
-                indexCurrentPhoto = new Random().nextInt(malePhoto.size());
+                indexCurrentPhoto = new Random().nextInt(malePhoto.size() - 1);
                 currentStudent.setPhoto(malePhoto.get(indexCurrentPhoto));
                 malePhoto.remove(indexCurrentPhoto);
             } else if (!currentStudent.isMaleGender()) {
-                indexCurrentPhoto = new Random().nextInt(femalePhoto.size());
+                indexCurrentPhoto = new Random().nextInt(femalePhoto.size() - 1);
                 currentStudent.setPhoto(femalePhoto.get(indexCurrentPhoto));
                 femalePhoto.remove(indexCurrentPhoto);
             }

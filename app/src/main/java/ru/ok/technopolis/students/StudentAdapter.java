@@ -1,9 +1,7 @@
 package ru.ok.technopolis.students;
 
-import android.app.Activity;
-import android.content.Intent;
+
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +15,12 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 {
 
     private final List<Student> students;
-    private final Activity context;
+    private final Listener onStudentListener;
 
-    public StudentAdapter(Activity context, List <Student> students)
+    public StudentAdapter(List <Student> students, Listener onStudentListener)
     {
+        this.onStudentListener = onStudentListener;
         this.students = students;
-        this.context = context;
     }
 
     @NonNull
@@ -30,21 +28,16 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
     {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student, viewGroup, false);
+        view.setOnClickListener(v -> onStudentListener.onStudentClick((Student) v.getTag()));
         return new StudentViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder studentViewHolder, int i)
     {
+        Student student = students.get(i);
         studentViewHolder.bind(students.get(i));
-        studentViewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                context.startActivityForResult(new Intent(context, StudentActivity.class).
-                        putExtra("Student", students.get(i)), 3);
-            }
-        });
+        studentViewHolder.itemView.setTag(student);
     }
 
     @Override
@@ -58,7 +51,6 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
         private TextView studentInitials;
         private ImageView studentPhoto;
-        private ConstraintLayout parentLayout;
 
 
         private StudentViewHolder(@NonNull View itemView)
@@ -66,7 +58,6 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             super(itemView);
             studentInitials = itemView.findViewById(R.id.student_initials);
             studentPhoto = itemView.findViewById(R.id.student_photo);
-            parentLayout = itemView.findViewById(R.id.item_layout);
         }
 
         private void bind(@NonNull Student student)
@@ -74,5 +65,10 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             studentInitials.setText(student.getFirstName() + " " + student.getSecondName());
             studentPhoto.setImageResource(student.getPhoto());
         }
+    }
+
+    interface Listener
+    {
+        void onStudentClick(Student student);
     }
 }
