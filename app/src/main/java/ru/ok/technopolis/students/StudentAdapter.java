@@ -13,21 +13,31 @@ import java.util.List;
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
 
     private final List<Student> students;
+    private final Listener onStudentClickListener;
 
-    public StudentAdapter(List<Student> students) {
+    public StudentAdapter(List<Student> students, Listener onStudentClickListener) {
         this.students = students;
+        this.onStudentClickListener = onStudentClickListener;
     }
 
     @NonNull
     @Override
     public StudentAdapter.StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student_item, viewGroup, false);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onStudentClickListener.onStudentClick((Student)v.getTag());
+            }
+        });
         return new StudentViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull StudentAdapter.StudentViewHolder viewHolder, int i) {
-        viewHolder.bind(students.get(i));
+        Student student = students.get(i);
+        viewHolder.bind(student);
+        viewHolder.itemView.setTag(student);
     }
 
     @Override
@@ -53,5 +63,9 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             secondNameTextView.setText(student.getSecondName());
             avatarImageView.setImageResource(student.getPhoto());
         }
+    }
+
+    interface Listener{
+        void onStudentClick(Student student);
     }
 }

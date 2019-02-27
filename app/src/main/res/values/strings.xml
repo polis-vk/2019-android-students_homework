@@ -6,4 +6,6 @@
     <string name="male_gender">Мужской пол</string>
     <string name="delete_button">Удалить</string>
     <string name="save_button">Сохранить</string>
+    <string name="hint_name">Имя</string>
+    <string name="hint_second_name">Фамилия</string>
 </resources>
