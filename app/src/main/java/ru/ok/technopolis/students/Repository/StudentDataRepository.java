@@ -29,20 +29,6 @@ public class StudentDataRepository implements StudentRepository
         return students;
     }
 
-
-    private boolean isAlreadyInRepository(UUID StudentId) {
-        if(StudentId == null)
-        {
-            throw new NullPointerException();
-        }
-        for(int i = 0; i < students.size(); i ++){
-            if(students.get(i).getId().equals(StudentId)){
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override
     public void add(Student student)
     {
