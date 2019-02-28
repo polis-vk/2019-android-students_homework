@@ -29,6 +29,7 @@ public class StudentView extends ConstraintLayout {
     private OnClickListener onSave;
     private OnClickListener onCreate;
     private OnClickListener onRemove;
+    private OnClickListener onHide;
 
     public StudentView(Context context) {
         super(context);
@@ -81,14 +82,22 @@ public class StudentView extends ConstraintLayout {
                 }
             }
         });
+        Button hideBtn = view.findViewById(R.id.student_view__hide);
+        hideBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onHide.onClick(v);
+                StudentView.this.setVisibility(GONE);
+            }
+        });
         Button removeBtn = view.findViewById(R.id.student_view__remove);
         removeBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (student != null) {
+                    onRemove.onClick(v);
                     StudentView.this.setVisibility(GONE);
                     clearFields();
-                    onRemove.onClick(v);
                 }
             }
         });
@@ -104,6 +113,10 @@ public class StudentView extends ConstraintLayout {
 
     public void setOnCreate(OnClickListener onCreate) {
         this.onCreate = onCreate;
+    }
+
+    public void setOnHide(OnClickListener onHide) {
+        this.onHide = onHide;
     }
 
     public void setStudent(Student student) {

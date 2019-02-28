@@ -25,7 +25,7 @@ public class StudentsRepository {
         return students.get(i);
     }
 
-    public void setActive(int i) {
+    public void setActive(Integer i) {
         this.activeId = i;
     }
 

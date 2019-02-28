@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -39,6 +38,10 @@ public class StudentsApp extends AppCompatActivity {
                 studentView.setStudent(null);
             }
         });
+        setupStudentViewListeners(studentView, repository, adapter);
+    }
+
+    private void setupStudentViewListeners(StudentView studentView, final StudentsRepository repository, final StudentsAdapter adapter) {
         studentView.setOnRemove(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +62,14 @@ public class StudentsApp extends AppCompatActivity {
             public void onClick(View v) {
                 Student student = (Student) v.getTag();
                 repository.addStudent(student);
+                adapter.notifyDataSetChanged();
+                hideKeyboard();
+            }
+        });
+        studentView.setOnHide(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                repository.setActive(null);
                 adapter.notifyDataSetChanged();
                 hideKeyboard();
             }
