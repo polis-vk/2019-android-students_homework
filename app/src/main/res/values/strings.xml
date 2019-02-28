@@ -9,4 +9,5 @@
     <string name="delete_button">Удалить</string>
     <string name="save_button">Сохранить</string>
     <string name="text_without_rv">пока что пуст</string>
+    <string name="profilephot">ProfilePhot</string>
 </resources>

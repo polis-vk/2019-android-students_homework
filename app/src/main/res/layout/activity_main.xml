@@ -100,7 +100,7 @@
             android:background="#E0E0E0"
             android:layout_weight="1"
 
-             />
+            tools:ignore="NestedWeights" />
 
         <TextView
 
@@ -137,8 +137,10 @@
                 app:layout_constraintStart_toEndOf="@+id/main_activity_avatar_full"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+
                 android:hint="@string/first_name"
-                />
+                android:inputType=""
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/main_activity_edit_lastname"
@@ -148,7 +150,9 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@+id/main_activity_avatar_full"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:hint="@string/last_name" />
+                android:hint="@string/last_name"
+                android:inputType=""
+                tools:ignore="Autofill" />
             <CheckBox
                 android:id="@+id/main_activity_gender_checkbox"
                 app:layout_constraintTop_toBottomOf="@+id/main_activity_edit_lastname"

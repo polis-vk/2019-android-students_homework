@@ -73,26 +73,31 @@ public class DataBaseHandler extends SQLiteOpenHelper implements IDataBaseHendle
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(TABLE_STUDENTS, new String[]{KEY_NAME, KEY_L_NAME, KEY_PH_ID, KEY_GENDER}, KEY_ID + "=?",
                 new String[]{ String.valueOf(id) }, null, null, null, null);
+
+        Student student;
+
         if(cursor != null){
             cursor.moveToFirst();
-        }
-        boolean gender = false;
-
-        int _id = Integer.parseInt(cursor.getString(0));
-        String firstName = cursor.getString(1);
-        String secondName = cursor.getString(2);
-        int photoID = Integer.parseInt(cursor.getString(3));
-        try {
+            int _id = Integer.parseInt(cursor.getString(0));
+            String firstName = cursor.getString(1);
+            String secondName = cursor.getString(2);
+            int photoID = Integer.parseInt(cursor.getString(3));
+            boolean gender = false;
             if (Integer.parseInt(cursor.getString(4)) == 1) {
                 gender = true;
             }
-        } catch (NullPointerException e){
-            Log.d(LOG_TAG, "Something happend in cursor");
-            e.printStackTrace();
+
+            student = new Student(_id ,firstName,
+                    secondName, gender, photoID);
+            cursor.close();
+        } else{
+            student = null;
         }
-        Student student = new Student(_id ,firstName,
-                secondName, gender, photoID);
-        cursor.close();
+
+
+
+
+
         return student;
     }
 

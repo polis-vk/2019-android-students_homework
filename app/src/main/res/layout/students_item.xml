@@ -14,7 +14,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/img_avatar_photo" />
+        tools:src="@drawable/img_avatar_photo"
+        android:contentDescription="@string/profilephot" />
 
     <TextView
         android:id="@+id/students_item__student_name"
