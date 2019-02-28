@@ -1,6 +1,9 @@
 package ru.ok.technopolis.students;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +14,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static ru.ok.technopolis.students.LoaderLargeImage.decodeSampledBitmapFromResource;
 
 public class StudentsRecyclerAdapter extends RecyclerView.Adapter<StudentsRecyclerAdapter.StudentViewHolder> {
 
@@ -109,12 +114,14 @@ public class StudentsRecyclerAdapter extends RecyclerView.Adapter<StudentsRecycl
         }
 
         private void bind(Student student){
-            //TODO установить аватар
+
+            //TODO размеры картинки определить
+            avatar.setImageBitmap(decodeSampledBitmapFromResource(context.getResources(), student.getPhoto(), 100, 100));
+
             String stringBuilder = student.getFirstName() +
                     " " +
                     student.getSecondName();
             name.setText(stringBuilder);
         }
-
     }
 }
