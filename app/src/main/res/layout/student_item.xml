@@ -21,18 +21,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:fontFamily="sans-serif-medium"
         android:maxLines="2"
         android:paddingStart="10dp"
         android:paddingLeft="10dp"
         android:paddingEnd="10dp"
         android:paddingRight="10dp"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/student_item__secondName"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_chainStyle="packed"
         tools:text="Иван" />
 
     <TextView
@@ -50,6 +48,7 @@
         app:layout_constraintEnd_toStartOf="@id/student_item__name"
         app:layout_constraintStart_toEndOf="@+id/student_item__avatar"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Иванов" />
+        tools:text="Иванов"
+        app:layout_constraintHorizontal_chainStyle="packed"/>
 
 </android.support.constraint.ConstraintLayout>

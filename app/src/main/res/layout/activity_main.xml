@@ -1,200 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5"
+    android:fillViewport="true"
     tools:context=".MainActivity">
 
-    <android.support.constraint.Guideline
-        android:id="@+id/activity_main__vertical_line_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/activity_main__vertical_line_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/activity_main__vertical_line_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.40" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/activity_main__horizontal_line_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/activity_main__horizontal_line_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/activity_main__horizontal_line_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/activity_main__horizontal_line_4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/activity_main__horizontal_line_5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.55" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/activity_main__horizontal_line_6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.60" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/activity_main__horizontal_line_7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.80" />
-
-    <TextView
-        android:id="@+id/activity_main__list_title"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="@string/list_title"
-        android:textSize="20sp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="@+id/activity_main__vertical_line_1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
-        app:layout_constraintBottom_toTopOf="@id/activity_main__horizontal_line_1" />
+        android:layout_height="wrap_content">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/activity_main__students"
-        android:layout_width="0dp"
-        android:layout_height="180dp"
-        android:background="#FFFFFF"
-        app:layout_constraintStart_toStartOf="@+id/activity_main__vertical_line_1"
-        app:layout_constraintTop_toBottomOf="@id/activity_main__horizontal_line_1"
-        app:layout_constraintEnd_toStartOf="@+id/activity_main__vertical_line_2"
-        app:layout_constraintBottom_toTopOf="@id/activity_main__horizontal_line_2"/>
+        <android.support.constraint.Guideline
+            android:id="@+id/activity_main__vertical_line_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
 
-    <Button
-        android:id="@+id/activity_main__add_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_button"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@id/activity_main__vertical_line_1"
-        app:layout_constraintTop_toBottomOf="@id/activity_main__horizontal_line_2"
-        app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
-        app:layout_constraintBottom_toTopOf="@id/activity_main__horizontal_line_3"/>
+        <android.support.constraint.Guideline
+            android:id="@+id/activity_main__vertical_line_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
 
-    <View
-        android:id="@+id/activity_main__separated_line"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintStart_toStartOf="@id/activity_main__vertical_line_1"
-        app:layout_constraintTop_toBottomOf="@id/activity_main__horizontal_line_3"
-        app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
-        app:layout_constraintBottom_toTopOf="@id/activity_main__horizontal_line_4"
-        android:background="@android:color/background_dark"/>
+        <TextView
+            android:id="@+id/activity_main__list_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/list_title"
+            android:textSize="22sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toTopOf="@id/activity_main__students"
+            app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
+            app:layout_constraintStart_toStartOf="@+id/activity_main__vertical_line_1"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/activity_main__student_title"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/student_title"
-        android:textSize="20sp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="@id/activity_main__vertical_line_1"
-        app:layout_constraintTop_toBottomOf="@id/activity_main__horizontal_line_4"
-        app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
-        app:layout_constraintBottom_toBottomOf="@id/activity_main__horizontal_line_5"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_main__students"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:minHeight="150dp"
+            android:background="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/activity_main__add_button"
+            app:layout_constraintEnd_toStartOf="@+id/activity_main__vertical_line_2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/activity_main__vertical_line_1"
+            app:layout_constraintTop_toBottomOf="@id/activity_main__list_title" />
 
-    <ImageView
-        android:id="@+id/activity_main__student_avatar"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="@id/activity_main__vertical_line_1"
-        app:layout_constraintTop_toBottomOf="@id/activity_main__horizontal_line_5"
-        app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_3"
-        app:layout_constraintBottom_toTopOf="@id/activity_main__horizontal_line_7" />
+        <Button
+            android:id="@+id/activity_main__add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_button"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@id/activity_main__separated_line"
+            app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
+            app:layout_constraintStart_toStartOf="@id/activity_main__vertical_line_1"
+            app:layout_constraintTop_toBottomOf="@id/activity_main__students" />
 
-    <EditText
-        android:id="@+id/activity_main__second_name"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@id/activity_main__vertical_line_3"
-        app:layout_constraintTop_toBottomOf="@id/activity_main__horizontal_line_6"
-        app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
-        app:layout_constraintBottom_toTopOf="@id/activity_main__name"/>
+        <View
+            android:id="@+id/activity_main__separated_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/background_dark"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/activity_main__student_title"
+            app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
+            app:layout_constraintStart_toStartOf="@id/activity_main__vertical_line_1"
+            app:layout_constraintTop_toBottomOf="@id/activity_main__add_button" />
 
-    <EditText
-        android:id="@+id/activity_main__name"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@id/activity_main__vertical_line_3"
-        app:layout_constraintTop_toBottomOf="@id/activity_main__second_name"
-        app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
-        app:layout_constraintBottom_toBottomOf="@+id/main_activity__checkbox_gender" />
+        <TextView
+            android:id="@+id/activity_main__student_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/student_title"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/activity_main__student_avatar"
+            app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
+            app:layout_constraintStart_toStartOf="@id/activity_main__vertical_line_1"
+            app:layout_constraintTop_toBottomOf="@id/activity_main__separated_line" />
 
-    <CheckBox android:id="@+id/main_activity__checkbox_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/male_gender"
-        android:onClick="onCheckboxClicked"
-        app:layout_constraintStart_toEndOf="@id/activity_main__vertical_line_3"
-        app:layout_constraintTop_toBottomOf="@id/activity_main__name"
-        app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
-        app:layout_constraintBottom_toTopOf="@id/activity_main__horizontal_line_7"/>
 
-    <Button
-        android:id="@+id/activity_main__delete_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/delete_button"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@id/activity_main__vertical_line_1"
-        app:layout_constraintTop_toBottomOf="@id/activity_main__horizontal_line_7"
-        app:layout_constraintEnd_toStartOf="@id/activity_main__save_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"/>
+        <ImageView
+            android:id="@+id/activity_main__student_avatar"
+            android:layout_width="130dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/activity_main__delete_button"
+            app:layout_constraintEnd_toStartOf="@id/activity_main__linnear_layout_for_edit_text"
+            app:layout_constraintStart_toStartOf="@id/activity_main__vertical_line_1"
+            app:layout_constraintTop_toBottomOf="@id/activity_main__student_title" />
 
-    <Button
-        android:id="@+id/activity_main__save_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save_button"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/activity_main__delete_button"
-        app:layout_constraintTop_toBottomOf="@id/activity_main__horizontal_line_7"
-        app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <LinearLayout
+            android:id="@+id/activity_main__linnear_layout_for_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/activity_main__save_button"
+            app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
+            app:layout_constraintStart_toEndOf="@id/activity_main__student_avatar"
+            app:layout_constraintTop_toBottomOf="@id/activity_main__student_title">
 
-</android.support.constraint.ConstraintLayout>
+            <EditText
+                android:id="@+id/activity_main__second_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/second_name" />
+
+            <EditText
+                android:id="@+id/activity_main__first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/first_name" />
+
+            <CheckBox
+                android:id="@+id/main_activity__checkbox_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/male_gender" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/activity_main__delete_button"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_button"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/activity_main__save_button"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@id/activity_main__vertical_line_1"
+            app:layout_constraintTop_toBottomOf="@id/activity_main__student_avatar" />
+
+        <Button
+            android:id="@+id/activity_main__save_button"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/save_button"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
+            app:layout_constraintStart_toEndOf="@id/activity_main__delete_button" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</ScrollView>

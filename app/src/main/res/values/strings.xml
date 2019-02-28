@@ -6,4 +6,8 @@
     <string name="male_gender">Мужской пол</string>
     <string name="delete_button">Удалить</string>
     <string name="save_button">Сохранить</string>
+    <string name="second_name">Фамилия</string>
+    <string name="first_name">Имя</string>
+    <string name="empty_string" />
+    <string name="is_empty_input_field">Поля имя и фамилия не могут быть пустыми</string>
 </resources>
