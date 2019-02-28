@@ -21,19 +21,19 @@ public class StudentsApp extends AppCompatActivity {
         setContentView(R.layout.students_app);
 
         final StudentsRepository repository = new StudentsRepository(studentsStub());
-        final RecyclerView recyclerView = findViewById(R.id.students_app__student_list);
+        final RecyclerView studentListRv = findViewById(R.id.students_app__student_list);
         final StudentView studentView = findViewById(R.id.students_app__student_view);
-        final Button createStudent = findViewById(R.id.students_app__create);
+        final Button createStudentBtn = findViewById(R.id.students_app__create);
         final StudentsAdapter adapter = new StudentsAdapter(repository, new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 studentView.setStudent(repository.getActiveStudent());
             }
         });
-        recyclerView.setAdapter(adapter);
+        studentListRv.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        createStudent.setOnClickListener(new View.OnClickListener() {
+        studentListRv.setLayoutManager(layoutManager);
+        createStudentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 studentView.setStudent(null);
