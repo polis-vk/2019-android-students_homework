@@ -38,7 +38,7 @@ public class DataBaseHandler extends SQLiteOpenHelper implements IDataBaseHendle
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE_STUDENTS = "CREATE TABLE " + TABLE_STUDENTS + "(" +
-                KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT," + KEY_L_NAME + " TEXT," + KEY_PH_ID + " TEXT," +
+                KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT," + KEY_L_NAME + " TEXT," + KEY_PH_ID + " TEXT," +
                 KEY_GENDER + " INTEGER"  + ")";
         db.execSQL(CREATE_TABLE_STUDENTS);
     }
@@ -64,7 +64,6 @@ public class DataBaseHandler extends SQLiteOpenHelper implements IDataBaseHendle
         values.put(KEY_PH_ID, String.valueOf(student.getPhoto()));
         values.put(KEY_GENDER, studentIntGender);
 
-
         db.insert(TABLE_STUDENTS, null, values);
         db.close();
     }
@@ -72,22 +71,27 @@ public class DataBaseHandler extends SQLiteOpenHelper implements IDataBaseHendle
     @Override
     public Student getStudent(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_STUDENTS, new String[]{KEY_NAME, KEY_L_NAME, KEY_GENDER, KEY_PH_ID}, KEY_ID + "=?",
+        Cursor cursor = db.query(TABLE_STUDENTS, new String[]{KEY_NAME, KEY_L_NAME, KEY_PH_ID, KEY_GENDER}, KEY_ID + "=?",
                 new String[]{ String.valueOf(id) }, null, null, null, null);
         if(cursor != null){
             cursor.moveToFirst();
         }
         boolean gender = false;
+
+        int _id = Integer.parseInt(cursor.getString(0));
+        String firstName = cursor.getString(1);
+        String secondName = cursor.getString(2);
+        int photoID = Integer.parseInt(cursor.getString(3));
         try {
-            if ((cursor.getInt(4)) == 1) {
+            if (Integer.parseInt(cursor.getString(4)) == 1) {
                 gender = true;
             }
         } catch (NullPointerException e){
             Log.d(LOG_TAG, "Something happend in cursor");
             e.printStackTrace();
         }
-        Student student = new Student(cursor.getInt(0) ,cursor.getString(1),
-                cursor.getString(2), gender, Integer.parseInt(cursor.getString(3)));
+        Student student = new Student(_id ,firstName,
+                secondName, gender, photoID);
         cursor.close();
         return student;
     }
@@ -146,6 +150,7 @@ public class DataBaseHandler extends SQLiteOpenHelper implements IDataBaseHendle
         values.put(KEY_GENDER, studentIntGender);
         values.put(KEY_PH_ID, student.getPhoto());
 
+
         return db.update(TABLE_STUDENTS, values, KEY_ID + "=?", new String[] {String.valueOf(student.getID())});
     }
 
@@ -153,7 +158,9 @@ public class DataBaseHandler extends SQLiteOpenHelper implements IDataBaseHendle
     public void deleteStudent(Student student) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_STUDENTS, KEY_ID + "=?", new String[]{String.valueOf(student.getID())});
-        //db.close();
+
+        db.close();
+
     }
 
     @Override

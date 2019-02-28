@@ -102,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
         students.remove(student);
         dbHandler.deleteStudent(student);
         studentAdapter.notifyDataSetChanged();
+        if(BuildConfig.LOG){
+            Log.d(BuildConfig.LOG_TAG, "Student " + student.getFirstName() + " " + student.getSecondName() + " deleted");
+            //Log.d(BuildConfig.LOG_TAG, "Check delete " + dbHandler.getStudent(student.getID()).getFirstName());
+        }
         onAddClick();
     }
 
@@ -111,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if(name.length() != 0 && lastname.length() != 0){
 
-            int indexArr = student.getIndex();
+            int indexArr = students.indexOf(student);
             student.setFirstName(name.trim());
             student.setSecondName(lastname.trim());
             boolean genderLast = student.isMaleGender();
@@ -132,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(BuildConfig.LOG_TAG, "Change Saved");
             }
             if(indexArr == -1){
-                student.setIndex(students.size());
                 students.add(student);
                 dbHandler.addStudent(student);
             } else {
@@ -186,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void generateNewStudent(){
-        Student student = new Student(null, null, false, 0, -1);
+        Student student = new Student(null, null, false, 0);
 
         setupMenu(student);
     }

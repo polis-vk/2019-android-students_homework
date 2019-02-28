@@ -17,7 +17,7 @@ class Student {
         this.photo = photo;
     }
 
-    Student(String firstName, String secondName, boolean maleGender, int photo, int index) {
+    Student(String firstName, String secondName, boolean maleGender, int photo) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.maleGender = maleGender;
