@@ -15,6 +15,10 @@ import java.util.Random;
 
 public class StudentView extends ConstraintLayout {
 
+    private static final Random rand = new Random();
+    private static final int[] malePhotos = {R.drawable.male_1, R.drawable.male_2, R.drawable.male_3};
+    private static final int[] femalePhotos = {R.drawable.female_1, R.drawable.female_2, R.drawable.female_3};
+
     private Student student;
 
     private TextView firstNameTv;
@@ -113,7 +117,6 @@ public class StudentView extends ConstraintLayout {
             clearFields();
         }
         setVisibility(VISIBLE);
-
     }
 
     private void clearFields() {
@@ -124,13 +127,8 @@ public class StudentView extends ConstraintLayout {
     }
 
     private static int randomPhoto(boolean isMale) {
-        Random rand = new Random();
-        if (isMale) {
-            final int[] malePhotos = {R.drawable.male_1, R.drawable.male_2, R.drawable.male_3};
-            return malePhotos[rand.nextInt(malePhotos.length)];
-        } else {
-            final int[] femalePhotos = {R.drawable.female_1, R.drawable.female_2, R.drawable.female_3};
-            return femalePhotos[rand.nextInt(femalePhotos.length)];
-        }
+        return isMale
+                ? malePhotos[rand.nextInt(malePhotos.length)]
+                : femalePhotos[rand.nextInt(femalePhotos.length)];
     }
 }

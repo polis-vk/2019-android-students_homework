@@ -14,7 +14,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
     private final StudentsRepository repository;
     private final View.OnClickListener onClick;
 
-    StudentsAdapter(StudentsRepository repository, View.OnClickListener onClick) {
+    public StudentsAdapter(StudentsRepository repository, View.OnClickListener onClick) {
         this.repository = repository;
         this.onClick = onClick;
     }
@@ -47,7 +47,6 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
                 notifyDataSetChanged();
             }
         });
-
     }
 
     @Override

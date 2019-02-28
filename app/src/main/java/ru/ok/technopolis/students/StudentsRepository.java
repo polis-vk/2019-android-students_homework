@@ -1,11 +1,16 @@
 package ru.ok.technopolis.students;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentsRepository {
 
     private final List<Student> students;
     private Integer activeId;
+
+    public StudentsRepository() {
+        this(new ArrayList<Student>());
+    }
 
     public StudentsRepository(List<Student> students) {
         this.students = students;
