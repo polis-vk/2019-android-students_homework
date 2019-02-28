@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/student_item__secondName"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Иван" />
+        tools:text="@string/ivan" />
 
     <TextView
         android:id="@+id/student_item__secondName"
@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toStartOf="@id/student_item__name"
         app:layout_constraintStart_toEndOf="@+id/student_item__avatar"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Иванов"
+        tools:text="@string/ivan"
         app:layout_constraintHorizontal_chainStyle="packed"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setupRecycleView() {
         RecyclerView recyclerView = findViewById(R.id.activity_main__students);
-        studentAdapter = new StudentAdapter(generateStudentList(), new StudentAdapter.Listener() {
+        students = new ArrayList<>();
+        studentAdapter = new StudentAdapter(students, new StudentAdapter.Listener() {
             @Override
             public void onStudentClick(Student student) {
                 fillCreateField(student);
@@ -80,31 +81,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setVisibilityBottomElements(View.VISIBLE);
     }
 
-    private List<Student> generateStudentList() {
-        students = new ArrayList<>();
-        students.add(new Student("Елена",
-                "Петрова",
-                false,
-                R.drawable.female_1));
-        students.add(new Student("Иван",
-                "Иванов",
-                true,
-                R.drawable.male_1));
-        students.add(new Student("Петр",
-                "Проворов",
-                true,
-                R.drawable.male_2));
-        students.add(new Student("Анна",
-                "Трусцова",
-                false,
-                R.drawable.female_2));
-        students.add(new Student("Дмитрий",
-                "Смотров",
-                true,
-                R.drawable.male_2));
-        return students;
-    }
-
     private int generateRandomAvatar(boolean gender) {
         Random random = new Random();
         int i = random.nextInt(3) + 1;
@@ -117,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 result = gender ? R.drawable.male_2 : R.drawable.female_2;
                 break;
             case 3:
-                result = gender ? R.drawable.male_2 : R.drawable.female_2;
+                result = gender ? R.drawable.male_3 : R.drawable.female_3;
                 break;
             default:
                 result = R.drawable.male_1;

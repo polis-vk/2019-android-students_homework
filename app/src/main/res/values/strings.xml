@@ -10,4 +10,5 @@
     <string name="first_name">Имя</string>
     <string name="empty_string" />
     <string name="is_empty_input_field">Поля имя и фамилия не могут быть пустыми</string>
+    <string name="ivan">Иван</string>
 </resources>

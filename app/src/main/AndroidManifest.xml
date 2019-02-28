@@ -18,10 +18,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".CreateStudentActivity"
-            android:label="@string/student_title"
-            android:theme="@style/Theme.Transparent"/>
-
     </application>
 
 </manifest>
