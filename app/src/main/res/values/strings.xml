@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Students</string>
+    <string name="Head">Список студентов</string>
+    <string name="AddStudent">+ Добавить студента</string>
+    <string name="Student">Студент</string>
+    <string name="Male">Мужской пол</string>
+    <string name="Del">Удалить</string>
+    <string name="Save">Сохранить</string>
+    <string name="FisrtName">Фамилия </string>
+    <string name="SecondName">Имя</string>
 </resources>
