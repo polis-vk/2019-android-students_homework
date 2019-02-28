@@ -33,7 +33,14 @@ public class StudentsRepository {
     }
 
     public void removeActive() {
-        students.remove(activeId.intValue());
-        activeId = null;
+        if (activeId != null) {
+            students.remove(activeId.intValue());
+            activeId = null;
+        }
+    }
+
+    public void addStudent(Student student) {
+        students.add(student);
+        activeId = students.size() - 1;
     }
 }

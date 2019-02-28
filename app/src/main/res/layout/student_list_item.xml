@@ -11,10 +11,12 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_margin="@dimen/margin"
-        android:contentDescription="Фото студента"
+        android:contentDescription="@string/student_photo"
         android:scaleType="centerCrop"
         app:civ_border_color="@color/colorAccent"
         app:civ_border_width="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/students_list_item_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/male_1" />

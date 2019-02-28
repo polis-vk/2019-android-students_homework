@@ -12,11 +12,11 @@ import android.widget.TextView;
 public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.StudentViewHolder> {
 
     private final StudentsRepository repository;
-    private final View.OnClickListener onClickListener;
+    private final View.OnClickListener onClick;
 
-    StudentsAdapter(StudentsRepository repository, View.OnClickListener onClickListener) {
+    StudentsAdapter(StudentsRepository repository, View.OnClickListener onClick) {
         this.repository = repository;
-        this.onClickListener = onClickListener;
+        this.onClick = onClick;
     }
 
     @NonNull
@@ -43,7 +43,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
             public void onClick(View v) {
                 int position = (int) v.getTag();
                 repository.setActive(position);
-                onClickListener.onClick(v);
+                onClick.onClick(v);
                 notifyDataSetChanged();
             }
         });

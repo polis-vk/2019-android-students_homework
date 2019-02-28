@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +23,22 @@ public class StudentsApp extends AppCompatActivity {
         final StudentsRepository repository = new StudentsRepository(studentsStub());
         final RecyclerView recyclerView = findViewById(R.id.students_app__student_list);
         final StudentView studentView = findViewById(R.id.students_app__student_view);
+        final Button createStudent = findViewById(R.id.students_app__create);
         final StudentsAdapter adapter = new StudentsAdapter(repository, new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                Log.d("TAG", "onClick: here");
                 studentView.setStudent(repository.getActiveStudent());
             }
         });
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        createStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                studentView.setStudent(null);
+            }
+        });
         studentView.setOnRemove(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +54,15 @@ public class StudentsApp extends AppCompatActivity {
                 hideKeyboard();
             }
         });
+        studentView.setOnCreate(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Student student = (Student) v.getTag();
+                repository.addStudent(student);
+                adapter.notifyDataSetChanged();
+                hideKeyboard();
+            }
+        });
     }
 
     private void hideKeyboard() {
@@ -54,6 +70,7 @@ public class StudentsApp extends AppCompatActivity {
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            view.clearFocus();
         }
     }
 
