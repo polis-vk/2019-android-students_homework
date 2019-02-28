@@ -16,13 +16,12 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     public StudentAdapter() {
         this.students = new ArrayList<>();
-        students.add(new Student("A", "B", false, 1));
     }
 
     @NonNull
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.activity_main, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student_item, viewGroup, false);
         return new StudentViewHolder(view);
     }
 

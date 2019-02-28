@@ -8,13 +8,13 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="6">
 
         <TextView
             android:id="@+id/main_text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
             android:padding="10dp"
             android:text="@string/list_students"
             android:textAppearance="@style/Base.TextAppearance.AppCompat"
@@ -29,7 +29,10 @@
             android:id="@+id/main_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical"
 
             app:layout_constraintBottom_toTopOf="@+id/main_button_add"
@@ -43,7 +46,7 @@
             android:id="@+id/main_button_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginBottom="20dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="@string/add_student"
@@ -70,13 +73,13 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="5">
 
         <TextView
             android:id="@+id/main_text_view_student"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="10dp"
             android:padding="10dp"
             android:text="@string/student"
             android:textAppearance="@style/Base.TextAppearance.AppCompat"
