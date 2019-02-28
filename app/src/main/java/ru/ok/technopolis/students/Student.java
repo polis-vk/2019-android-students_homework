@@ -7,14 +7,14 @@ public class Student {
     private boolean maleGender;
     private int photo;
 
-    public Student(String firstName, String secondName, boolean maleGender, int photo) {
+    Student(String firstName, String secondName, boolean maleGender, int photo) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.maleGender = maleGender;
         this.photo = photo;
     }
 
-    public String getFirstName() {
+    String getFirstName() {
         return firstName;
     }
 
@@ -38,7 +38,7 @@ public class Student {
         this.maleGender = maleGender;
     }
 
-    public int getPhoto() {
+    int getPhoto() {
         return photo;
     }
 
