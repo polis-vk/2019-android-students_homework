@@ -32,7 +32,7 @@ public class MalePhotoRepository implements PhotoRepository
         if(malePhotos.isEmpty()){
             throw new NoSuchElementException();
         }
-        int indexMalePhoto = new Random().nextInt(malePhotos.size()-1);
+        int indexMalePhoto = new Random().nextInt(malePhotos.size());
         Integer malePhoto = malePhotos.get(indexMalePhoto);
         malePhotos.remove(indexMalePhoto);
         return malePhoto;

@@ -10,23 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-
-
-import java.util.List;
-
-import ru.ok.technopolis.students.Repository.FemalePhotoRepository;
-import ru.ok.technopolis.students.Repository.MalePhotoRepository;
-import ru.ok.technopolis.students.Repository.PhotoRepository;
 import ru.ok.technopolis.students.Repository.StudentDataRepository;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private StudentDataRepository studentDataRepository = StudentDataRepository.getInstance();
-    private List<Student> students = studentDataRepository.studentsOnRepository();
     private StudentAdapter studentAdapter;
-    private MalePhotoRepository malePhotoRepository = MalePhotoRepository.getInstance();
-    private FemalePhotoRepository femalePhotoRepository = FemalePhotoRepository.getInstance();
 
 
     @Override
@@ -38,9 +28,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setupAddButton();
     }
 
-
-
-
     private void setupAddButton()
     {
         FloatingActionButton addButton = findViewById(R.id.activity_main__add_button);
@@ -49,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setupRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.activity_main__recyclerview);
-        studentAdapter = new StudentAdapter (students, this::onStudentClick);
+        studentAdapter = new StudentAdapter (studentDataRepository.studentsOnRepository(), this::onStudentClick);
         recyclerView.setAdapter(studentAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -74,16 +61,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (resultCode)
         {
             case 1:
-                student = (Student) data.getSerializableExtra("Student");
-                if(studentDataRepository.add(student)){
-                    students.add(student);
-                }
+                student = (Student) data.getSerializableExtra("NewStudent");
+                studentDataRepository.add(student);
+                break;
+            case 2:
+                student = (Student) data.getSerializableExtra("ModifyStudent");
+                studentDataRepository.edit(student);
                 break;
             case 3:
                 student = (Student) data.getSerializableExtra("StudentForDelete");
-                if(studentDataRepository.delete(student)){
-                    students.remove(student);
-                }
+                studentDataRepository.delete(student);
                 break;
         }
         studentAdapter.notifyDataSetChanged();

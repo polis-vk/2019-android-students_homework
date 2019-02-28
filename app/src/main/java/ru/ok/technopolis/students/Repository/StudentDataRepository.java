@@ -2,6 +2,7 @@ package ru.ok.technopolis.students.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import ru.ok.technopolis.students.Student;
 
@@ -28,14 +29,14 @@ public class StudentDataRepository implements StudentRepository
         return students;
     }
 
-    @Override
-    public boolean isAlreadyInRepository(Student student) {
-        if(student == null)
+
+    private boolean isAlreadyInRepository(UUID StudentId) {
+        if(StudentId == null)
         {
             throw new NullPointerException();
         }
         for(int i = 0; i < students.size(); i ++){
-            if(students.get(i).getId().equals(student.getId())){
+            if(students.get(i).getId().equals(StudentId)){
                 return true;
             }
         }
@@ -43,23 +44,29 @@ public class StudentDataRepository implements StudentRepository
     }
 
     @Override
-    public boolean add(Student student)
+    public void add(Student student)
     {
-        if(isAlreadyInRepository(student)){
-            return false;
-        }
         students.add(student);
-        return true;
     }
 
 
     @Override
-    public boolean delete(Student student)
+    public void delete(Student student)
     {
-        if(isAlreadyInRepository(student)){
-            students.remove(student);
-            return true;
+        for(int i = 0; i < students.size(); i++){
+            if (students.get(i).getId().equals(student.getId())){
+                students.remove(i);
+            }
         }
-        return false;
+    }
+
+    @Override
+    public void edit(Student student) {
+        for(int i = 0; i < students.size(); i++){
+            if(students.get(i).getId().equals(student.getId())){
+                students.get(i).setFirstName(student.getFirstName());
+                students.get(i).setSecondName(student.getSecondName());
+            }
+        }
     }
 }
