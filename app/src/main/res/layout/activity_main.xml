@@ -1,9 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/activity_color"
     tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="@string/header_name"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/list"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/add_button"/>
+    
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/divider"
+        android:text="@string/add_button_name" />
+    
+    <View
+        android:id="@+id/divider"
+        android:layout_width="390dp"
+        android:layout_height="3dp"
+        android:background="@color/screen_divider_color"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@id/add_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/info_header"/>
+    
+    <TextView
+        android:id="@+id/info_header"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:text="@string/header_of_information_name"
+        android:textSize="12sp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/big_photo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/info_header"
+        />
+    
+    <EditText
+        android:id="@+id/first_name_info"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="@string/default_firstname"
+        app:layout_constraintStart_toEndOf="@id/big_photo"
+        app:layout_constraintTop_toBottomOf="@id/info_header"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/second_name_info"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/default_secondname"
+        app:layout_constraintStart_toEndOf="@id/big_photo"
+        app:layout_constraintTop_toBottomOf="@id/first_name_info"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/checkbox_name"
+        app:layout_constraintStart_toEndOf="@id/big_photo"
+        app:layout_constraintTop_toBottomOf="@id/second_name_info" />
+    
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/delete_button_name"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/big_photo"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="@string/save_buttom_name"
+        android:textSize="12sp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/delete_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
 
 
 </android.support.constraint.ConstraintLayout>

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Students</string>
+
+    <string name="header_name">Students list</string>
+    <string name="add_button_name">+ Add student</string>
+    <string name="header_of_information_name">Student</string>
+    <string name="delete_button_name">Delete</string>
+    <string name="save_buttom_name">Save</string>
+    <string name="default_firstname">Firstname</string>
+    <string name="default_secondname">Secondname</string>
+    <string name="checkbox_name">Male gender</string>
 </resources>
