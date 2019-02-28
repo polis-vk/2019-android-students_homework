@@ -3,4 +3,9 @@
     <string name="list_students">Список студентов</string>
     <string name="add_student">+ Добавить студента</string>
     <string name="student">Студент</string>
+    <string name="first_name">Имя</string>
+    <string name="second_name">Фамилия</string>
+    <string name="male">Мужской пол</string>
+    <string name="delete">Удалить</string>
+    <string name="save">Сохранить</string>
 </resources>
