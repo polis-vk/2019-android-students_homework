@@ -1,17 +1,26 @@
 package ru.ok.technopolis.students;
 
-public class Student {
+import java.io.Serializable;
+import java.util.UUID;
+
+public class Student implements Serializable {
 
     private String firstName;
     private String secondName;
     private boolean maleGender;
     private int photo;
+    private UUID id;
 
-    public Student(String firstName, String secondName, boolean maleGender, int photo) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.maleGender = maleGender;
-        this.photo = photo;
+
+
+    public Student()
+    {
+        id = UUID.randomUUID();
+    }
+
+    public UUID getId()
+    {
+        return id;
     }
 
     public String getFirstName() {
@@ -45,4 +54,6 @@ public class Student {
     public void setPhoto(int photo) {
         this.photo = photo;
     }
+
+
 }
