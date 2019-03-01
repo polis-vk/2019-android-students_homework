@@ -1,7 +1,5 @@
 package ru.ok.technopolis.students;
 
-import java.io.Serializable;
-
 public class Student {
 
     private String firstName;

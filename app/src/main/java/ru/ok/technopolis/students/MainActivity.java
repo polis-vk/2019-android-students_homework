@@ -34,9 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         firstNameEditText = findViewById(R.id.activity_main__first_name);
         secondNameEditText = findViewById(R.id.activity_main__second_name);
-        genderCheckBox = findViewById(R.id.main_activity__checkbox_gender);
+        genderCheckBox = findViewById(R.id.activity_main__checkbox_gender);
         imageView = findViewById(R.id.activity_main__student_avatar);
-        imageView.setImageResource(generateRandomAvatar(false));
 
         setDefaultCreateField();
 
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setListener(View.OnClickListener listener) {
         findViewById(R.id.activity_main__add_button).setOnClickListener(listener);
-        findViewById(R.id.main_activity__checkbox_gender).setOnClickListener(listener);
+        findViewById(R.id.activity_main__checkbox_gender).setOnClickListener(listener);
         findViewById(R.id.activity_main__save_button).setOnClickListener(listener);
         findViewById(R.id.activity_main__delete_button).setOnClickListener(listener);
     }
@@ -109,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             onSaveBtnClicked();
         } else if (v.getId() == R.id.activity_main__delete_button) {
             onDeleteBtnClicked();
-        } else if (v.getId() == R.id.main_activity__checkbox_gender) {
+        } else if (v.getId() == R.id.activity_main__checkbox_gender) {
             onGenderCheckBoxClicked();
         } else if (v.getId() == R.id.activity_main__add_button) {
             onAddBtnClicked();
@@ -118,13 +117,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void onAddBtnClicked() {
         setVisibilityBottomElements(View.VISIBLE);
+        setDefaultCreateField();
+        selectedStudent = null;
+        resetSelector();
+    }
+
+    private void resetSelector() {
+        int previousItemSelected = studentAdapter.getSelectedItem();
+        studentAdapter.setSelectedItemNoPosition();
+        studentAdapter.notifyItemChanged(previousItemSelected);
     }
 
     private void setVisibilityBottomElements(int visible) {
         findViewById(R.id.activity_main__separated_line).setVisibility(visible);
         findViewById(R.id.activity_main__student_title).setVisibility(visible);
         findViewById(R.id.activity_main__student_avatar).setVisibility(visible);
-        findViewById(R.id.activity_main__linnear_layout_for_edit_text).setVisibility(visible);
+        findViewById(R.id.activity_main__second_name).setVisibility(visible);
+        findViewById(R.id.activity_main__first_name).setVisibility(visible);
+        findViewById(R.id.activity_main__checkbox_gender).setVisibility(visible);
         findViewById(R.id.activity_main__save_button).setVisibility(visible);
         findViewById(R.id.activity_main__delete_button).setVisibility(visible);
     }
@@ -138,9 +148,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     boolean isValidInputValues() {
-        int i = firstNameEditText.getText().toString().length();
-        int j = secondNameEditText.getText().toString().length();
-        if (i == 0 || j == 0) {
+        if (firstNameEditText.getText() == null || secondNameEditText.getText() == null) {
+            return false;
+        }
+        int firstNameLength = firstNameEditText.getText().toString().length();
+        int secondNameLegth = secondNameEditText.getText().toString().length();
+        if (firstNameLength == 0 || secondNameLegth == 0) {
             Toast.makeText(MainActivity.this, R.string.is_empty_input_field, Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -156,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             selectedStudent = null;
             studentAdapter.notifyDataSetChanged();
         }
+        studentAdapter.setSelectedItemNoPosition();
         setVisibilityBottomElements(View.GONE);
     }
 
@@ -166,18 +180,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String firstName = firstNameEditText.getText().toString();
         String secondName = secondNameEditText.getText().toString();
-        boolean g = genderCheckBox.isChecked();
+        boolean genderCheckBoxChecked = genderCheckBox.isChecked();
 
         if (selectedStudent == null) {
-            students.add(new Student(firstName, secondName, g, currentImageId));
+            students.add(new Student(firstName, secondName, genderCheckBoxChecked, currentImageId));
         } else {
             selectedStudent.setFirstName(firstName);
             selectedStudent.setSecondName(secondName);
-            selectedStudent.setMaleGender(g);
+            selectedStudent.setMaleGender(genderCheckBoxChecked);
             selectedStudent.setPhoto(currentImageId);
             selectedStudent = null;
         }
 
+        resetSelector();
         setDefaultCreateField();
         setVisibilityBottomElements(View.GONE);
         studentAdapter.notifyDataSetChanged();
