@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private void addClickListener() {
         findViewById(R.id.main_button_add).setOnClickListener(v -> {
             currentStudent = null;
+            currentView.setBackgroundResource(R.color.white);
             cleanCard();
         });
     }
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main_button_delete).setOnClickListener(v -> {
             students.remove(currentStudent);
             studentAdapter.notifyDataSetChanged();
+            currentView.setBackgroundResource(R.color.white);
             cleanCard();
         });
     }
