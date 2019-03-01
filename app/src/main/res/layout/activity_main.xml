@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
             android:text="@string/students_list" />
 
         <android.support.v7.widget.RecyclerView
@@ -32,6 +33,7 @@
             android:layout_weight="1" />
 
         <Button
+            android:id="@+id/activity_main_button_add"
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,6 +84,8 @@
             android:layout_height="0dp"
             android:layout_marginLeft="12dp"
             android:hint="@string/second_name"
+            android:inputType="textPersonName"
+            android:maxLines="1"
             android:textSize="@dimen/text_size_default"
             app:layout_constraintBottom_toTopOf="@id/activity_main_student_first_name"
             app:layout_constraintLeft_toRightOf="@+id/activity_main_student_photo_wrapper"
@@ -94,6 +98,8 @@
             android:layout_height="0dp"
             android:layout_marginLeft="12dp"
             android:hint="@string/first_name"
+            android:inputType="textPersonName"
+            android:maxLines="1"
             android:textSize="@dimen/text_size_default"
             app:layout_constraintBottom_toTopOf="@id/activity_main_student_gender"
             app:layout_constraintLeft_toRightOf="@+id/activity_main_student_photo_wrapper"
@@ -112,6 +118,7 @@
             app:layout_constraintTop_toBottomOf="@id/activity_main_student_first_name" />
 
         <Button
+            android:id="@+id/activity_main_button_remove"
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,6 +129,7 @@
             app:layout_constraintTop_toBottomOf="@id/activity_main_student_photo_wrapper" />
 
         <Button
+            android:id="@+id/activity_main_button_save"
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

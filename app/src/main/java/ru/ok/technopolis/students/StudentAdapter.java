@@ -47,6 +47,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         studentView.setTag(student);
         if (student == chosenStudent) {
             studentView.setSelected(true);
+            chosenStudentView = studentView;
         } else {
             studentView.setSelected(false);
         }
@@ -55,6 +56,14 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     @Override
     public int getItemCount() {
         return students.size();
+    }
+
+    public void setChosenStudent(Student student) {
+        chosenStudent = student;
+        if (chosenStudentView != null) {
+            chosenStudentView.setSelected(false);
+            chosenStudentView = null;
+        }
     }
 
     static final class StudentViewHolder extends RecyclerView.ViewHolder {
