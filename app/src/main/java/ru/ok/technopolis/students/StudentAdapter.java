@@ -25,7 +25,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student_item, viewGroup, false);
-        view.setOnClickListener(v -> studentListener.onStudentClick((Student) v.getTag()));
+        view.setOnClickListener(v -> studentListener.onStudentClick(view, (Integer) v.getTag()));
         return new StudentViewHolder(view);
     }
 
@@ -33,7 +33,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     public void onBindViewHolder(@NonNull StudentViewHolder viewHolder, final int i) {
         Student student = students.get(i);
         viewHolder.bind(student);
-        viewHolder.itemView.setTag(student);
+        viewHolder.itemView.setTag(i);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     interface Listener {
 
-        void onStudentClick(Student student);
+        void onStudentClick(View view, int i);
 
     }
 
