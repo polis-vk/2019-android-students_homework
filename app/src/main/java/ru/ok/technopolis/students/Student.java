@@ -45,4 +45,5 @@ public class Student {
     public void setPhoto(int photo) {
         this.photo = photo;
     }
+
 }

@@ -8,26 +8,32 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
 
-    private final ArrayList<Student> students;
+    private final List<Student> students;
+    private final Listener studentListener;
 
-    public StudentAdapter() {
-        this.students = new ArrayList<>();
+
+    StudentAdapter(List<Student> students, Listener studentListener) {
+        this.students = students;
+        this.studentListener = studentListener;
     }
 
     @NonNull
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student_item, viewGroup, false);
+        view.setOnClickListener(v -> studentListener.onStudentClick((Student) v.getTag()));
         return new StudentViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StudentViewHolder viewHolder, int i) {
-        viewHolder.bind(students.get(i));
+    public void onBindViewHolder(@NonNull StudentViewHolder viewHolder, final int i) {
+        Student student = students.get(i);
+        viewHolder.bind(student);
+        viewHolder.itemView.setTag(student);
     }
 
     @Override
@@ -40,16 +46,22 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         private final TextView nameTextView;
         private final ImageView avatarImageView;
 
-        public StudentViewHolder(@NonNull View itemView) {
+        private StudentViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.student_item_text);
             avatarImageView = itemView.findViewById(R.id.student_item_avatar);
         }
 
         private void bind(@NonNull Student student) {
-            nameTextView.setText(student.getFirstName() + " " + student.getSecondName());
+            nameTextView.setText(student.getFirstName().concat(" ").concat(student.getSecondName()));
             avatarImageView.setImageResource(student.getPhoto());
         }
+
+    }
+
+    interface Listener {
+
+        void onStudentClick(Student student);
 
     }
 
