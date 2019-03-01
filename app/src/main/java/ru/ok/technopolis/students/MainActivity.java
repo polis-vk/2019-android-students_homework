@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             studentAdapter.notifyDataSetChanged();
+            currentView.setBackgroundResource(R.color.white);
             cleanCard();
         });
     }
