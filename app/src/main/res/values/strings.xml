@@ -8,4 +8,5 @@
     <string name="male">Мужской пол</string>
     <string name="delete">Удалить</string>
     <string name="save">Сохранить</string>
+    <string name="photo">Photo</string>
 </resources>

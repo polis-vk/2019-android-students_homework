@@ -47,17 +47,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addClickListener() {
-        findViewById(R.id.main_button_add).setOnClickListener(v -> cleanCard());
+        findViewById(R.id.main_button_add).setOnClickListener(v -> {
+            currentStudent = null;
+            cleanCard();
+        });
     }
 
     private void saveClickListener() {
         findViewById(R.id.main_button_save).setOnClickListener(v -> {
             if (name.getText().toString().isEmpty())
                 Toast.makeText(MainActivity.this, "Введите имя", Toast.LENGTH_SHORT).show();
-            if (surname.getText().toString().isEmpty())
+            else if (surname.getText().toString().isEmpty())
                 Toast.makeText(MainActivity.this, "Введите фамилию", Toast.LENGTH_SHORT).show();
-            students.add(new Student(name.getText().toString(), surname.getText().toString(),
-                    male.isChecked(), randomAvatar(male.isChecked())));
+
+            else if (currentStudent == null)
+                students.add(new Student(name.getText().toString(), surname.getText().toString(),
+                        male.isChecked(), randomAvatar(male.isChecked())));
+            else {
+                currentStudent.setFirstName(name.getText().toString());
+                currentStudent.setSecondName(surname.getText().toString());
+                if (currentStudent.isMaleGender() != male.isChecked()) {
+                    currentStudent.setMaleGender(male.isChecked());
+                    currentStudent.setPhoto(randomAvatar(currentStudent.isMaleGender()));
+                }
+            }
             studentAdapter.notifyDataSetChanged();
             cleanCard();
         });

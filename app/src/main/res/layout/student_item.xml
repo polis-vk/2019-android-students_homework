@@ -20,6 +20,7 @@
             android:id="@+id/student_item_avatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:contentDescription="@string/photo"
             android:scaleType="centerCrop"
             tools:src="@drawable/male_1" />
 
