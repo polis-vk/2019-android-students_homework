@@ -12,57 +12,57 @@ import java.util.List;
 
 public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.StudentViewHolder> {
 
-        private final List<Student> students;
-        private final Listener onStudentClickListener;
+    private final List<Student> students;
+    private final Listener onStudentClickListener;
+    private int focusedItem = -1;
 
-        public StudentsAdapter(List<Student> students, Listener onStudentClickListener) {
-            this.students = students;
-            this.onStudentClickListener = onStudentClickListener;
+    public StudentsAdapter(List<Student> students, Listener onStudentClickListener) {
+        this.students = students;
+        this.onStudentClickListener = onStudentClickListener;
+    }
+
+    @NonNull
+    @Override
+    public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student_item, viewGroup, false);
+        view.setOnClickListener(v -> {
+            focusedItem = ((RecyclerView.LayoutParams) v.getLayoutParams()).getViewLayoutPosition();
+            notifyDataSetChanged();
+            onStudentClickListener.onStudentClick((Student) v.getTag());
+        });
+        return new StudentViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull StudentViewHolder viewHolder, final int i) {
+        Student student = students.get(i);
+        viewHolder.bind(student);
+        viewHolder.itemView.setTag(student);
+        viewHolder.itemView.setSelected(focusedItem == i);
+    }
+
+    @Override
+    public int getItemCount() {
+        return students.size();
+    }
+
+    static final class StudentViewHolder extends RecyclerView.ViewHolder {
+        private final TextView nameView;
+        private final ImageView photoView;
+
+        private StudentViewHolder(@NonNull View itemView) {
+            super(itemView);
+            nameView = itemView.findViewById(R.id.student_item_name);
+            photoView = itemView.findViewById(R.id.student_item_photo);
         }
 
-        @NonNull
-        @Override
-        public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student_item, viewGroup, false);
-            view.setOnClickListener(v -> onStudentClickListener.onStudentClick((Student) v.getTag()));
-            return new StudentViewHolder(view);
+        private void bind(@NonNull Student student) {
+            nameView.setText(student.getFirstName() + " " + student.getSecondName());
+            photoView.setImageResource(student.getPhoto());
         }
+    }
 
-        @Override
-        public void onBindViewHolder(@NonNull StudentViewHolder viewHolder, final int i) {
-            Student student = students.get(i);
-            viewHolder.bind(student);
-            viewHolder.itemView.setTag(student);
-        }
-
-        @Override
-        public int getItemCount() {
-            return students.size();
-        }
-
-        static final class StudentViewHolder extends RecyclerView.ViewHolder {
-
-            private final TextView nameEditView;
-            private final ImageView photoImageView;
-
-            private StudentViewHolder(@NonNull View itemView) {
-                super(itemView);
-                nameEditView = itemView.findViewById(R.id.student_item_name);
-                photoImageView = itemView.findViewById(R.id.student_item_photo);
-            }
-
-            private void bind(@NonNull Student student) {
-                nameEditView.setText(student.getFirstName() + " " + student.getSecondName());
-                photoImageView.setImageResource(student.getPhoto());
-            }
-
-        }
-
-        interface Listener {
-
-            void onStudentClick(Student student);
-
-        }
-
-
+    interface Listener {
+        void onStudentClick(Student student);
+    }
 }

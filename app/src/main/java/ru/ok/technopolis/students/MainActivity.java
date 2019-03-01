@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -34,19 +33,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecyclerView recyclerView = findViewById(R.id.students_list);
+        RecyclerView recyclerView = findViewById(R.id.activity_main_students_list);
         students = generateStudentList();
         studentsAdapter = new StudentsAdapter(students, this::onStudentClick);
         recyclerView.setAdapter(studentsAdapter);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
-        firstNameView = findViewById(R.id.student_first_name);
-        lastNameView = findViewById(R.id.student_last_name);
-        genderView = findViewById(R.id.student_gender);
-        photoView = findViewById(R.id.student_photo);
-        buttonAdd = findViewById(R.id.button_add);
-        buttonSave = findViewById(R.id.button_save);
-        buttonDelete = findViewById(R.id.button_delete);
+        firstNameView = findViewById(R.id.activity_main_student_first_name);
+        lastNameView = findViewById(R.id.activity_main_student_last_name);
+        genderView = findViewById(R.id.activity_main_student_gender);
+        photoView = findViewById(R.id.activity_main_student_photo);
+        buttonAdd = findViewById(R.id.activity_main_button_add);
+        buttonSave = findViewById(R.id.activity_main_button_save);
+        buttonDelete = findViewById(R.id.activity_main_button_delete);
         setupAddButton();
         setupDeleteButton();
         setupSaveButton();
@@ -59,20 +58,28 @@ public class MainActivity extends AppCompatActivity {
                 students.add(currentStudent);
                 studentsAdapter.notifyDataSetChanged();
                 cleanCard();
+                return;
             }
+            Toast toast = Toast.makeText(this,
+                    "Fill first name and last name", Toast.LENGTH_SHORT);
+            toast.show();
         });
     }
 
     private void setupSaveButton() {
         buttonSave.setOnClickListener(v -> {
             if (currentStudent != null) {
-                if(editStudent()) {
+                if (editStudent()) {
                     studentsAdapter.notifyDataSetChanged();
                     cleanCard();
+                    return;
                 }
+                Toast toast = Toast.makeText(this,
+                        "Fill first name and last name", Toast.LENGTH_SHORT);
+                toast.show();
                 return;
             }
-            Toast toast = Toast.makeText(getApplicationContext(),
+            Toast toast = Toast.makeText(this,
                     "Choose a student", Toast.LENGTH_SHORT);
             toast.show();
         });
@@ -87,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 cleanCard();
                 return;
             }
-            Toast toast = Toast.makeText(getApplicationContext(),
+            Toast toast = Toast.makeText(this,
                     "Choose a student", Toast.LENGTH_SHORT);
             toast.show();
         });
@@ -113,27 +120,30 @@ public class MainActivity extends AppCompatActivity {
         photoView.setImageResource(currentStudent.getPhoto());
     }
 
-    private int choosePhoto(boolean isMale){
+    private int choosePhoto(boolean isMale) {
         String photoName;
         if (isMale) {
             photoName = "male_";
         } else {
             photoName = "female_";
         }
-        return getResources().getIdentifier(photoName + (random.nextInt(3)+1), "drawable", getPackageName());
+        return getResources().getIdentifier(photoName + (random.nextInt(3) + 1), "drawable", getPackageName());
 
     }
 
     private Student generateNewStudent() {
-        String firstName = firstNameView.getText().toString();
-        String lastName = lastNameView.getText().toString();
+        String firstName;
+        String lastName;
+        try {
+            firstName = firstNameView.getText().toString();
+            lastName = lastNameView.getText().toString();
+        } catch (NullPointerException e) {
+            return null;
+        }
         if (firstName.length() != 0 && lastName.length() != 0) {
             boolean isMale = genderView.isChecked();
             return new Student(firstName, lastName, isMale, choosePhoto(isMale));
         }
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Fill first name and last name", Toast.LENGTH_SHORT);
-        toast.show();
         return null;
     }
 
@@ -151,9 +161,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         }
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Fill first name and last name", Toast.LENGTH_SHORT);
-        toast.show();
         return false;
     }
 
