@@ -1,24 +1,16 @@
 package ru.ok.technopolis.students;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,26 +50,53 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK) {
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
             String secondName = data.getStringExtra("secondName");
             String firstName = data.getStringExtra("firstName");
-            int photo_id = random.nextInt(6);
-            int id = getResources().getIdentifier(image_names[photo_id], "drawable", getPackageName());
-            Student newStudent = new Student(firstName, secondName, data.getBooleanExtra("sex", false), id);
+            int pic_id = data.getIntExtra("photo", random.nextInt(6));
+            Student newStudent = new Student(firstName, secondName, data.getBooleanExtra("sex", false), pic_id);
             students.add(newStudent);
-            studentAdapter.notifyDataSetChanged();
         }
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+            int op = data.getIntExtra("button_code", 1);
+            int index = data.getIntExtra("index", -1);
+            switch (op) {
+                case 2:
+                    if (students.isEmpty())
+                        return;
+                    //deleting student according to item index
+                    if (index != -1)
+                        students.remove(index);
+                    else
+                        Toast.makeText(this, "No such element", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    //getting possible to edit data
+                    String secondName = data.getStringExtra("secondName");
+                    String firstName = data.getStringExtra("firstName");
+                    int pic_id = data.getIntExtra("photo", 1);
+                    boolean isMale = data.getBooleanExtra("isMale", false);
+                    Student student_to_change = students.get(index);
+                    student_to_change.secondName = secondName;
+                    student_to_change.firstName = firstName;
+                    student_to_change.isMale = isMale;
+                    student_to_change.photo = pic_id;
+                    students.set(index, student_to_change);
+                    break;
+            }
+        }
+        studentAdapter.notifyDataSetChanged();
     }
 
     private ArrayList<Student> generateStudentsList() {
         ArrayList<Student> students = new ArrayList<>();
-        int id = getResources().getIdentifier(image_names[random.nextInt(6)], "drawable", getPackageName());
+        int id = getResources().getIdentifier("male_2", "drawable", getPackageName());
         students.add(new Student("Иван", "Иванов", true, id));
-        id = getResources().getIdentifier(image_names[random.nextInt(6)], "drawable", getPackageName());
 
+        id = getResources().getIdentifier("male_3", "drawable", getPackageName());
         students.add(new Student("Петр", "Петров", true, id));
-        id = getResources().getIdentifier(image_names[random.nextInt(6)], "drawable", getPackageName());
 
+        id = getResources().getIdentifier("female_1", "drawable", getPackageName());
         students.add(new Student("Анастасия", "Курочкина", false, id));
         return students;
     }

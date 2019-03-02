@@ -1,18 +1,16 @@
 package ru.ok.technopolis.students;
 
-import android.media.Image;
-
 public class Student {
 
-    public final String firstName;
-    public final String secondName;
-    public final boolean maleGender;
-    public final int photo;
+    public String firstName;
+    public String secondName;
+    public boolean isMale;
+    public int photo;
 
-    public Student(String firstName, String secondName, boolean maleGender, int photo) {
+    public Student(String firstName, String secondName, boolean isMale, int photo) {
         this.firstName = firstName;
         this.secondName = secondName;
-        this.maleGender = maleGender;
+        this.isMale = isMale;
         this.photo = photo;
     }
 }
