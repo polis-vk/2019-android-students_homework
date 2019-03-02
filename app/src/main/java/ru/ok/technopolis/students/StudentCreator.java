@@ -78,14 +78,17 @@ public class StudentCreator {
                     Toast.makeText(view,R.string.errorOfSaveNotSelected,Toast.LENGTH_LONG).show();
                     return;
                 }
-                Student student=createNewStudent();
-                if (student==null){
+                if(name.getText().toString().length()==0||surname.getText().toString().length()==0){
                     Toast.makeText(view,R.string.errorOfSave,Toast.LENGTH_LONG).show();
                 }else{
-                    currentStudent.setFirstName(student.getFirstName());
-                    currentStudent.setSecondName(student.getSecondName());
-                    currentStudent.setGender(student.getGender());
-                    onClickSave.onClick(student);
+                    currentStudent.setFirstName(name.getText().toString());
+                    currentStudent.setSecondName(surname.getText().toString());
+                    if (btnMale.isChecked()){
+                        currentStudent.setGender(Student.Gender.MALE);
+                    }else{
+                        currentStudent.setGender(Student.Gender.FEMALE);
+                    }
+                    onClickSave.onClick(currentStudent);
                     Toast.makeText(view,R.string.wasSaved,Toast.LENGTH_LONG).show();
                 }
             }
