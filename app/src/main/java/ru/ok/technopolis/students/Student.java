@@ -46,7 +46,7 @@ public class Student {
         this.photo = photo;
     }
 
-    enum Gender{
+    enum Gender {
         MALE,
         FEMALE
     }

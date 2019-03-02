@@ -15,14 +15,14 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     private final Listener OnStudentClickListener;
 
     public StudentAdapter(List<Student> studentList, Listener listener) {
-        this.OnStudentClickListener =listener;
+        this.OnStudentClickListener = listener;
         this.studentList = studentList;
     }
 
     @NonNull
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student_item,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student_item, viewGroup, false);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,19 +45,19 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         return studentList.size();
     }
 
-    public static final class StudentViewHolder extends RecyclerView.ViewHolder{
+    public static final class StudentViewHolder extends RecyclerView.ViewHolder {
 
         public final TextView fullNameTextView;
         public final ImageView avatarImageView;
 
         public StudentViewHolder(@NonNull View itemView) {
             super(itemView);
-            fullNameTextView=itemView.findViewById(R.id.textView_studentItem);
-            avatarImageView=itemView.findViewById(R.id.imageView_studentAvatarItem);
+            fullNameTextView = itemView.findViewById(R.id.textView_studentItem);
+            avatarImageView = itemView.findViewById(R.id.imageView_studentAvatarItem);
         }
 
-        public void bind(@NonNull Student student){
-            StringBuilder stringBuilder=new StringBuilder();
+        public void bind(@NonNull Student student) {
+            StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(student.getFirstName());
             stringBuilder.append(" ");
             stringBuilder.append(student.getSecondName());
@@ -66,7 +66,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         }
     }
 
-    interface Listener{
+    interface Listener {
         void onStudentClick(Student student);
     }
 
