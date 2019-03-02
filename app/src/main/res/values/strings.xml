@@ -8,4 +8,5 @@
     <string name="surName">Фамилия</string>
     <string name="name">Имя</string>
     <string name="gender">Мужской пол</string>
+    <string name="student_avatar">Изображение студента</string>
 </resources>

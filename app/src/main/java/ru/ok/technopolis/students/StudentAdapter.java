@@ -16,7 +16,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     private final List<Student> students;
     private final Listener onStudentClickListener;
 
-    public StudentAdapter(List<Student> students, Listener onStudentClickListener) {
+    StudentAdapter(List<Student> students, Listener onStudentClickListener) {
         this.students = students;
         this.onStudentClickListener = onStudentClickListener;
     }
@@ -46,7 +46,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         private final TextView nameTextView;
         private final ImageView avatarImageView;
 
-        public StudentViewHolder(@NonNull View itemView) {
+        StudentViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.student_item__tv_name);
             avatarImageView = itemView.findViewById(R.id.movie_item__studentPicture);

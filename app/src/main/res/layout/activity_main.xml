@@ -10,20 +10,20 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        tools:ignore="ExtraText,UselessParent">
         >
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/parent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:scrollbars="vertical">
 
             <TextView
                 android:id="@+id/activity_main__topStudents"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
                 android:paddingTop="15dp"
                 android:text="@string/stud_list"
                 android:textColor="@color/black"
@@ -72,7 +72,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:fontFamily="sans-serif-medium"
                 android:text="@string/student"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -87,7 +86,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
                 android:enabled="false"
-                android:fontFamily="sans-serif-medium"
                 android:text="@string/delete_student"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/guideline_vertical_start" />
@@ -98,7 +96,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
                 android:enabled="false"
-                android:fontFamily="sans-serif-medium"
                 android:text="@string/save_student"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/guideline_vertical_end" />
@@ -156,7 +153,8 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:background="@color/lightGray"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    android:contentDescription="@string/student_avatar" />
             </android.support.v7.widget.CardView>
 
             <EditText
@@ -169,7 +167,8 @@
                 app:layout_constraintBottom_toTopOf="@id/activity_main__studentName"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
                 app:layout_constraintStart_toEndOf="@id/guideline_vertical"
-                app:layout_constraintTop_toTopOf="@id/guideline_horizontal_start" />
+                app:layout_constraintTop_toTopOf="@id/guideline_horizontal_start"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/activity_main__studentName"
@@ -181,7 +180,8 @@
                 app:layout_constraintBottom_toTopOf="@id/activity_main__checkGender"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
                 app:layout_constraintStart_toEndOf="@id/guideline_vertical"
-                app:layout_constraintTop_toBottomOf="@id/activity_main__studentSurName" />
+                app:layout_constraintTop_toBottomOf="@id/activity_main__studentSurName"
+                tools:ignore="Autofill" />
 
             <CheckBox
                 android:id="@+id/activity_main__checkGender"

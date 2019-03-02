@@ -27,7 +27,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="centerCrop"
-            tools:src="@drawable/female_1" />
+            tools:src="@drawable/female_1"
+            android:contentDescription="@string/student_avatar" />
     </android.support.v7.widget.CardView>
 
 
@@ -44,7 +45,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/movie_item__card_view"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Student name" />
+        tools:text="Student name"
+        android:layout_marginEnd="20dp" />
 
 
     <View
