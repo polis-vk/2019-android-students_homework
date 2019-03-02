@@ -71,7 +71,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@android:color/background_dark"
-            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/activity_main__student_title"
             app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
             app:layout_constraintStart_toStartOf="@id/activity_main__vertical_line_1"
@@ -86,7 +85,6 @@
             android:gravity="center"
             android:text="@string/student_title"
             android:textSize="20sp"
-            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/activity_main__student_avatar"
             app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
             app:layout_constraintStart_toStartOf="@id/activity_main__vertical_line_1"
@@ -101,7 +99,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:scaleType="centerCrop"
-            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/activity_main__delete_button"
             app:layout_constraintStart_toStartOf="@id/activity_main__vertical_line_1"
             app:layout_constraintTop_toBottomOf="@id/activity_main__student_title" />
@@ -115,7 +112,6 @@
             android:ellipsize="end"
             android:hint="@string/second_name"
             android:singleLine="true"
-            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/activity_main__first_name"
             app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
             app:layout_constraintStart_toEndOf="@id/activity_main__student_avatar"
@@ -131,7 +127,6 @@
             android:ellipsize="end"
             android:hint="@string/first_name"
             android:singleLine="true"
-            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/activity_main__checkbox_gender"
             app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
             app:layout_constraintStart_toEndOf="@id/activity_main__student_avatar"
@@ -144,7 +139,6 @@
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:text="@string/male_gender"
-            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/activity_main__save_button"
             app:layout_constraintStart_toEndOf="@id/activity_main__student_avatar"
             app:layout_constraintTop_toBottomOf="@id/activity_main__first_name" />
@@ -156,7 +150,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:text="@string/delete_button"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/activity_main__save_button"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -170,10 +163,16 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:text="@string/save_button"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/activity_main__vertical_line_2"
             app:layout_constraintStart_toEndOf="@id/activity_main__delete_button" />
+
+        <android.support.constraint.Group
+            android:id="@+id/group_bottom_elements"
+            app:constraint_referenced_ids="activity_main__separated_line,activity_main__save_button,activity_main__student_title,activity_main__student_avatar,activity_main__second_name,activity_main__first_name,activity_main__checkbox_gender,activity_main__delete_button,activity_main__save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
     </android.support.constraint.ConstraintLayout>
 

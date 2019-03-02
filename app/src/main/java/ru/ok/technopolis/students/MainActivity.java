@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText secondNameEditText;
     private CheckBox genderCheckBox;
     private ImageView imageView;
-    private int currentImageId;
+    private int imageIdInAvatarField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +72,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void fillCreateField(Student student) {
         selectedStudent = student;
-        currentImageId = student.getPhoto();
+        imageIdInAvatarField = student.getPhoto();
         firstNameEditText.setText(student.getFirstName(), TextView.BufferType.EDITABLE);
         secondNameEditText.setText(student.getSecondName(), TextView.BufferType.EDITABLE);
         genderCheckBox.setChecked(student.isMaleGender());
-        imageView.setImageResource(currentImageId);
+        imageView.setImageResource(imageIdInAvatarField);
         setVisibilityBottomElements(View.VISIBLE);
     }
 
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 result = R.drawable.male_1;
                 break;
         }
-        currentImageId = result;
+        imageIdInAvatarField = result;
         return result;
     }
 
@@ -129,14 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setVisibilityBottomElements(int visible) {
-        findViewById(R.id.activity_main__separated_line).setVisibility(visible);
-        findViewById(R.id.activity_main__student_title).setVisibility(visible);
-        findViewById(R.id.activity_main__student_avatar).setVisibility(visible);
-        findViewById(R.id.activity_main__second_name).setVisibility(visible);
-        findViewById(R.id.activity_main__first_name).setVisibility(visible);
-        findViewById(R.id.activity_main__checkbox_gender).setVisibility(visible);
-        findViewById(R.id.activity_main__save_button).setVisibility(visible);
-        findViewById(R.id.activity_main__delete_button).setVisibility(visible);
+        findViewById(R.id.group_bottom_elements).setVisibility(visible);
     }
 
     private void onGenderCheckBoxClicked() {
@@ -183,12 +176,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boolean genderCheckBoxChecked = genderCheckBox.isChecked();
 
         if (selectedStudent == null) {
-            students.add(new Student(firstName, secondName, genderCheckBoxChecked, currentImageId));
+            students.add(new Student(firstName, secondName, genderCheckBoxChecked, imageIdInAvatarField));
         } else {
             selectedStudent.setFirstName(firstName);
             selectedStudent.setSecondName(secondName);
             selectedStudent.setMaleGender(genderCheckBoxChecked);
-            selectedStudent.setPhoto(currentImageId);
+            selectedStudent.setPhoto(imageIdInAvatarField);
             selectedStudent = null;
         }
 
