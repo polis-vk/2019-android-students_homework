@@ -54,7 +54,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
         private void bind(@NonNull Student student) {
             nameTextView.setText(String.valueOf(student.getSecondName() + " " + student.getFirstName()));
-            avatarImageView.setImageBitmap(student.getBitmap());
+            avatarImageView.setImageResource(student.getPhoto());
         }
 
 
