@@ -48,8 +48,7 @@ public class StudentView extends ConstraintLayout {
 
     private void init(Context context) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.student_view, this, false);
-        addView(view);
+        View view = inflater.inflate(R.layout.student_view, this, true);
 
         photoIv = view.findViewById(R.id.student_view__photo);
         firstNameTv = view.findViewById(R.id.student_view__first_name);
@@ -60,25 +59,29 @@ public class StudentView extends ConstraintLayout {
         saveBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                CharSequence firstName = firstNameTv.getText();
+                CharSequence secondName = secondNameTv.getText();
+                if (firstName == null || firstName.length() == 0 || secondName == null || secondName.length() == 0) {
+                    String text = getContext().getString(R.string.error_insert_first_name_and_second_name);
+                    Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+                    return;
+                }
                 if (student != null) {
-                    student.setFirstName(firstNameTv.getText().toString());
-                    student.setSecondName(secondNameTv.getText().toString());
+                    student.setFirstName(firstName.toString());
+                    student.setSecondName(secondName.toString());
                     student.setMaleGender(isMaleCb.isChecked());
-                    StudentView.this.onSave.onClick(v);
-                } else {
-                    String firstName = firstNameTv.getText().toString();
-                    String secondName = secondNameTv.getText().toString();
-                    if (firstName.isEmpty() || secondName.isEmpty()) {
-                        String text = getContext().getString(R.string.error_insert_first_name_and_second_name);
-                        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-                        return;
+                    if (onSave != null) {
+                        onSave.onClick(v);
                     }
+                } else {
                     boolean isMale = isMaleCb.isChecked();
                     int photo = randomPhoto(isMale);
                     photoIv.setImageResource(photo);
-                    student = new Student(firstName, secondName, isMale, photo);
+                    student = new Student(firstName.toString(), secondName.toString(), isMale, photo);
                     v.setTag(student);
-                    onCreate.onClick(v);
+                    if (onCreate != null) {
+                        onCreate.onClick(v);
+                    }
                 }
             }
         });
@@ -86,7 +89,9 @@ public class StudentView extends ConstraintLayout {
         hideBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                onHide.onClick(v);
+                if (onHide != null) {
+                    onHide.onClick(v);
+                }
                 StudentView.this.setVisibility(GONE);
             }
         });
@@ -95,7 +100,9 @@ public class StudentView extends ConstraintLayout {
             @Override
             public void onClick(View v) {
                 if (student != null) {
-                    onRemove.onClick(v);
+                    if (onRemove != null) {
+                        onRemove.onClick(v);
+                    }
                     StudentView.this.setVisibility(GONE);
                     clearFields();
                 }
