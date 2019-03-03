@@ -43,7 +43,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="10dp"
-        android:src="@drawable/male_3"
+        android:background="@android:color/darker_gray"
         app:layout_constraintBottom_toTopOf="@+id/delete_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_student"
