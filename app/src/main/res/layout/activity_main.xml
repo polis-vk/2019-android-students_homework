@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/activity_main__student"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/surname_student"
+        app:layout_constraintBottom_toTopOf="@+id/activity_surname_student"
          />
 
     <ImageView
@@ -53,7 +53,7 @@
         />
 
     <EditText
-        android:id="@+id/surname_student"
+        android:id="@+id/activity_surname_student"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/surname_student"
@@ -62,32 +62,42 @@
         app:layout_constraintTop_toTopOf="@+id/photo_student"
         app:layout_constraintStart_toEndOf="@+id/photo_student"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/name_student"
+        app:layout_constraintBottom_toTopOf="@+id/activity_name_student"
 
         />
 
     <EditText
-        android:id="@+id/name_student"
+        android:id="@+id/activity_name_student"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18dp"
         android:text="@string/name_student"
-        app:layout_constraintTop_toBottomOf="@+id/surname_student"
+        app:layout_constraintTop_toBottomOf="@+id/activity_surname_student"
         app:layout_constraintStart_toEndOf="@+id/photo_student"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/sex_student"
+        app:layout_constraintBottom_toTopOf="@+id/men_student"
 
         />
 
     <CheckBox
-        android:id="@+id/sex_student"
+        android:id="@+id/men_student"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sex_student"
+        android:text="@string/men_student"
         app:layout_constraintStart_toEndOf="@+id/photo_student"
         app:layout_constraintBottom_toTopOf="@+id/save_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_student"
+        app:layout_constraintTop_toBottomOf="@+id/activity_name_student"
+        />
+    <CheckBox
+        android:id="@+id/women_student"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/women_student"
+        app:layout_constraintStart_toEndOf="@+id/men_student"
+        app:layout_constraintBottom_toTopOf="@+id/save_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_name_student"
         />
 
     <Button
