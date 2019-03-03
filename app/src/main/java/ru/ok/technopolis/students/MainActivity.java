@@ -10,14 +10,12 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements StudentAdderDialog.OnAdderStudentListener, StudentAdderDialog.OnUpdateStudentListener {
@@ -27,10 +25,10 @@ public class MainActivity extends AppCompatActivity implements StudentAdderDialo
     private String[] lastNames;
     private int[] manPhotos;
     private int[] womanPhotos;
-    Random random;
-    int manPhotoIndex, womanPhotoIndex;
-    ArrayList<Student> students;
-    StudentsAdapter adapter;
+    private Random random;
+    private int manPhotoIndex, womanPhotoIndex;
+    private ArrayList<Student> students;
+    private StudentsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +67,17 @@ public class MainActivity extends AppCompatActivity implements StudentAdderDialo
     }
 
     private void showDialog(final Student student) {
-        ImageView view = (ImageView) LayoutInflater.from(MainActivity.this).inflate(R.layout.image_student, null);
-        if (student.getBitmap() == null) {
+        ImageView view = new ImageView(this);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(300, 300);
+        view.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        view.setLayoutParams(layoutParams);
 
+        if (student.getBitmap() == null) {
             view.setImageResource(student.getPhoto());
         } else {
             view.setImageBitmap(student.getBitmap());
         }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
         builder.setView(view);
@@ -134,8 +136,8 @@ public class MainActivity extends AppCompatActivity implements StudentAdderDialo
 
 
     @Override
-    public void add(String firstname, String lastname, boolean maleGender, Bitmap bitmap) {
-        Student student = new Student(firstname, lastname, maleGender, maleGender ? manPhotos[manPhotoIndex++ % 3] : womanPhotos[womanPhotoIndex++ % 3]);
+    public void add(String firstName, String lastName, boolean maleGender, Bitmap bitmap) {
+        Student student = new Student(firstName, lastName, maleGender, maleGender ? manPhotos[manPhotoIndex++ % 3] : womanPhotos[womanPhotoIndex++ % 3]);
         if (bitmap != null) {
             student.setBitmap(bitmap);
         }

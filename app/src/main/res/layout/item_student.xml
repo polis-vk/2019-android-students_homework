@@ -45,22 +45,20 @@
                 android:src="@android:drawable/sym_def_app_icon" />
         </android.support.v7.widget.CardView>
 
-
         <TextView
             android:id="@+id/item_student__first_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
-            tools:text="Имя"
             android:textSize="18sp"
+            android:maxLines="1"
             app:layout_constraintBottom_toTopOf="@id/item_student__last_name"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_student__card" />
-
+            app:layout_constraintTop_toBottomOf="@id/item_student__card"
+            tools:text="Имя" />
 
         <TextView
             android:id="@+id/item_student__last_name"
@@ -69,17 +67,14 @@
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
             android:textSize="18sp"
-            tools:text="Фамилия"
+            android:maxLines="1"
             app:layout_constraintBottom_toTopOf="@id/item_student__first_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-
-            />
-
+            tools:text="Фамилия" />
 
     </android.support.constraint.ConstraintLayout>
-
 
 </android.support.v7.widget.CardView>

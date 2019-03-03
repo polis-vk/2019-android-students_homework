@@ -14,10 +14,10 @@ import java.util.List;
 
 public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.StudentHolder> {
 
-    final List<Student> students;
-    OnStudentClickListener listener;
+    private final List<Student> students;
+    private OnStudentClickListener listener;
 
-    public StudentsAdapter(List<Student> students, OnStudentClickListener listener) {
+    StudentsAdapter(List<Student> students, OnStudentClickListener listener) {
         this.listener = listener;
         this.students = students;
     }
@@ -42,17 +42,13 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
         studentHolder.itemView.setTag(student);
     }
 
-
     @Override
     public int getItemCount() {
         return students.size();
     }
 
-
     interface OnStudentClickListener {
-
         void onStudentClick(Student student);
-
     }
 
     class StudentHolder extends RecyclerView.ViewHolder {
@@ -60,7 +56,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
         private ImageView imageView;
         private TextView fnTextView, lnTextView;
 
-        public StudentHolder(@NonNull View itemView) {
+        StudentHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.item_student__avatar);
@@ -69,7 +65,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
             lnTextView = itemView.findViewById(R.id.item_student__last_name);
         }
 
-        public void bind(Student student) {
+        void bind(Student student) {
             Bitmap bitmap = student.getBitmap();
             if (bitmap == null) {
                 imageView.setImageResource(student.getPhoto());
@@ -79,7 +75,5 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
             fnTextView.setText(student.getFirstName());
             lnTextView.setText(student.getSecondName());
         }
-
-
     }
 }
