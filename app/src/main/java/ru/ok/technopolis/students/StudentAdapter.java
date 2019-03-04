@@ -34,7 +34,6 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         Student student = students.get(i);
         studentViewHolder.bind(student);
         studentViewHolder.itemView.setTag(i);
-
     }
 
     @Override
@@ -56,8 +55,6 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             nameTextView.setText(String.valueOf(student.getSecondName() + " " + student.getFirstName()));
             avatarImageView.setImageResource(student.getPhoto());
         }
-
-
     }
 
     interface Listener {
