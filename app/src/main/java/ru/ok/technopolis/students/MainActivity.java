@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
         if(BuildConfig.LOG){
-            Log.d(BuildConfig.LOG_TAG, "Im work");
+            Log.d(BuildConfig.LOG_TAG, "I am working!!!");
         }
 
         setupRecyclerView();
