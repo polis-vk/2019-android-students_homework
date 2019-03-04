@@ -122,14 +122,19 @@ public class MainActivity extends AppCompatActivity {
             student.setMaleGender(gender);
             if(indexArr == -1 || (gender ^ genderLast)) {
                 int indexPhoto = random.nextInt(3);
-                if (BuildConfig.LOG) {
-                    Log.d(BuildConfig.LOG_TAG, "" + indexPhoto + "");
-                }
-                if (student.isMaleGender()) {
-                    student.setPhoto(malePhoto[indexPhoto]);
-
+                if(name.equalsIgnoreCase("валерий") && lastname.equalsIgnoreCase("ковшов") ||
+                        (name.equalsIgnoreCase("valery") && lastname.equalsIgnoreCase("kovshov"))){
+                    student.setPhoto(R.drawable.valeriy_min);
                 } else {
-                    student.setPhoto(femalePhoto[indexPhoto]);
+                    if (BuildConfig.LOG) {
+                        Log.d(BuildConfig.LOG_TAG, "" + indexPhoto + "");
+                    }
+                    if (student.isMaleGender()) {
+                        student.setPhoto(malePhoto[indexPhoto]);
+
+                    } else {
+                        student.setPhoto(femalePhoto[indexPhoto]);
+                    }
                 }
             }
             if(BuildConfig.LOG){

@@ -120,7 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="60">
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/main_activity_avatar_full"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -128,7 +128,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/main_activity_edit_name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/avatarphoto" />
             <EditText
                 android:id="@+id/main_activity_edit_name"
                 app:layout_constraintBottom_toTopOf="@+id/main_activity_edit_lastname"
@@ -139,8 +140,9 @@
                 app:layout_constraintTop_toTopOf="parent"
 
                 android:hint="@string/first_name"
-                android:inputType=""
-                tools:ignore="Autofill" />
+
+                tools:ignore="Autofill"
+                android:inputType="" />
 
             <EditText
                 android:id="@+id/main_activity_edit_lastname"
