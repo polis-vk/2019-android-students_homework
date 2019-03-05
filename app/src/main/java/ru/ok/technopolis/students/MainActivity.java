@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements StudentAdderDialo
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(StudentAdderDialog.STUDENT_TAG, student);
                 dialog.setArguments(bundle);
-                dialog.show(getSupportFragmentManager(), "DialogAdder");
+                dialog.show(getSupportFragmentManager(), DIALOG_TAG);
                 dialogInterface.cancel();
             }
         });
@@ -142,6 +142,9 @@ public class MainActivity extends AppCompatActivity implements StudentAdderDialo
     public void update(Student oldStudent, Student newStudent) {
         int index = students.indexOf(oldStudent);
         students.remove(oldStudent);
+        if (oldStudent.isMaleGender() != newStudent.isMaleGender()) {
+            newStudent.setPhoto(newStudent.isMaleGender() ? manPhotos[manPhotoIndex++ % 3] : womanPhotos[womanPhotoIndex++ % 3]);
+        }
         students.add(index, newStudent);
         adapter.notifyDataSetChanged();
     }

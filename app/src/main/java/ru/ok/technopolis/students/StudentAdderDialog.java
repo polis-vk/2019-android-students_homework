@@ -3,11 +3,7 @@ package ru.ok.technopolis.students;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -17,23 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import java.io.IOException;
-
-
-import static android.app.Activity.RESULT_OK;
 
 
 public class StudentAdderDialog extends DialogFragment implements DialogInterface.OnShowListener {
     private AlertDialog dialog;
-    private static final int GALLERY_REQUEST = 1;
     public static final String STUDENT_TAG = "STUDENT_TAG";
     private EditText editTextFirstName;
     private EditText editTextLastName;
-    private ImageView imageView;
     private RadioGroup radioGroup;
     private Context context;
     private Student oldStudent;
@@ -50,15 +38,13 @@ public class StudentAdderDialog extends DialogFragment implements DialogInterfac
         AlertDialog.Builder builder = new AlertDialog.Builder(context).setView(view).setTitle(R.string.student).setMessage(R.string.trydroid).setPositiveButton(R.string.ok, null).setNegativeButton(R.string.back, null);
         dialog = builder.create();
         dialog.setOnShowListener(this);
-
         return dialog;
     }
-
 
     private void initView(View view) {
         editTextFirstName = view.findViewById(R.id.dialog_student_adder__first_name);
         editTextLastName = view.findViewById(R.id.dialog_student_adder__last_name);
-        imageView = view.findViewById(R.id.dialog_student_adder__avatar);
+        ImageView imageView = view.findViewById(R.id.dialog_student_adder__avatar);
         radioGroup = view.findViewById(R.id.dialog_student_adder__radio_group);
 
         if (oldStudent != null) {
@@ -77,7 +63,8 @@ public class StudentAdderDialog extends DialogFragment implements DialogInterfac
             public void onClick(View view) {
                 Editable textFirstName = editTextFirstName.getText();
                 Editable textLastName = editTextLastName.getText();
-                if (textFirstName == null || textLastName == null) {
+
+                if (TextUtils.isEmpty(textFirstName) || TextUtils.isEmpty(textLastName) || radioGroup.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(context, R.string.incorrect, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -85,11 +72,6 @@ public class StudentAdderDialog extends DialogFragment implements DialogInterfac
                 String name = textFirstName.toString();
                 String lastName = textLastName.toString();
                 boolean maleGender = radioGroup.getCheckedRadioButtonId() == R.id.dialog_student_adder__male;
-
-                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(lastName) || radioGroup.getCheckedRadioButtonId() == -1) {
-                    Toast.makeText(context, R.string.incorrect, Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
                 if (oldStudent == null) {
                     OnAdderStudentListener listener = (OnAdderStudentListener) context;
@@ -108,7 +90,6 @@ public class StudentAdderDialog extends DialogFragment implements DialogInterfac
             }
         });
 
-
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +101,6 @@ public class StudentAdderDialog extends DialogFragment implements DialogInterfac
     interface OnAdderStudentListener {
         void add(String firstName, String lastName, boolean maleGender);
     }
-
 
     interface OnUpdateStudentListener {
         void update(Student oldStudent, Student newStudent);
