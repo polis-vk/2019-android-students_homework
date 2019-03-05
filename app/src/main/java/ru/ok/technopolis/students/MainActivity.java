@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private StudentAdapter studentAdapter;
     private boolean edit = false;
     private String prevName;
-    private  String prevSurname;
+    private boolean prevGender;
+    private String prevSurname;
     private int prevPhoto;
     private int newPhoto;
 
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         prevName = student.getFirstName();
         prevSurname = student.getSecondName();
         prevPhoto = student.getPhoto();
+        prevGender = student.isMaleGender();
     }
 
     private void setupButtons() {
@@ -96,13 +98,13 @@ public class MainActivity extends AppCompatActivity {
         studentAdapter.notifyDataSetChanged();
     }
 
-    private Bitmap bitmapResource(int resource, int width){
+    private Bitmap bitmapResource(int resource, int width) {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resource);
         int heigth = (int) ((double) width / bitmap.getWidth() * bitmap.getHeight());
         return Bitmap.createScaledBitmap(bitmap, width, heigth, true);
     }
 
-    private int getMalePhoto(){
+    private int getMalePhoto() {
         int resource;
         switch (random.nextInt(3) + 1) {
             case 1:
@@ -114,14 +116,15 @@ public class MainActivity extends AppCompatActivity {
             case 3:
                 resource = R.drawable.male_3;
                 break;
-            default: resource = R.drawable.male_1;
+            default:
+                resource = R.drawable.male_1;
                 break;
         }
         newPhoto = resource;
         return resource;
     }
 
-    private void setMalePhoto(){
+    private void setMalePhoto() {
         ImageView photo = findViewById(R.id.activity_main__image);
         RadioButton male = findViewById(R.id.activity_main__radio_male);
         if (male.isChecked()) {
@@ -129,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private int getFemalePhoto(){
+    private int getFemalePhoto() {
         int resource;
         switch (random.nextInt(3) + 1) {
             case 1:
@@ -141,14 +144,15 @@ public class MainActivity extends AppCompatActivity {
             case 3:
                 resource = R.drawable.female_3;
                 break;
-            default: resource = R.drawable.female_1;
+            default:
+                resource = R.drawable.female_1;
                 break;
         }
         newPhoto = resource;
         return resource;
     }
 
-    private void setFemalePhoto(){
+    private void setFemalePhoto() {
         ImageView photo = findViewById(R.id.activity_main__image);
         RadioButton female = findViewById(R.id.activity_main__radio_female);
         if (female.isChecked()) {
@@ -196,34 +200,34 @@ public class MainActivity extends AppCompatActivity {
             if (stringSurname.equals("Surname")) {
                 Toast.makeText(MainActivity.this, "enter surname", LENGTH_SHORT).show();
             } else {
-                if (male.isChecked() && female.isChecked()) {
-                    Toast.makeText(MainActivity.this, "choose only one gender", LENGTH_SHORT).show();
+                if (!male.isChecked() && !female.isChecked()) {
+                    Toast.makeText(MainActivity.this, "choose gender", LENGTH_SHORT).show();
                 } else {
-                    if (!male.isChecked() && !female.isChecked()){
-                        Toast.makeText(MainActivity.this, "choose gender", LENGTH_SHORT).show();
-                    } else {
-                        if (male.isChecked()) {
-                            maleGender = true;
-                        }
-                        if (edit) {
-                            for (Student student : students) {
-                                if (student.getSecondName().equals(prevSurname) && student.getFirstName().equals(prevName)) {
-                                    students.remove(student);
-                                    break;
-                                }
+                    if (male.isChecked()) {
+                        maleGender = true;
+                    }
+                    if (edit) {
+                        for (Student student : students) {
+                            if (student.getSecondName().equals(prevSurname) && student.getFirstName().equals(prevName)) {
+                                students.remove(student);
+                                break;
                             }
+                        }
+                        if (prevGender && maleGender || !prevGender && !maleGender) {
                             students.add(new Student(stringName, stringSurname, maleGender, prevPhoto));
                         } else {
-                            students.add(new Student(stringName, stringSurname, maleGender, newPhoto));
+                           students.add(new Student(stringName, stringSurname, maleGender, newPhoto));
                         }
-                        edit = false;
-                        name.setText("Name");
-                        surname.setText("Surname");
-                        male.setChecked(false);
-                        female.setChecked(false);
-                        setFemalePhoto();
-                        studentAdapter.notifyDataSetChanged();
+                    } else {
+                        students.add(new Student(stringName, stringSurname, maleGender, newPhoto));
                     }
+                    edit = false;
+                    name.setText("Name");
+                    surname.setText("Surname");
+                    male.setChecked(false);
+                    female.setChecked(false);
+                    setFemalePhoto();
+                    studentAdapter.notifyDataSetChanged();
                 }
             }
         }
