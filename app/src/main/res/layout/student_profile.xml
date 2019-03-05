@@ -45,32 +45,31 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:inputType="text"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/student_activity__photo"
         app:layout_constraintTop_toBottomOf="@+id/set_text__first_name_student"
-        app:layout_constraintVertical_bias="0.003"
-        android:inputType="text" />
+        app:layout_constraintVertical_bias="0.033" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin = "8dp"
+        android:layout_margin="8dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="horizontal"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/activity_student__delete_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="50"
-            android:text="@string/activity_student__delete_student_button"
-            />
+            android:text="@string/activity_student__delete_student_button" />
 
         <Button
             android:id="@+id/activity_student__save_button"
@@ -91,8 +90,34 @@
         android:text="@string/activity_student__checkbox_gender"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.628"
+        app:layout_constraintHorizontal_bias="0.642"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/set_text__second_name_student"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/student_activity__first_name_string"
+        android:layout_width="136dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/activity_student__first_name_string"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.119" />
+
+    <TextView
+        android:id="@+id/student_activity__first_second_string"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/activity_student__second_name_string"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/set_text__first_name_student"
         app:layout_constraintVertical_bias="0.0" />
 </android.support.constraint.ConstraintLayout>

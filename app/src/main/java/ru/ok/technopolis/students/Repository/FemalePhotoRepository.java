@@ -34,10 +34,7 @@ public class FemalePhotoRepository implements PhotoRepository {
     }
 
     @Override
-    public void putPhotoInRepository(Integer photo) {
-        if(photo == null) {
-            throw new NullPointerException();
-        }
+    public void putPhotoInRepository(int photo) {
         femalePhotos.add(photo);
     }
 }
