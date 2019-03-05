@@ -6,40 +6,33 @@ import java.util.UUID;
 
 import ru.ok.technopolis.students.Student;
 
-public class StudentDataRepository implements StudentRepository
-{
-    private static final StudentDataRepository ourInstance = new StudentDataRepository();
+public class StudentDataRepository implements StudentRepository {
+    private static final StudentDataRepository instance = new StudentDataRepository();
 
     public static StudentDataRepository getInstance() {
-        return ourInstance;
+        return instance;
     }
 
     private List <Student> students;
 
-
-
-    private StudentDataRepository()
-    {
+    private StudentDataRepository() {
         students = new ArrayList<>();
     }
 
     @Override
-    public List studentsOnRepository()
-    {
+    public List studentsOnRepository() {
         return students;
     }
 
     @Override
-    public void add(Student student)
-    {
+    public void add(Student student){
         students.add(student);
     }
 
 
     @Override
-    public void delete(Student student)
-    {
-        for(int i = 0; i < students.size(); i++){
+    public void delete(Student student) {
+        for(int i = 0; i < students.size(); i++) {
             if (students.get(i).getId().equals(student.getId())){
                 students.remove(i);
             }

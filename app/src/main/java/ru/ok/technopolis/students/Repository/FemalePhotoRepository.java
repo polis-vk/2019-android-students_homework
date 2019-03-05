@@ -31,15 +31,14 @@ public class FemalePhotoRepository implements PhotoRepository {
             throw new NoSuchElementException();
         }
         int indexFemalePhoto = new Random().nextInt(femalePhotos.size());
-        Integer malePhoto = femalePhotos.get(indexFemalePhoto);
+        Integer feMalePhoto = femalePhotos.get(indexFemalePhoto);
         femalePhotos.remove(indexFemalePhoto);
-        return malePhoto;
+        return feMalePhoto;
     }
 
     @Override
     public void putPhotoInRepository(Integer photo) {
-        if(photo == null)
-        {
+        if(photo == null) {
             throw new NullPointerException();
         }
         femalePhotos.add(photo);

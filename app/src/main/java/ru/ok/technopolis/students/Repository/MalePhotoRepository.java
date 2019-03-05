@@ -28,7 +28,7 @@ public class MalePhotoRepository implements PhotoRepository
 
 
     @Override
-    public Integer getPhotoInRepository() throws NoSuchElementException{
+    public Integer getPhotoInRepository() throws NoSuchElementException {
         if(malePhotos.isEmpty()){
             throw new NoSuchElementException();
         }

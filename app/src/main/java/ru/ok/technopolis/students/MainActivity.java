@@ -17,19 +17,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private StudentDataRepository studentDataRepository = StudentDataRepository.getInstance();
     private StudentAdapter studentAdapter;
+    private int requestCode;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupRecyclerView();
         setupAddButton();
     }
 
-    private void setupAddButton()
-    {
+    private void setupAddButton(){
         FloatingActionButton addButton = findViewById(R.id.activity_main__add_button);
         addButton.setOnClickListener(this);
     }
@@ -42,24 +41,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
-    private void onStudentClick(Student student)
-    {
-        startActivityForResult(new Intent(this, StudentActivity.class).putExtra("Student", student), 2);
+    private void onStudentClick(Student student){
+        requestCode = 2;
+        startActivityForResult(new Intent(this, StudentActivity.class).putExtra("Student", student), requestCode);
     }
 
     @Override
-    public void onClick(View v)
-    {
-        startActivityForResult(new Intent(this, StudentActivity.class),1);
+    public void onClick(View v){
+        requestCode = 1;
+        startActivityForResult(new Intent(this, StudentActivity.class),requestCode);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         Student student;
-        switch (resultCode)
-        {
+        switch (resultCode){
             case 1:
                 student = (Student) data.getSerializableExtra("NewStudent");
                 studentDataRepository.add(student);

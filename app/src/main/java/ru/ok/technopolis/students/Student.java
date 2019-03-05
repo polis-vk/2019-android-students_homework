@@ -13,13 +13,11 @@ public class Student implements Serializable {
 
 
 
-    public Student()
-    {
+    public Student() {
         id = UUID.randomUUID();
     }
 
-    public UUID getId()
-    {
+    public UUID getId() {
         return id;
     }
 

@@ -4,8 +4,7 @@ import java.util.List;
 
 import ru.ok.technopolis.students.Student;
 
-public interface StudentRepository
-{
+public interface StudentRepository {
     List studentsOnRepository();
 
     void add(Student student);

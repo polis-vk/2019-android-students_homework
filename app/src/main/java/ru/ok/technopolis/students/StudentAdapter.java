@@ -17,24 +17,21 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     private final List<Student> students;
     private final Listener onStudentListener;
 
-    public StudentAdapter(List <Student> students, Listener onStudentListener)
-    {
+    StudentAdapter(List <Student> students, Listener onStudentListener) {
         this.onStudentListener = onStudentListener;
         this.students = students;
     }
 
     @NonNull
     @Override
-    public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
-    {
+    public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i){
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student, viewGroup, false);
         view.setOnClickListener(v -> onStudentListener.onStudentClick((Student) v.getTag()));
         return new StudentViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StudentViewHolder studentViewHolder, int i)
-    {
+    public void onBindViewHolder(@NonNull StudentViewHolder studentViewHolder, int i){
         Student student = students.get(i);
         studentViewHolder.bind(students.get(i));
         studentViewHolder.itemView.setTag(student);
@@ -46,29 +43,25 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         return students.size();
     }
 
-    static final class StudentViewHolder extends RecyclerView.ViewHolder
-    {
+    static final class StudentViewHolder extends RecyclerView.ViewHolder {
 
         private TextView studentInitials;
         private ImageView studentPhoto;
 
 
-        private StudentViewHolder(@NonNull View itemView)
-        {
+        private StudentViewHolder(@NonNull View itemView) {
             super(itemView);
             studentInitials = itemView.findViewById(R.id.student_initials);
             studentPhoto = itemView.findViewById(R.id.student_photo);
         }
 
-        private void bind(@NonNull Student student)
-        {
+        private void bind(@NonNull Student student) {
             studentInitials.setText(student.getFirstName() + " " + student.getSecondName());
             studentPhoto.setImageResource(student.getPhoto());
         }
     }
 
-    interface Listener
-    {
+    interface Listener {
         void onStudentClick(Student student);
     }
 }
