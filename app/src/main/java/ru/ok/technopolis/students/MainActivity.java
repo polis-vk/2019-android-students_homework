@@ -6,9 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private void onStudentClick(Student student) {
         TextView name = findViewById(R.id.activity_main__enter_name);
         TextView surname = findViewById(R.id.activity_main__enter_surname);
-        CheckBox male = findViewById(R.id.activity_main__cbox1);
-        CheckBox female = findViewById(R.id.activity_main__cbox2);
+        RadioButton male = findViewById(R.id.activity_main__radio_male);
+        RadioButton female = findViewById(R.id.activity_main__radio_female);
         ImageView photo = findViewById(R.id.activity_main__image);
         name.setText(student.getFirstName());
         surname.setText(student.getSecondName());
@@ -74,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(v -> onDeleteClick());
         Button saveButton = findViewById(R.id.activity_main__button_save);
         saveButton.setOnClickListener(v -> onSaveClick());
-        CheckBox male = findViewById(R.id.activity_main__cbox1);
+        RadioButton male = findViewById(R.id.activity_main__radio_male);
         male.setOnClickListener(v -> setMalePhoto());
-        CheckBox female = findViewById(R.id.activity_main__cbox2);
+        RadioButton female = findViewById(R.id.activity_main__radio_female);
         female.setOnClickListener(v -> setFemalePhoto());
     }
 
@@ -86,11 +89,11 @@ public class MainActivity extends AppCompatActivity {
         name.setText("Name");
         surname.setText("Surname");
         setFemalePhoto();
-        CheckBox male = findViewById(R.id.activity_main__cbox1);
-        CheckBox female = findViewById(R.id.activity_main__cbox2);
-        male.setChecked(false);
-        female.setChecked(false);
+        RadioGroup radioGroup = findViewById(R.id.activity_main__radio);
+        radioGroup.clearCheck();
         edit = false;
+        studentAdapter.setFocus(-1);
+        studentAdapter.notifyDataSetChanged();
     }
 
     private Bitmap bitmapResource(int resource, int width){
@@ -120,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setMalePhoto(){
         ImageView photo = findViewById(R.id.activity_main__image);
-        CheckBox male = findViewById(R.id.activity_main__cbox1);
+        RadioButton male = findViewById(R.id.activity_main__radio_male);
         if (male.isChecked()) {
             photo.setImageBitmap(bitmapResource(getMalePhoto(), 200));
         }
@@ -147,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setFemalePhoto(){
         ImageView photo = findViewById(R.id.activity_main__image);
-        CheckBox female = findViewById(R.id.activity_main__cbox2);
+        RadioButton female = findViewById(R.id.activity_main__radio_female);
         if (female.isChecked()) {
             photo.setImageBitmap(bitmapResource(getFemalePhoto(), 200));
         }
@@ -162,8 +165,8 @@ public class MainActivity extends AppCompatActivity {
         name.setText("Name");
         surname.setText("Surname");
         setFemalePhoto();
-        CheckBox male = findViewById(R.id.activity_main__cbox1);
-        CheckBox female = findViewById(R.id.activity_main__cbox2);
+        RadioButton male = findViewById(R.id.activity_main__radio_male);
+        RadioButton female = findViewById(R.id.activity_main__radio_female);
         edit = false;
         for (Student student : students) {
             if (student.getSecondName().equals(stringSurname) && student.getFirstName().equals(stringName)
@@ -175,6 +178,8 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
         }
+        studentAdapter.setFocus(-1);
+        studentAdapter.notifyDataSetChanged();
     }
 
     private void onSaveClick() {
@@ -182,8 +187,8 @@ public class MainActivity extends AppCompatActivity {
         String stringName = name.getText().toString();
         TextView surname = findViewById(R.id.activity_main__enter_surname);
         String stringSurname = surname.getText().toString();
-        CheckBox male = findViewById(R.id.activity_main__cbox1);
-        CheckBox female = findViewById(R.id.activity_main__cbox2);
+        RadioButton male = findViewById(R.id.activity_main__radio_male);
+        RadioButton female = findViewById(R.id.activity_main__radio_female);
         boolean maleGender = false;
         if (stringName.equals("Name")) {
             Toast.makeText(MainActivity.this, "enter name", LENGTH_SHORT).show();
@@ -222,7 +227,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
+        studentAdapter.setFocus(-1);
+        studentAdapter.notifyDataSetChanged();
     }
 
 }
