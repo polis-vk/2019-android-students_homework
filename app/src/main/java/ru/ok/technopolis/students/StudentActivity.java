@@ -103,23 +103,20 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()){
             case R.id.activity_student__save_button: {
                 if(modifyStudent()) {
-                    if(studentSecondName.getText().toString().equals("") && studentSecondName.getText().toString().equals("")) {
-                        return;
-                    }
                     resultCode = 2;
                     dataResponse = "ModifyStudent";
                     setResult(resultCode, new Intent().putExtra(dataResponse, currentStudent));
                     studentImageViewPhoto.setImageResource(currentStudent.getPhoto());
                 }
                 else if(createStudent()){
-                    if(studentSecondName.getText().toString().equals("") || studentSecondName.getText().toString().equals("")) {
-                        Toast.makeText(StudentActivity.this, "Please, fill all the fields", Toast.LENGTH_LONG).show();
-                        return;
-                    }
                     resultCode = 1;
                     dataResponse = "NewStudent";
                     setResult(resultCode, new Intent().putExtra(dataResponse, currentStudent));
                     studentImageViewPhoto.setImageResource(currentStudent.getPhoto());
+                }
+                if(studentSecondName.getText().toString().equals("") || studentSecondName.getText().toString().equals("")) {
+                    Toast.makeText(StudentActivity.this, "Please, fill all the fields", Toast.LENGTH_LONG).show();
+                    return;
                 }
                 finish();
                 break;
