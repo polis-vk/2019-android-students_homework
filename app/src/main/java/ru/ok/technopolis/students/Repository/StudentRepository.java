@@ -8,6 +8,8 @@ public interface StudentRepository {
     List studentsOnRepository();
 
     void add(Student student);
+
     void delete(Student student);
+
     void edit(Student student);
 }

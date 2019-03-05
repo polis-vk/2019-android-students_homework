@@ -7,14 +7,13 @@ import java.util.Random;
 
 import ru.ok.technopolis.students.R;
 
-public class MalePhotoRepository implements PhotoRepository
-{
+public class MalePhotoRepository implements PhotoRepository {
     public static final MalePhotoRepository Instance = new MalePhotoRepository();
 
-    private List <Integer> malePhotos;
+    private List<Integer> malePhotos;
 
     private MalePhotoRepository() {
-        malePhotos = new ArrayList <Integer>()  {{
+        malePhotos = new ArrayList<Integer>() {{
             this.add(R.drawable.male_1);
             this.add(R.drawable.male_2);
             this.add(R.drawable.male_3);
@@ -24,7 +23,7 @@ public class MalePhotoRepository implements PhotoRepository
 
     @Override
     public int getPhotoInRepository() throws NoSuchElementException {
-        if(malePhotos.isEmpty()) {
+        if (malePhotos.isEmpty()) {
             throw new NoSuchElementException();
         }
         int indexMalePhoto = new Random().nextInt(malePhotos.size());

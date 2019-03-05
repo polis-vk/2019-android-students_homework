@@ -11,14 +11,14 @@ public class StudentDataRepository implements StudentRepository {
 
     public static final StudentDataRepository Instance = new StudentDataRepository();
 
-    private List <Student> students;
+    private List<Student> students;
 
     private StudentDataRepository() {
         students = new ArrayList<>();
     }
 
     @Override
-    public List <Student> studentsOnRepository() {
+    public List<Student> studentsOnRepository() {
         return students;
     }
 
@@ -30,10 +30,10 @@ public class StudentDataRepository implements StudentRepository {
 
     @Override
     public void delete(Student student) {
-        Iterator <Student> iterator = students.iterator();
+        Iterator<Student> iterator = students.iterator();
         while (iterator.hasNext()) {
             Student nextStudent = iterator.next();
-            if(nextStudent.getId().equals(student.getId())) {
+            if (nextStudent.getId().equals(student.getId())) {
                 iterator.remove();
             }
         }
@@ -41,8 +41,8 @@ public class StudentDataRepository implements StudentRepository {
 
     @Override
     public void edit(Student student) {
-        for(int i = 0; i < students.size(); i++) {
-            if(students.get(i).getId().equals(student.getId())) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getId().equals(student.getId())) {
                 students.get(i).setFirstName(student.getFirstName());
                 students.get(i).setSecondName(student.getSecondName());
             }

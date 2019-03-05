@@ -11,13 +11,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder>
-{
+public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
 
     private final List<Student> students;
     private final Listener onStudentListener;
 
-    StudentAdapter(List <Student> students, Listener onStudentListener) {
+    StudentAdapter(List<Student> students, Listener onStudentListener) {
         this.onStudentListener = onStudentListener;
         this.students = students;
     }

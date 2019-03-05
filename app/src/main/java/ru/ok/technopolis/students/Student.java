@@ -12,7 +12,6 @@ public class Student implements Serializable {
     private UUID id;
 
 
-
     public Student() {
         id = UUID.randomUUID();
     }

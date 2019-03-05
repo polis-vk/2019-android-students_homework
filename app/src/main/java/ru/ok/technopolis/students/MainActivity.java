@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+
 import ru.ok.technopolis.students.Repository.StudentDataRepository;
 
 
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setupRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.activity_main__recyclerview);
-        studentAdapter = new StudentAdapter (studentDataRepository.studentsOnRepository(), this::onStudentClick);
+        studentAdapter = new StudentAdapter(studentDataRepository.studentsOnRepository(), this::onStudentClick);
         recyclerView.setAdapter(studentAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -50,13 +51,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         requestCode = 1;
-        startActivityForResult(new Intent(this, StudentActivity.class),requestCode);
+        startActivityForResult(new Intent(this, StudentActivity.class), requestCode);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(data == null) {
+        if (data == null) {
             return;
         }
         Student student;

@@ -6,4 +6,6 @@
     <string name="activity_student__delete_student_button">Delete</string>
     <string name="activity_student__save_student_button">Save</string>
     <string name="activity_student__checkbox_gender">Male Gender</string>
+    <string name="activity_student__first_name_string">First name:</string>
+    <string name="activity_student__second_name_string">Second name:</string>
 </resources>
