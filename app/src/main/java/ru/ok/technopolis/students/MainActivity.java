@@ -18,8 +18,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private StudentDataRepository studentDataRepository = StudentDataRepository.Instance;
     private StudentAdapter studentAdapter;
-    private int requestCode;
     private final String dataResponse = "Student";
+    private final int ACTION_ON_STUDENT_CLICK = 2;
+    private final int ACTION_CREATE_STUDENT_CLICK = 1;
 
 
     @Override
@@ -44,14 +45,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void onStudentClick(Student student) {
-        requestCode = 2;
-        startActivityForResult(new Intent(this, StudentActivity.class).putExtra(dataResponse, student), requestCode);
+        startActivityForResult(new Intent(this, StudentActivity.class).putExtra(dataResponse, student), ACTION_ON_STUDENT_CLICK);
     }
 
     @Override
     public void onClick(View v) {
-        requestCode = 1;
-        startActivityForResult(new Intent(this, StudentActivity.class), requestCode);
+        startActivityForResult(new Intent(this, StudentActivity.class), ACTION_CREATE_STUDENT_CLICK);
     }
 
     @Override
