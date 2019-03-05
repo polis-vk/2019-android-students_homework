@@ -9,13 +9,13 @@ import ru.ok.technopolis.students.R;
 
 public class MalePhotoRepository implements PhotoRepository
 {
-    private static final MalePhotoRepository ourInstance = new MalePhotoRepository();
+    private static final MalePhotoRepository instance = new MalePhotoRepository();
 
     private List <Integer> malePhotos;
 
 
     public static MalePhotoRepository getInstance() {
-        return ourInstance;
+        return instance ;
     }
 
     private MalePhotoRepository() {
