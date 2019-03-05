@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void onStudentClick(Student student){
         requestCode = 2;
-        startActivityForResult(new Intent(this, StudentActivity.class).putExtra("Student", student), requestCode);
+        String dataResponse = "Student";
+        startActivityForResult(new Intent(this, StudentActivity.class).putExtra(dataResponse, student), requestCode);
     }
 
     @Override
@@ -56,17 +57,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         Student student;
+        String dataRequest;
         switch (resultCode){
             case 1:
-                student = (Student) data.getSerializableExtra("NewStudent");
+                dataRequest = "NewStudent";
+                student = (Student) data.getSerializableExtra(dataRequest);
                 studentDataRepository.add(student);
                 break;
             case 2:
-                student = (Student) data.getSerializableExtra("ModifyStudent");
+                dataRequest = "ModifyStudent";
+                student = (Student) data.getSerializableExtra(dataRequest);
                 studentDataRepository.edit(student);
                 break;
             case 3:
-                student = (Student) data.getSerializableExtra("StudentForDelete");
+                dataRequest = "StudentForDelete";
+                student = (Student) data.getSerializableExtra(dataRequest);
                 studentDataRepository.delete(student);
                 break;
         }

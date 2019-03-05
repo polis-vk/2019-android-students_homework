@@ -1,6 +1,7 @@
 package ru.ok.technopolis.students.Repository;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,7 +21,7 @@ public class StudentDataRepository implements StudentRepository {
     }
 
     @Override
-    public List studentsOnRepository() {
+    public List <Student> studentsOnRepository() {
         return students;
     }
 
@@ -32,9 +33,11 @@ public class StudentDataRepository implements StudentRepository {
 
     @Override
     public void delete(Student student) {
-        for(int i = 0; i < students.size(); i++) {
-            if (students.get(i).getId().equals(student.getId())){
-                students.remove(i);
+        Iterator <Student> iterator = students.iterator();
+        while (iterator.hasNext()){
+            Student nextStudent = iterator.next();
+            if(nextStudent.getId().equals(student.getId())){
+                iterator.remove();
             }
         }
     }

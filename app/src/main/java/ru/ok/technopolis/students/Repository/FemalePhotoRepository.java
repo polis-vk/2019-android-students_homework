@@ -8,16 +8,16 @@ import java.util.Random;
 import ru.ok.technopolis.students.R;
 
 public class FemalePhotoRepository implements PhotoRepository {
-    private static final FemalePhotoRepository ourInstance = new FemalePhotoRepository();
+    private static final FemalePhotoRepository instance = new FemalePhotoRepository();
 
     public static FemalePhotoRepository getInstance() {
-        return ourInstance;
+        return instance;
     }
 
     private List <Integer> femalePhotos;
 
     private FemalePhotoRepository() {
-        femalePhotos = new ArrayList(){{
+        femalePhotos = new ArrayList <Integer>(){{
             this.add(R.drawable.female_1);
             this.add(R.drawable.female_2);
             this.add(R.drawable.female_3);
@@ -26,14 +26,14 @@ public class FemalePhotoRepository implements PhotoRepository {
 
 
     @Override
-    public Integer getPhotoInRepository() throws NoSuchElementException {
+    public int getPhotoInRepository() throws NoSuchElementException {
         if(femalePhotos.isEmpty()){
             throw new NoSuchElementException();
         }
         int indexFemalePhoto = new Random().nextInt(femalePhotos.size());
-        Integer feMalePhoto = femalePhotos.get(indexFemalePhoto);
+        int femalePhoto = femalePhotos.get(indexFemalePhoto);
         femalePhotos.remove(indexFemalePhoto);
-        return feMalePhoto;
+        return femalePhoto;
     }
 
     @Override

@@ -19,7 +19,7 @@ public class MalePhotoRepository implements PhotoRepository
     }
 
     private MalePhotoRepository() {
-        malePhotos = new ArrayList() {{
+        malePhotos = new ArrayList <Integer>()  {{
             this.add(R.drawable.male_1);
             this.add(R.drawable.male_2);
             this.add(R.drawable.male_3);
@@ -28,12 +28,12 @@ public class MalePhotoRepository implements PhotoRepository
 
 
     @Override
-    public Integer getPhotoInRepository() throws NoSuchElementException {
+    public int getPhotoInRepository() throws NoSuchElementException {
         if(malePhotos.isEmpty()){
             throw new NoSuchElementException();
         }
         int indexMalePhoto = new Random().nextInt(malePhotos.size());
-        Integer malePhoto = malePhotos.get(indexMalePhoto);
+        int malePhoto = malePhotos.get(indexMalePhoto);
         malePhotos.remove(indexMalePhoto);
         return malePhoto;
     }

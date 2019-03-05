@@ -1,6 +1,6 @@
 package ru.ok.technopolis.students.Repository;
 
 public interface PhotoRepository {
-    Integer getPhotoInRepository ();
+    int getPhotoInRepository ();
     void putPhotoInRepository (Integer photo);
 }
