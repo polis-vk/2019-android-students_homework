@@ -54,26 +54,21 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
     class StudentHolder extends RecyclerView.ViewHolder {
 
         private ImageView imageView;
-        private TextView fnTextView, lnTextView;
+        private TextView textFirstName, textLastName;
 
         StudentHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.item_student__avatar);
 
-            fnTextView = itemView.findViewById(R.id.item_student__first_name);
-            lnTextView = itemView.findViewById(R.id.item_student__last_name);
+            textFirstName = itemView.findViewById(R.id.item_student__first_name);
+            textLastName = itemView.findViewById(R.id.item_student__last_name);
         }
 
         void bind(Student student) {
-            Bitmap bitmap = student.getBitmap();
-            if (bitmap == null) {
-                imageView.setImageResource(student.getPhoto());
-            } else {
-                imageView.setImageBitmap(bitmap);
-            }
-            fnTextView.setText(student.getFirstName());
-            lnTextView.setText(student.getSecondName());
+            imageView.setImageResource(student.getPhoto());
+            textFirstName.setText(student.getFirstName());
+            textLastName.setText(student.getSecondName());
         }
     }
 }

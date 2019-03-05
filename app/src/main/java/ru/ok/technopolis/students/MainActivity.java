@@ -20,6 +20,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements StudentAdderDialog.OnAdderStudentListener, StudentAdderDialog.OnUpdateStudentListener {
 
+    private static final String DIALOG_TAG = "DialogAdder";
     private String[] mansFirstNames;
     private String[] womenFirstNames;
     private String[] lastNames;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements StudentAdderDialo
             @Override
             public void onClick(View view) {
                 DialogFragment dialog = new StudentAdderDialog();
-                dialog.show(getSupportFragmentManager(), "DialogAdder");
+                dialog.show(getSupportFragmentManager(), DIALOG_TAG);
             }
         });
 
@@ -71,12 +72,7 @@ public class MainActivity extends AppCompatActivity implements StudentAdderDialo
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(300, 300);
         view.setScaleType(ImageView.ScaleType.CENTER_CROP);
         view.setLayoutParams(layoutParams);
-
-        if (student.getBitmap() == null) {
-            view.setImageResource(student.getPhoto());
-        } else {
-            view.setImageBitmap(student.getBitmap());
-        }
+        view.setImageResource(student.getPhoto());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
@@ -136,11 +132,8 @@ public class MainActivity extends AppCompatActivity implements StudentAdderDialo
 
 
     @Override
-    public void add(String firstName, String lastName, boolean maleGender, Bitmap bitmap) {
+    public void add(String firstName, String lastName, boolean maleGender) {
         Student student = new Student(firstName, lastName, maleGender, maleGender ? manPhotos[manPhotoIndex++ % 3] : womanPhotos[womanPhotoIndex++ % 3]);
-        if (bitmap != null) {
-            student.setBitmap(bitmap);
-        }
         students.add(student);
         adapter.notifyDataSetChanged();
     }
