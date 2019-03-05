@@ -66,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onAddClick() {
-        if (index != -1 && isDataSaved())
-            Toast.makeText(MainActivity.this, getResources().getString(R.string.userShouldSaveCreated_warning), Toast.LENGTH_SHORT).show();
-        else {
+        if (index != -1 && isDataSaved()) {
+            Toast.makeText(this, R.string.userShouldSaveCreated_warning, Toast.LENGTH_SHORT).show();
+        } else {
             int randomGender = random.nextInt(2);
             Student student = new Student("", "", randomGender == 1, 0);
             imageResource = getRandomPhoto(student.isMaleGender());
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         if (index != -1) {
             if (checkFields()) {
                 if (isDataSaved()) {
-                    Toast.makeText(MainActivity.this, getResources().getString(R.string.userShouldSave_warning), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.userShouldSave_warning, Toast.LENGTH_SHORT).show();
                 } else {
                     setStudent(view, i);
                 }
@@ -121,12 +121,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean checkFields() {
-        if (studentName.getText().toString().trim().length() > 0 && studentSurName.getText().toString().trim().length() > 0)
+        if (studentName.getText().toString().trim().length() > 0 && studentSurName.getText().toString().trim().length() > 0) {
             return true;
-        if (studentName.getText().toString().trim().length() == 0)
+        }
+        if (studentName.getText().toString().trim().length() == 0) {
             studentName.setError(getResources().getString(R.string.studentName_error));
-        if (studentSurName.getText().toString().trim().length() == 0)
+        }
+        if (studentSurName.getText().toString().trim().length() == 0) {
             studentSurName.setError(getResources().getString(R.string.studentSurName_error));
+        }
         return false;
     }
 
@@ -136,10 +139,12 @@ public class MainActivity extends AppCompatActivity {
         gender.setChecked(students.get(i).isMaleGender());
         avatar.setImageResource(students.get(i).getPhoto());
         index = i;
-        if (currentView != null)
+        if (currentView != null) {
             setBorderVisibility(currentView, View.INVISIBLE);
-        if (view != null)
+        }
+        if (view != null) {
             setBorders(view);
+        }
         currentView = view;
         setBorderVisibility(view, View.VISIBLE);
         updateButtons(true);
@@ -175,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
             students.get(index).setSecondName(getLastName());
             students.get(index).setMaleGender(gender.isChecked());
             students.get(index).setPhoto(imageResource);
-            Toast.makeText(MainActivity.this, getResources().getString(R.string.student_saved), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.student_saved, Toast.LENGTH_SHORT).show();
             studentAdapter.notifyDataSetChanged();
         }
     }
@@ -184,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
         updateButtons(false);
         students.remove(index);
         studentAdapter.notifyDataSetChanged();
-        Toast.makeText(MainActivity.this, getResources().getString(R.string.student_removed), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.student_removed, Toast.LENGTH_SHORT).show();
         clearData();
     }
 
