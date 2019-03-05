@@ -9,14 +9,9 @@ import ru.ok.technopolis.students.R;
 
 public class MalePhotoRepository implements PhotoRepository
 {
-    private static final MalePhotoRepository instance = new MalePhotoRepository();
+    public static final MalePhotoRepository Instance = new MalePhotoRepository();
 
     private List <Integer> malePhotos;
-
-
-    public static MalePhotoRepository getInstance() {
-        return instance ;
-    }
 
     private MalePhotoRepository() {
         malePhotos = new ArrayList <Integer>()  {{
@@ -29,7 +24,7 @@ public class MalePhotoRepository implements PhotoRepository
 
     @Override
     public int getPhotoInRepository() throws NoSuchElementException {
-        if(malePhotos.isEmpty()){
+        if(malePhotos.isEmpty()) {
             throw new NoSuchElementException();
         }
         int indexMalePhoto = new Random().nextInt(malePhotos.size());

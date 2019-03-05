@@ -8,11 +8,8 @@ import java.util.UUID;
 import ru.ok.technopolis.students.Student;
 
 public class StudentDataRepository implements StudentRepository {
-    private static final StudentDataRepository instance = new StudentDataRepository();
 
-    public static StudentDataRepository getInstance() {
-        return instance;
-    }
+    public static final StudentDataRepository Instance = new StudentDataRepository();
 
     private List <Student> students;
 
@@ -26,7 +23,7 @@ public class StudentDataRepository implements StudentRepository {
     }
 
     @Override
-    public void add(Student student){
+    public void add(Student student) {
         students.add(student);
     }
 
@@ -34,9 +31,9 @@ public class StudentDataRepository implements StudentRepository {
     @Override
     public void delete(Student student) {
         Iterator <Student> iterator = students.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Student nextStudent = iterator.next();
-            if(nextStudent.getId().equals(student.getId())){
+            if(nextStudent.getId().equals(student.getId())) {
                 iterator.remove();
             }
         }
@@ -44,8 +41,8 @@ public class StudentDataRepository implements StudentRepository {
 
     @Override
     public void edit(Student student) {
-        for(int i = 0; i < students.size(); i++){
-            if(students.get(i).getId().equals(student.getId())){
+        for(int i = 0; i < students.size(); i++) {
+            if(students.get(i).getId().equals(student.getId())) {
                 students.get(i).setFirstName(student.getFirstName());
                 students.get(i).setSecondName(student.getSecondName());
             }

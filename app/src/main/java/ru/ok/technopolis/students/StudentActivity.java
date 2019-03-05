@@ -34,14 +34,15 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
         Button saveStudent = findViewById(R.id.activity_student__save_button);
         genderCheckbox = findViewById(R.id.checkBox__gender);
         studentImageViewPhoto = findViewById(R.id.student_activity__photo);
-        if (getIntent().getExtras() != null){
+        if (getIntent().getExtras() != null) {
             currentStudent = (Student) getIntent().getExtras().getSerializable("Student");
-            if(currentStudent.isMaleGender()){
-                photoRepository = MalePhotoRepository.getInstance();
+            if(currentStudent.isMaleGender()) {
+                photoRepository = MalePhotoRepository.Instance;
             }
-            else{
-                photoRepository = FemalePhotoRepository.getInstance();
+            else {
+                photoRepository = FemalePhotoRepository.Instance;
             }
+            genderCheckbox.setVisibility(View.GONE);
             setStudent();
         }
         else {
@@ -54,7 +55,7 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
 
 
 
-    private void setStudent(){
+    private void setStudent() {
         studentFirstName.setText(currentStudent.getFirstName());
         studentSecondName.setText(currentStudent.getSecondName());
         if(currentStudent.isMaleGender())
@@ -63,17 +64,17 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    private boolean createStudent(){
+    private boolean createStudent() {
         try {
             if (genderCheckbox.isChecked()) {
-                photoRepository = MalePhotoRepository.getInstance();
+                photoRepository = MalePhotoRepository.Instance;
             }
             else {
-                photoRepository = FemalePhotoRepository.getInstance();
+                photoRepository = FemalePhotoRepository.Instance;
             }
             currentStudent.setPhoto(photoRepository.getPhotoInRepository());
         }
-        catch (NoSuchElementException e){
+        catch (NoSuchElementException e) {
             Toast.makeText(StudentActivity.this, "No Photo in DataBase", Toast.LENGTH_LONG).show();
             return false;
         }
@@ -81,15 +82,15 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
         return true;
     }
 
-    private boolean modifyStudent(){
-        if(currentStudent.getPhoto() == 0){
+    private boolean modifyStudent() {
+        if(currentStudent.getPhoto() == 0) {
             return false;
         }
         setInitials();
         return true;
     }
 
-    private void setInitials(){
+    private void setInitials() {
         currentStudent.setMaleGender(genderCheckbox.isChecked());
         currentStudent.setFirstName(studentFirstName.getText().toString());
         currentStudent.setSecondName(studentSecondName.getText().toString());
@@ -97,31 +98,31 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
 
 
     @Override
-    public void onClick(View v){
+    public void onClick(View v) {
         int resultCode;
         String dataResponse;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.activity_student__save_button: {
+                if(studentFirstName.getText().toString().equals("") || studentSecondName.getText().toString().equals("")) {
+                    Toast.makeText(StudentActivity.this, "Please, fill all the fields", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 if(modifyStudent()) {
                     resultCode = 2;
                     dataResponse = "ModifyStudent";
                     setResult(resultCode, new Intent().putExtra(dataResponse, currentStudent));
                     studentImageViewPhoto.setImageResource(currentStudent.getPhoto());
                 }
-                else if(createStudent()){
+                else if(createStudent()) {
                     resultCode = 1;
                     dataResponse = "NewStudent";
                     setResult(resultCode, new Intent().putExtra(dataResponse, currentStudent));
                     studentImageViewPhoto.setImageResource(currentStudent.getPhoto());
                 }
-                if(studentSecondName.getText().toString().equals("") || studentSecondName.getText().toString().equals("")) {
-                    Toast.makeText(StudentActivity.this, "Please, fill all the fields", Toast.LENGTH_LONG).show();
-                    return;
-                }
                 finish();
                 break;
             }
-            case  R.id.activity_student__delete_button:{
+            case  R.id.activity_student__delete_button: {
                 resultCode = 3;
                 dataResponse = "StudentForDelete";
                 setResult(resultCode,new Intent().putExtra(dataResponse,currentStudent));

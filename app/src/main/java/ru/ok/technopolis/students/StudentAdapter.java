@@ -24,22 +24,21 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     @NonNull
     @Override
-    public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i){
+    public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student, viewGroup, false);
         view.setOnClickListener(v -> onStudentListener.onStudentClick((Student) v.getTag()));
         return new StudentViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StudentViewHolder studentViewHolder, int i){
+    public void onBindViewHolder(@NonNull StudentViewHolder studentViewHolder, int i) {
         Student student = students.get(i);
         studentViewHolder.bind(students.get(i));
         studentViewHolder.itemView.setTag(student);
     }
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return students.size();
     }
 
@@ -56,7 +55,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         }
 
         private void bind(@NonNull Student student) {
-            studentInitials.setText(student.getFirstName() + " " + student.getSecondName());
+            studentInitials.setText(String.format("%s %s", student.getFirstName(), student.getSecondName()));
             studentPhoto.setImageResource(student.getPhoto());
         }
     }
