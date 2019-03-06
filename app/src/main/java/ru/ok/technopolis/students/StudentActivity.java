@@ -6,25 +6,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.util.NoSuchElementException;
-
-import ru.ok.technopolis.students.Repository.FemalePhotoRepository;
-import ru.ok.technopolis.students.Repository.MalePhotoRepository;
-import ru.ok.technopolis.students.Repository.PhotoRepository;
-
+import ru.ok.technopolis.students.controller.StudentActivityController;
 
 public class StudentActivity extends AppCompatActivity implements View.OnClickListener {
+
     private ImageView studentImageViewPhoto;
     private EditText studentFirstName;
     private EditText studentSecondName;
     private CheckBox genderCheckbox;
-    private Student currentStudent;
-    private PhotoRepository photoRepository;
+    private String firstName;
+    private String secondName;
+    private boolean isMale;
+    private StudentActivityController studentActivityController = StudentActivityController.Instance;
     private final int CREATE_STUDENT_RESULT_CODE = 1;
     private final int MODIFY_STUDENT_RESULT_CODE = 2;
     private final int DELETE_STUDENT_RESULT_CODE = 3;
@@ -43,10 +40,14 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
         genderCheckbox = findViewById(R.id.checkBox__gender);
         studentImageViewPhoto = findViewById(R.id.student_activity__photo);
         if (getIntent().getExtras() != null) {
-            currentStudent = (Student) getIntent().getExtras().getSerializable("Student");
-            setStudent();
+            studentActivityController.setCurrentStudent((Student) getIntent().getExtras().getSerializable("Student"));
+            studentFirstName.setText(studentActivityController.getCurrentStudent().getFirstName());
+            studentSecondName.setText(studentActivityController.getCurrentStudent().getSecondName());
+            if (studentActivityController.getCurrentStudent().isMaleGender())
+                genderCheckbox.setChecked(true);
+            studentImageViewPhoto.setImageResource(studentActivityController.getCurrentStudent().getPhoto());
         } else {
-            currentStudent = new Student();
+            studentActivityController.setCurrentStudent(new Student());
             deleteStudent.setVisibility(View.GONE);
         }
         saveStudent.setOnClickListener(this);
@@ -54,56 +55,36 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    private void setStudent() {
-        studentFirstName.setText(currentStudent.getFirstName());
-        studentSecondName.setText(currentStudent.getSecondName());
-        if (currentStudent.isMaleGender())
-            genderCheckbox.setChecked(true);
-        studentImageViewPhoto.setImageResource(currentStudent.getPhoto());
-    }
-
-
     private boolean createStudent() {
-        if (setPhoto()) {
-            setInitials();
+        setFields();
+        if (studentActivityController.setPhotoForStudent(isMale)) {
+            studentActivityController.setStudentInitials(firstName, secondName, isMale);
             return true;
         }
+        Toast.makeText(StudentActivity.this, "No Photo in DataBase", Toast.LENGTH_LONG).show();
         return false;
     }
 
-
-    private boolean setPhoto() {
-        try {
-            if (genderCheckbox.isChecked()) {
-                photoRepository = MalePhotoRepository.Instance;
-            } else {
-                photoRepository = FemalePhotoRepository.Instance;
-            }
-            currentStudent.setPhoto(photoRepository.getPhotoInRepository());
-        } catch (NoSuchElementException e) {
-            Toast.makeText(StudentActivity.this, "No Photo in DataBase", Toast.LENGTH_LONG).show();
-            return false;
-        }
-        return true;
+    private void setFields() {
+        firstName = studentFirstName.getText().toString();
+        secondName = studentSecondName.getText().toString();
+        isMale = genderCheckbox.isChecked();
     }
+
 
     private boolean modifyStudent() {
-        if (currentStudent.getPhoto() == 0) {
+        if (!studentActivityController.getCurrentStudent().photoAvailable()) {
             return false;
         }
-        setInitials();
+        setFields();
+        studentActivityController.setStudentInitials(firstName, secondName, isMale);
         return true;
-    }
-
-    private void setInitials() {
-        currentStudent.setMaleGender(genderCheckbox.isChecked());
-        currentStudent.setFirstName(studentFirstName.getText().toString());
-        currentStudent.setSecondName(studentSecondName.getText().toString());
     }
 
 
     @Override
     public void onClick(View v) {
+        Student student = studentActivityController.getCurrentStudent();
         switch (v.getId()) {
             case R.id.activity_student__save_button: {
                 if (studentFirstName.getText().toString().equals("") || studentSecondName.getText().toString().equals("")) {
@@ -111,18 +92,18 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
                     return;
                 }
                 if (modifyStudent()) {
-                    setResult(MODIFY_STUDENT_RESULT_CODE, new Intent().putExtra(RESPONSE_MODIFY_STUDENT, currentStudent));
-                    studentImageViewPhoto.setImageResource(currentStudent.getPhoto());
+                    setResult(MODIFY_STUDENT_RESULT_CODE, new Intent().putExtra(RESPONSE_MODIFY_STUDENT, student));
+                    studentImageViewPhoto.setImageResource(student.getPhoto());
                 } else if (createStudent()) {
-                    setResult(CREATE_STUDENT_RESULT_CODE, new Intent().putExtra(RESPONSE_CREATE_STUDENT, currentStudent));
-                    studentImageViewPhoto.setImageResource(currentStudent.getPhoto());
+                    setResult(CREATE_STUDENT_RESULT_CODE, new Intent().putExtra(RESPONSE_CREATE_STUDENT, student));
+                    studentImageViewPhoto.setImageResource(student.getPhoto());
                 }
                 finish();
                 break;
             }
             case R.id.activity_student__delete_button: {
-                setResult(DELETE_STUDENT_RESULT_CODE, new Intent().putExtra(RESPONSE_DELETE_STUDENT, currentStudent));
-                photoRepository.putPhotoInRepository(currentStudent.getPhoto());
+                setResult(DELETE_STUDENT_RESULT_CODE, new Intent().putExtra(RESPONSE_DELETE_STUDENT, student));
+                studentActivityController.putPhotoInPhotoRepository(student);
                 finish();
                 break;
             }

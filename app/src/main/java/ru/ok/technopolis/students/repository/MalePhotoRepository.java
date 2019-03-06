@@ -1,4 +1,4 @@
-package ru.ok.technopolis.students.Repository;
+package ru.ok.technopolis.students.repository;
 
 import java.util.ArrayList;
 import java.util.List;

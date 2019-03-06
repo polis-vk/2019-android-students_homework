@@ -1,4 +1,4 @@
-package ru.ok.technopolis.students.Repository;
+package ru.ok.technopolis.students.repository;
 
 public interface PhotoRepository {
     int getPhotoInRepository();

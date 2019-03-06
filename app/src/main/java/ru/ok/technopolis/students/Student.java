@@ -24,6 +24,10 @@ public class Student implements Serializable {
         return firstName;
     }
 
+    public boolean photoAvailable() {
+        return photo != 0;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }

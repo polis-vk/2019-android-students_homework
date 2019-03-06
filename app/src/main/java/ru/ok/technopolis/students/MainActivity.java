@@ -11,7 +11,7 @@ import android.view.View;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
-import ru.ok.technopolis.students.Repository.StudentDataRepository;
+import ru.ok.technopolis.students.repository.StudentDataRepository;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final String dataResponse = "Student";
     private final int ACTION_ON_STUDENT_CLICK = 2;
     private final int ACTION_CREATE_STUDENT_CLICK = 1;
+    private final String dataRequestNewStudent = "NewStudent";
+    private final String dataRequestModifyStudent = "ModifyStudent";
+    private final String dataRequestDeleteStudent = "StudentForDelete";
 
 
     @Override
@@ -60,21 +63,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         Student student;
-        String dataRequest;
         switch (resultCode) {
             case 1:
-                dataRequest = "NewStudent";
-                student = (Student) data.getSerializableExtra(dataRequest);
+                student = (Student) data.getSerializableExtra(dataRequestNewStudent);
                 studentDataRepository.add(student);
                 break;
             case 2:
-                dataRequest = "ModifyStudent";
-                student = (Student) data.getSerializableExtra(dataRequest);
+                student = (Student) data.getSerializableExtra(dataRequestModifyStudent);
                 studentDataRepository.edit(student);
                 break;
             case 3:
-                dataRequest = "StudentForDelete";
-                student = (Student) data.getSerializableExtra(dataRequest);
+                student = (Student) data.getSerializableExtra(dataRequestDeleteStudent);
                 studentDataRepository.delete(student);
                 break;
         }
