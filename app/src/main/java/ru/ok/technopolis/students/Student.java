@@ -1,6 +1,9 @@
 package ru.ok.technopolis.students;
 
-public class Student {
+
+import java.io.Serializable;
+
+public class Student implements Serializable {
 
     private String firstName;
     private String secondName;
@@ -13,6 +16,7 @@ public class Student {
         this.maleGender = maleGender;
         this.photo = photo;
     }
+
 
     public String getFirstName() {
         return firstName;
@@ -45,4 +49,10 @@ public class Student {
     public void setPhoto(int photo) {
         this.photo = photo;
     }
+
+    @Override
+    public String toString() {
+        return firstName + " " + secondName + (isMaleGender() ? " М" : " Ж");
+    }
+
 }
