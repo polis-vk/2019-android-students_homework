@@ -14,7 +14,7 @@ public class StudentActivityController {
     private PhotoRepository photoRepository;
     private Student currentStudent;
 
-    public void setCurrentStudent (Student student) {
+    public void setCurrentStudent(Student student) {
         currentStudent = student;
     }
 
@@ -26,11 +26,16 @@ public class StudentActivityController {
 
     }
 
+
+    public boolean modifyStudent() {
+        return currentStudent.photoAvailable();
+    }
+
+
     private void setPhotoRepository(boolean genderFlag) {
-        if(genderFlag){
+        if (genderFlag) {
             photoRepository = MalePhotoRepository.Instance;
-        }
-        else {
+        } else {
             photoRepository = FemalePhotoRepository.Instance;
         }
     }
@@ -40,12 +45,16 @@ public class StudentActivityController {
         photoRepository.putPhotoInRepository(student.getPhoto());
     }
 
-    public boolean setPhotoForStudent(boolean isChecked) {
+
+    public boolean createStudent(boolean genderFlag) {
+        return setPhotoForStudent(genderFlag);
+    }
+
+    private boolean setPhotoForStudent(boolean isChecked) {
         try {
             setPhotoRepository(isChecked);
             currentStudent.setPhoto(photoRepository.getPhotoInRepository());
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             return false;
         }
         return true;

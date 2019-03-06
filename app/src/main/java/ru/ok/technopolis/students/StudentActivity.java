@@ -54,36 +54,16 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
         deleteStudent.setOnClickListener(this);
     }
 
-
-    private boolean createStudent() {
-        setFields();
-        if (studentActivityController.setPhotoForStudent(isMale)) {
-            studentActivityController.setStudentInitials(firstName, secondName, isMale);
-            return true;
-        }
-        Toast.makeText(StudentActivity.this, "No Photo in DataBase", Toast.LENGTH_LONG).show();
-        return false;
-    }
-
     private void setFields() {
         firstName = studentFirstName.getText().toString();
         secondName = studentSecondName.getText().toString();
         isMale = genderCheckbox.isChecked();
     }
 
-
-    private boolean modifyStudent() {
-        if (!studentActivityController.getCurrentStudent().photoAvailable()) {
-            return false;
-        }
-        setFields();
-        studentActivityController.setStudentInitials(firstName, secondName, isMale);
-        return true;
-    }
-
-
     @Override
     public void onClick(View v) {
+        setFields();
+        studentActivityController.setStudentInitials(firstName, secondName, isMale);
         Student student = studentActivityController.getCurrentStudent();
         switch (v.getId()) {
             case R.id.activity_student__save_button: {
@@ -91,12 +71,14 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
                     Toast.makeText(StudentActivity.this, "Please, fill all the fields", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (modifyStudent()) {
+                if (studentActivityController.modifyStudent()) {
                     setResult(MODIFY_STUDENT_RESULT_CODE, new Intent().putExtra(RESPONSE_MODIFY_STUDENT, student));
                     studentImageViewPhoto.setImageResource(student.getPhoto());
-                } else if (createStudent()) {
+                } else if (studentActivityController.createStudent(isMale)) {
                     setResult(CREATE_STUDENT_RESULT_CODE, new Intent().putExtra(RESPONSE_CREATE_STUDENT, student));
                     studentImageViewPhoto.setImageResource(student.getPhoto());
+                } else {
+                    Toast.makeText(StudentActivity.this, "No Photo in DataBase", Toast.LENGTH_LONG).show();
                 }
                 finish();
                 break;
