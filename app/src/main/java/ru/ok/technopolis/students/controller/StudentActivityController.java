@@ -65,5 +65,4 @@ public class StudentActivityController {
         currentStudent.setFirstName(firstName);
         currentStudent.setSecondName(secondName);
     }
-
 }

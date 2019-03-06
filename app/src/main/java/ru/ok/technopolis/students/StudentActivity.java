@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -46,6 +47,18 @@ public class StudentActivity extends AppCompatActivity implements View.OnClickLi
             if (studentActivityController.getCurrentStudent().isMaleGender())
                 genderCheckbox.setChecked(true);
             studentImageViewPhoto.setImageResource(studentActivityController.getCurrentStudent().getPhoto());
+            genderCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    studentActivityController.putPhotoInPhotoRepository(studentActivityController.getCurrentStudent());
+                    if(isChecked) {
+                        studentActivityController.createStudent(isMale);
+                    }
+                    else {
+                        studentActivityController.createStudent(isMale);
+                    }
+                }
+            });
         } else {
             studentActivityController.setCurrentStudent(new Student());
             deleteStudent.setVisibility(View.GONE);
