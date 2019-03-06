@@ -80,13 +80,6 @@
         android:background="#000000"
         />
 
-    <!--<android.support.constraint.Guideline-->
-        <!--android:id="@+id/main__mid_guideline"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--app:layout_constraintGuide_percent="0.5"/>-->
-
     <TextView
         android:id="@+id/main__student_title"
         android:layout_width="wrap_content"
@@ -193,6 +186,20 @@
         android:layout_height="wrap_content"
         app:barrierDirection="top"
         app:constraint_referenced_ids="main__delete_button, main__save_button"/>
+
+    <android.support.constraint.Group
+        android:id="@+id/main__student_card_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="main__mid_line_view,
+                                        main__student_title,
+                                        main__student_photo,
+                                        main__edit_last_name,
+                                        main__edit_first_name,
+                                        main__gender_radio_group,
+                                        main__delete_button,
+                                        main__save_button"
+        />
 
 
 </android.support.constraint.ConstraintLayout>

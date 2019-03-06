@@ -1,12 +1,17 @@
 package ru.ok.technopolis.students;
 
 import android.os.Bundle;
+import android.support.constraint.Group;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import java.util.ArrayList;
@@ -18,13 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private final Random random = new Random();
     private List<Student> studentList;
     private StudentAdapter studentAdapter;
-    private Student selectedStudent;
-
-    private ImageView studentPhoto;
-    private EditText lastNameEdit;
-    private EditText firstNameEdit;
-    private RadioGroup genderRadioGroup;
-
+    private int currentPhotoResource;
 
     private int[] malePhotos = {
             R.drawable.male_1,
@@ -43,29 +42,43 @@ public class MainActivity extends AppCompatActivity {
         studentList = generateStudentList();
         setContentView(R.layout.activity_main);
         setupRecyclerView();
-        initStudentCard();
-        initButtons();
+        initViews();
     }
 
-    private void initButtons() {
-        findViewById(R.id.main__add_student_button).setOnClickListener(v -> addStudent());
-        findViewById(R.id.main__delete_button).setOnClickListener(v -> deleteStudent());
-        findViewById(R.id.main__save_button).setOnClickListener(v -> applyDataToStudent());
+    private void initViews() {
+        getAddButton().setOnClickListener(v -> addStudent());
+        getDeleteButton().setOnClickListener(v -> deleteStudent());
+        getSaveButton().setOnClickListener(v -> saveStudent());
+
+        getFirstNameEdit().addTextChangedListener(new StudentFieldsWatcher());
+        getLastNameEdit().addTextChangedListener(new StudentFieldsWatcher());
+
+        getGenderRadioGroup().setOnCheckedChangeListener(new GenderRadioButtonListener());
+
+        getStudentCardGroup().setVisibility(View.GONE);
     }
 
-    private void initStudentCard() {
-        studentPhoto = findViewById(R.id.main__student_photo);
-        lastNameEdit = findViewById(R.id.main__edit_last_name);
-        firstNameEdit = findViewById(R.id.main__edit_first_name);
-        genderRadioGroup = findViewById(R.id.main__gender_radio_group);
+    private void checkRequiredFields() {
+        if (!getFirstNameEdit().getText().toString().isEmpty()
+                && !getLastNameEdit().getText().toString().isEmpty()
+                && getGenderRadioGroup().getCheckedRadioButtonId() != -1) {
+            getSaveButton().setEnabled(true);
+        } else {
+            getSaveButton().setEnabled(false);
+        }
     }
 
     private void clearStudentCard() {
-        selectedStudent = null;
-        studentPhoto.setImageResource(0);
-        lastNameEdit.setText("");
-        firstNameEdit.setText("");
-        genderRadioGroup.clearCheck();
+        deselectCurrentStudent();
+        currentPhotoResource = -1;
+        getStudentPhoto().setImageDrawable(null);
+
+        getLastNameEdit().setText("");
+        getFirstNameEdit().setText("");
+        getGenderRadioGroup().clearCheck();
+
+        getDeleteButton().setEnabled(false);
+        getSaveButton().setEnabled(false);
     }
 
     private void setupRecyclerView() {
@@ -97,31 +110,54 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onStudentClick(View view) {
+        deselectCurrentStudent();
+
         Student student = (Student) view.getTag();
-        selectedStudent = student;
-        studentPhoto.setImageResource(student.getPhoto());
-        lastNameEdit.setText(student.getSecondName());
-        firstNameEdit.setText(student.getFirstName());
-        genderRadioGroup.check(getIdByGender(student.getGender()));
-        view.setSelected(true);
+        selectNewStudent(student);
+
+        getStudentPhoto().setImageResource(getSelectedStudent().getPhoto());
+        currentPhotoResource = getSelectedStudent().getPhoto();
+
+        getLastNameEdit().setText(getSelectedStudent().getSecondName());
+        getFirstNameEdit().setText(getSelectedStudent().getFirstName());
+        getGenderRadioGroup().check(getIdByGender(getSelectedStudent().getGender()));
+
+        getStudentCardGroup().setVisibility(View.VISIBLE);
+
+        getDeleteButton().setEnabled(true);
+        getSaveButton().setEnabled(true);
     }
 
-    private void applyDataToStudent() {
-        if (selectedStudent != null) {
-            selectedStudent.setFirstName(firstNameEdit.getText().toString());
-            selectedStudent.setSecondName(lastNameEdit.getText().toString());
-
-            Gender gender = getGenderById(genderRadioGroup.getCheckedRadioButtonId());
-            if (selectedStudent.getPhoto() == 0 || selectedStudent.getGender() != gender) {
-                int randomPhoto = getRandomPhoto(gender);
-                selectedStudent.setPhoto(randomPhoto);
-                studentPhoto.setImageResource(randomPhoto);
-            }
-            selectedStudent.setGender(gender);
-
-            int i = studentList.indexOf(selectedStudent);
-            studentAdapter.notifyItemChanged(i);
+    private void deselectCurrentStudent() {
+        if (getSelectedStudent() != null) {
+            int index = studentList.indexOf(getSelectedStudent());
+            studentAdapter.setSelectedStudent(null);
+            studentAdapter.notifyItemChanged(index);
         }
+    }
+
+    private void selectNewStudent(Student student) {
+        studentAdapter.setSelectedStudent(student);
+        int index = studentList.indexOf(getSelectedStudent());
+        studentAdapter.notifyItemChanged(index);
+    }
+
+    private void saveStudent() {
+        if (getSelectedStudent() != null) {
+            getSelectedStudent().setFirstName(getFirstNameEdit().getText().toString());
+            getSelectedStudent().setSecondName(getLastNameEdit().getText().toString());
+            getSelectedStudent().setGender(getGenderById(getGenderRadioGroup().getCheckedRadioButtonId()));
+            getSelectedStudent().setPhoto(currentPhotoResource);
+            deselectCurrentStudent();
+        } else {
+            Student newStudent = new Student(getFirstNameEdit().getText().toString(),
+                    getLastNameEdit().getText().toString(),
+                    getGenderById(getGenderRadioGroup().getCheckedRadioButtonId()),
+                    currentPhotoResource);
+            studentList.add(newStudent);
+            studentAdapter.notifyItemInserted(studentList.size() - 1);
+        }
+        getStudentCardGroup().setVisibility(View.GONE);
     }
 
     private Gender getGenderById(int id) {
@@ -157,17 +193,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void deleteStudent() {
-        if (selectedStudent != null) {
-            int i = studentList.indexOf(selectedStudent);
+        if (getSelectedStudent() != null) {
+            int i = studentList.indexOf(getSelectedStudent());
             studentList.remove(i);
             studentAdapter.notifyItemRemoved(i);
             clearStudentCard();
+            getStudentCardGroup().setVisibility(View.GONE);
         }
     }
 
     private void addStudent() {
-        studentList.add(new Student("", "", null, 0));
-        studentAdapter.notifyItemInserted(studentList.size() - 1);
+        clearStudentCard();
+        getStudentCardGroup().setVisibility(View.VISIBLE);
     }
 
     private List<Student> generateStudentList() {
@@ -182,5 +219,88 @@ public class MainActivity extends AppCompatActivity {
         studentList.add(new Student("Кристина", "Ветрова", Gender.FEMALE, getRandomPhoto(Gender.FEMALE)));
         studentList.add(new Student("Андрей", "Андреев", Gender.MALE, getRandomPhoto(Gender.MALE)));
         return studentList;
+    }
+
+    private Button getAddButton() {
+        return findViewById(R.id.main__add_student_button);
+    }
+
+    private Button getSaveButton() {
+        return findViewById(R.id.main__save_button);
+    }
+
+    private Button getDeleteButton() {
+        return findViewById(R.id.main__delete_button);
+    }
+
+    private EditText getLastNameEdit() {
+        return findViewById(R.id.main__edit_last_name);
+    }
+
+    private EditText getFirstNameEdit() {
+        return findViewById(R.id.main__edit_first_name);
+    }
+
+    private ImageView getStudentPhoto() {
+        return findViewById(R.id.main__student_photo);
+    }
+
+    private RadioGroup getGenderRadioGroup() {
+        return findViewById(R.id.main__gender_radio_group);
+    }
+
+    private Group getStudentCardGroup() {
+        return findViewById(R.id.main__student_card_group);
+    }
+
+    private Student getSelectedStudent() {
+        return studentAdapter.getSelectedStudent();
+    }
+
+    class StudentFieldsWatcher implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            checkRequiredFields();
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    }
+
+    class GenderRadioButtonListener implements RadioGroup.OnCheckedChangeListener {
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            if (group == getGenderRadioGroup()) {
+                if (checkedId != -1 && getSelectedStudent() == null) {
+                    RadioButton radioButton = findViewById(checkedId);
+                    if (radioButton.isChecked()) {
+                        switch (checkedId) {
+                            case R.id.main__male_radio: {
+                                int randomPhoto = getRandomPhoto(Gender.MALE);
+                                currentPhotoResource = randomPhoto;
+                                getStudentPhoto().setImageResource(randomPhoto);
+                                break;
+                            }
+                            case R.id.main__female_radio: {
+                                int randomPhoto = getRandomPhoto(Gender.FEMALE);
+                                currentPhotoResource = randomPhoto;
+                                getStudentPhoto().setImageResource(randomPhoto);
+                            }
+                        }
+                    }
+                }
+
+            }
+            checkRequiredFields();
+        }
     }
 }

@@ -1,6 +1,6 @@
 package ru.ok.technopolis.students;
 
-import android.net.sip.SipSession;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
@@ -16,6 +16,7 @@ public class StudentAdapter extends Adapter<StudentAdapter.StudentViewHolder> {
 
     private List<Student> studentList;
     private Listener onStudentClickListener;
+    private Student selectedStudent;
 
     public StudentAdapter(List<Student> studentList, Listener onStudentClickListener) {
         this.studentList = studentList;
@@ -32,6 +33,12 @@ public class StudentAdapter extends Adapter<StudentAdapter.StudentViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder studentViewHolder, int i) {
+        if (i == studentList.indexOf(selectedStudent) && selectedStudent != null) {
+            Drawable border = studentViewHolder.itemView.getResources().getDrawable(R.drawable.student_item_border);
+            studentViewHolder.itemView.setBackgroundDrawable(border);
+        } else {
+            studentViewHolder.itemView.setBackgroundDrawable(null);
+        }
         Student student = studentList.get(i);
         studentViewHolder.bind(student);
         studentViewHolder.itemView.setTag(student);
@@ -40,6 +47,14 @@ public class StudentAdapter extends Adapter<StudentAdapter.StudentViewHolder> {
     @Override
     public int getItemCount() {
         return studentList.size();
+    }
+
+    public Student getSelectedStudent() {
+        return selectedStudent;
+    }
+
+    public void setSelectedStudent(Student selectedStudent) {
+        this.selectedStudent = selectedStudent;
     }
 
     class StudentViewHolder extends RecyclerView.ViewHolder {
