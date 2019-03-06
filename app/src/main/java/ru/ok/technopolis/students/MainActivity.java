@@ -3,7 +3,6 @@ package ru.ok.technopolis.students;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,8 +15,7 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity implements StudentAdderDialog.OnAdderStudentListener, StudentAdderDialog.OnUpdateStudentListener {
-
+public class MainActivity extends AppCompatActivity {
     private static final String DIALOG_TAG = "DialogAdder";
     private String[] mansFirstNames;
     private String[] womenFirstNames;
@@ -48,7 +46,15 @@ public class MainActivity extends AppCompatActivity implements StudentAdderDialo
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment dialog = new StudentAdderDialog();
+                StudentAdderDialog dialog = new StudentAdderDialog();
+                dialog.setOnAdderStudentListener(new StudentAdderDialog.OnAdderStudentListener() {
+                    @Override
+                    public void add(String firstName, String lastName, boolean maleGender) {
+                        Student student = new Student(firstName, lastName, maleGender, maleGender ? manPhotos[manPhotoIndex++ % 3] : womanPhotos[womanPhotoIndex++ % 3]);
+                        students.add(student);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
                 dialog.show(getSupportFragmentManager(), DIALOG_TAG);
             }
         });
@@ -87,10 +93,24 @@ public class MainActivity extends AppCompatActivity implements StudentAdderDialo
         builder.setNegativeButton(R.string.edit, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                DialogFragment dialog = new StudentAdderDialog();
+                StudentAdderDialog dialog = new StudentAdderDialog();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(StudentAdderDialog.STUDENT_TAG, student);
                 dialog.setArguments(bundle);
+
+                dialog.setOnUpdateStudentListener(new StudentAdderDialog.OnUpdateStudentListener() {
+                    @Override
+                    public void update(Student oldStudent, Student newStudent) {
+                        int index = students.indexOf(oldStudent);
+                        students.remove(oldStudent);
+                        if (oldStudent.isMaleGender() != newStudent.isMaleGender()) {
+                            newStudent.setPhoto(newStudent.isMaleGender() ? manPhotos[manPhotoIndex++ % 3] : womanPhotos[womanPhotoIndex++ % 3]);
+                        }
+                        students.add(index, newStudent);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
                 dialog.show(getSupportFragmentManager(), DIALOG_TAG);
                 dialogInterface.cancel();
             }
@@ -129,21 +149,4 @@ public class MainActivity extends AppCompatActivity implements StudentAdderDialo
     }
 
 
-    @Override
-    public void add(String firstName, String lastName, boolean maleGender) {
-        Student student = new Student(firstName, lastName, maleGender, maleGender ? manPhotos[manPhotoIndex++ % 3] : womanPhotos[womanPhotoIndex++ % 3]);
-        students.add(student);
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void update(Student oldStudent, Student newStudent) {
-        int index = students.indexOf(oldStudent);
-        students.remove(oldStudent);
-        if (oldStudent.isMaleGender() != newStudent.isMaleGender()) {
-            newStudent.setPhoto(newStudent.isMaleGender() ? manPhotos[manPhotoIndex++ % 3] : womanPhotos[womanPhotoIndex++ % 3]);
-        }
-        students.add(index, newStudent);
-        adapter.notifyDataSetChanged();
-    }
 }

@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 public class StudentAdderDialog extends DialogFragment implements DialogInterface.OnShowListener {
     private AlertDialog dialog;
+    private OnAdderStudentListener onAdderStudentListener;
+    private OnUpdateStudentListener onUpdateStudentListener;
     public static final String STUDENT_TAG = "STUDENT_TAG";
     private EditText editTextFirstName;
     private EditText editTextLastName;
@@ -35,7 +37,14 @@ public class StudentAdderDialog extends DialogFragment implements DialogInterfac
         }
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_student_adder, null);
         initView(view);
-        AlertDialog.Builder builder = new AlertDialog.Builder(context).setView(view).setTitle(R.string.student).setMessage(R.string.trydroid).setPositiveButton(R.string.ok, null).setNegativeButton(R.string.back, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                .setView(view)
+                .setTitle(R.string.student)
+                .setMessage(R.string.trydroid)
+                .setPositiveButton(R.string.ok, null)
+                .setNegativeButton(R.string.back, null);
+
         dialog = builder.create();
         dialog.setOnShowListener(this);
         return dialog;
@@ -55,6 +64,13 @@ public class StudentAdderDialog extends DialogFragment implements DialogInterfac
         }
     }
 
+    public void setOnAdderStudentListener(OnAdderStudentListener onAdderStudentListener) {
+        this.onAdderStudentListener = onAdderStudentListener;
+    }
+
+    public void setOnUpdateStudentListener(OnUpdateStudentListener onUpdateStudentListener) {
+        this.onUpdateStudentListener = onUpdateStudentListener;
+    }
 
     @Override
     public void onShow(DialogInterface dialogInterface) {
@@ -74,18 +90,15 @@ public class StudentAdderDialog extends DialogFragment implements DialogInterfac
                 boolean maleGender = radioGroup.getCheckedRadioButtonId() == R.id.dialog_student_adder__male;
 
                 if (oldStudent == null) {
-                    OnAdderStudentListener listener = (OnAdderStudentListener) context;
-                    if (listener != null) {
-                        listener.add(name, lastName, maleGender);
+                    if (onAdderStudentListener != null) {
+                        onAdderStudentListener.add(name, lastName, maleGender);
                     }
                 } else {
-                    OnUpdateStudentListener listener = (OnUpdateStudentListener) context;
-                    if (listener != null) {
+                    if (onUpdateStudentListener != null) {
                         Student student = new Student(name, lastName, maleGender, oldStudent.getPhoto());
-                        listener.update(oldStudent, student);
+                        onUpdateStudentListener.update(oldStudent, student);
                     }
                 }
-
                 dialog.cancel();
             }
         });
