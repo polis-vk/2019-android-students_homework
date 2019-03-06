@@ -21,7 +21,6 @@ public class FemalePhotoRepository implements PhotoRepository {
         }};
     }
 
-
     @Override
     public int getPhotoInRepository() throws NoSuchElementException {
         if (femalePhotos.isEmpty()) {
