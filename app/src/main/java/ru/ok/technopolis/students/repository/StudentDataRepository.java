@@ -44,6 +44,7 @@ public class StudentDataRepository implements StudentRepository {
             if (students.get(i).getId().equals(student.getId())) {
                 students.get(i).setFirstName(student.getFirstName());
                 students.get(i).setSecondName(student.getSecondName());
+                students.get(i).setPhoto(student.getPhoto());
             }
         }
     }
