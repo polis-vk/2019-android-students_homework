@@ -10,9 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,14 +27,21 @@ public class MainActivity extends AppCompatActivity {
     private CircleImageView studentAvatar;
     private EditText studentSecondName;
     private EditText studentFirstName;
-
     private CheckBox maleGender;
+
+    private Button addStudentButton;
+    private Button saveStudentButton;
+    private Button removeStudentButton;
+
     private Student activeStudent;
+    private boolean isNewStudent;
 
     private int[] femalesPhoto = new int[3];
     private int[] malesPhoto = new int[3];
 
-    Random random = new Random();
+    private Random random = new Random();
+    private Vibrator vibe;
+    private Animation shakeAnimations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,26 +51,45 @@ public class MainActivity extends AppCompatActivity {
         generateStudentsList();
         setupRecyclerView();
 
+        vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        shakeAnimations = AnimationUtils.loadAnimation(this, R.anim.shake);
+
         studentAvatar = findViewById(R.id.student_profile__avatar);
         studentSecondName = findViewById(R.id.student_profile__second_name);
         studentFirstName = findViewById(R.id.student_profile__first_name);
 
         maleGender = findViewById(R.id.student_profile__male_gender);
-        maleGender.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (activeStudent != null) {
-                activeStudent.setMaleGender(b);
+        maleGender.setOnCheckedChangeListener((compoundButton, isMaleGender) -> {
+            if(activeStudent != null) {
+                activeStudent.setMaleGender(isMaleGender);
+                if(isNewStudent) {
+                    int photo = (isMaleGender)
+                            ? malesPhoto[random.nextInt(3)]
+                            : femalesPhoto[random.nextInt(3)];
+                    activeStudent.setPhoto(photo);
+                    studentAvatar.setImageResource(photo);
+                }
             }
         });
 
+        addStudentButton = findViewById(R.id.student_list__button_add);
+        addStudentButton.setOnClickListener(view -> {
+            setEnabledField(true);
+            addStudentButton.setEnabled(false);
+            int photo = femalesPhoto[random.nextInt(3)];
+            activeStudent = new Student(photo);
+            isNewStudent = true;
+            students.add(activeStudent);
+            studentAvatar.setImageResource(photo);
+        });
 
-        Button addStudentButton = findViewById(R.id.student_list__button_add);
-        addStudentButton.setOnClickListener(view -> clearFields());
-
-        Button saveStudentButton = findViewById(R.id.student_profile__buttons__save);
+        saveStudentButton = findViewById(R.id.student_profile__buttons__save);
         saveStudentButton.setOnClickListener(view -> addNewStudent());
 
-        Button removeStudentButton = findViewById(R.id.student_profile__buttons__remove);
+        removeStudentButton = findViewById(R.id.student_profile__buttons__remove);
         removeStudentButton.setOnClickListener(view -> removeStudent());
+
+        setEnabledField(false);
     }
 
     private void clearFields() {
@@ -76,13 +100,31 @@ public class MainActivity extends AppCompatActivity {
         studentFirstName.setText("");
     }
 
-    private void addNewStudent() {
-        Animation shakeAnimations = AnimationUtils.loadAnimation(this, R.anim.shake);
-        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+    private void setDefaultValues(){
+        clearFields();
+        addStudentButton.setEnabled(true);
+        studentsAdapter.removeHighlight();
+        setEnabledField(false);
+        isNewStudent = false;
+    }
 
-        String secondName = studentSecondName.getText().toString().trim();
-        String firstName = studentFirstName.getText().toString().trim();
-        Boolean isMale = maleGender.isChecked();
+    private void setEnabledField(boolean enabled){
+        studentAvatar.setEnabled(enabled);
+        studentSecondName.setEnabled(enabled);
+        studentFirstName.setEnabled(enabled);
+        maleGender.setEnabled(enabled);
+        saveStudentButton.setEnabled(enabled);
+        removeStudentButton.setEnabled(enabled);
+    }
+
+    private void addNewStudent() {
+        String secondName = studentSecondName.getText() != null
+                ? studentSecondName.getText().toString().trim()
+                : "";
+        String firstName = studentFirstName.getText() != null
+                ? studentFirstName.getText().toString().trim()
+                : "";
+        boolean isMale = maleGender.isChecked();
 
         if (secondName.equals("") || firstName.equals("")) {
             if (secondName.equals("")) {
@@ -95,26 +137,19 @@ public class MainActivity extends AppCompatActivity {
                 vibe.vibrate(100);
             }
         }  else {
-            if (activeStudent == null) {
-                int photo = (isMale) ? malesPhoto[random.nextInt(3)] : femalesPhoto[random.nextInt(3)];
-                students.add(new Student(firstName, secondName, isMale, photo));
-                Collections.sort(students);
-            } else {
-                activeStudent.setFirstName(firstName);
-                activeStudent.setSecondName(secondName);
-                activeStudent.setMaleGender(maleGender.isChecked());
-            }
+            activeStudent.setFirstName(firstName);
+            activeStudent.setSecondName(secondName);
+            activeStudent.setMaleGender(isMale);
+            Collections.sort(students);
             studentsAdapter.notifyDataSetChanged();
-            clearFields();
+            setDefaultValues();
         }
     }
 
     private void removeStudent() {
-        if (activeStudent != null) {
-            students.remove(activeStudent);
-            studentsAdapter.notifyDataSetChanged();
-        }
-        clearFields();
+        students.remove(activeStudent);
+        studentsAdapter.notifyDataSetChanged();
+        setDefaultValues();
     }
 
     private void setupRecyclerView() {
@@ -126,8 +161,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onStudentClick(Student student) {
+        setEnabledField(true);
         activeStudent = student;
-
         studentAvatar.setImageResource(activeStudent.getPhoto());
         studentSecondName.setText(activeStudent.getSecondName());
         studentFirstName.setText(activeStudent.getFirstName());
@@ -139,13 +174,11 @@ public class MainActivity extends AppCompatActivity {
         femalesPhoto[1] = R.drawable.female_2;
         femalesPhoto[2] = R.drawable.female_3;
         arrayShuffle(femalesPhoto);
-
         malesPhoto[0] = R.drawable.male_1;
         malesPhoto[1] = R.drawable.male_2;
         malesPhoto[2] = R.drawable.male_3;
         arrayShuffle(malesPhoto);
     }
-
 
     private void generateStudentsList() {
         for (int i = 0; i < 3; i++) {
@@ -178,5 +211,4 @@ public class MainActivity extends AppCompatActivity {
             arr[randomPosition] = temp;
         }
     }
-
 }

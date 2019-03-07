@@ -29,7 +29,6 @@
         app:barrierDirection="top"
         app:constraint_referenced_ids="student_profile__avatar,student_profile__second_name" />
 
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/student_profile__avatar"
         android:layout_width="130dp"
@@ -42,7 +41,6 @@
         tools:src="@drawable/male_1"
         />
 
-
     <EditText
         android:id="@+id/student_profile__second_name"
         android:layout_width="0dp"
@@ -51,6 +49,9 @@
         android:textSize="20sp"
         android:typeface="monospace"
         android:textColor="@color/black"
+        android:maxLines="1"
+        android:inputType="text"
+        android:scrollHorizontally="true"
         android:hint="@string/second_name"
         app:layout_constraintWidth_default="spread"
         app:layout_constraintStart_toEndOf="@+id/student_profile__avatar"
@@ -69,6 +70,9 @@
         android:textSize="20sp"
         android:typeface="monospace"
         android:textColor="@color/black"
+        android:maxLines="1"
+        android:inputType="text"
+        android:scrollHorizontally="true"
         android:hint="@string/first_name"
         app:layout_constraintWidth_default="spread"
         app:layout_constraintStart_toEndOf="@+id/student_profile__avatar"

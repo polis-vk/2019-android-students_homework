@@ -2,8 +2,6 @@ package ru.ok.technopolis.students;
 
 import android.support.annotation.NonNull;
 
-import java.util.Comparator;
-
 public class Student implements Comparable<Student> {
 
     private String firstName;
@@ -15,6 +13,10 @@ public class Student implements Comparable<Student> {
         this.firstName = firstName;
         this.secondName = secondName;
         this.maleGender = maleGender;
+        this.photo = photo;
+    }
+
+    public Student(int photo) {
         this.photo = photo;
     }
 
