@@ -3,40 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_student_item"
+    android:focusable="true"
+
     >
     <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/cardView_studentAvatarItem"
+        android:id="@+id/cardView__student_Avatar_Item"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/textView_studentItem"
+        app:layout_constraintEnd_toStartOf="@id/textView__student_Item"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:cardCornerRadius="20dp"
         android:layout_margin="10dp">
 
         <ImageView
-            android:id="@+id/imageView_studentAvatarItem"
+            android:id="@+id/imageView__student_Avatar_Item"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/female_1"
             />
 
     </android.support.v7.widget.CardView>
 
     <TextView
-        android:id="@+id/textView_studentItem"
+        android:id="@+id/textView__student_Item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cardView_studentAvatarItem"
-        android:text="Иванов Иван"
+        app:layout_constraintStart_toEndOf="@id/cardView__student_Avatar_Item"
         android:textSize="20dp"
         android:layout_margin="15dp"
         android:textColor="@android:color/black"
         />
-
-
-
 
 </android.support.constraint.ConstraintLayout>

@@ -13,30 +13,41 @@ import java.util.List;
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
     private final List<Student> studentList;
     private final Listener OnStudentClickListener;
+    private int selectedPos = RecyclerView.NO_POSITION;
 
     public StudentAdapter(List<Student> studentList, Listener listener) {
         this.OnStudentClickListener = listener;
         this.studentList = studentList;
     }
 
+    public void refreshSelectedPos() {
+        selectedPos = RecyclerView.NO_POSITION;
+    }
+
     @NonNull
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student_item, viewGroup, false);
+        StudentViewHolder studentViewHolder = new StudentViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OnStudentClickListener.onStudentClick((Student) v.getTag());
+                notifyItemChanged(selectedPos);
+                selectedPos = studentViewHolder.getAdapterPosition();
+                notifyItemChanged(selectedPos);
             }
         });
-        return new StudentViewHolder(view);
+        return studentViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StudentViewHolder viewHolder, int i) {
-        Student student = studentList.get(i);
+    public void onBindViewHolder(@NonNull StudentViewHolder viewHolder, int position) {
+        Student student = studentList.get(position);
         viewHolder.bind(student);
         viewHolder.itemView.setTag(student);
+        //viewHolder.itemView.setBackgroundColor(selectedPos==position?Color.GREEN:Color.WHITE);
+        viewHolder.itemView.setSelected(selectedPos == position);
 
     }
 
@@ -52,9 +63,10 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
         public StudentViewHolder(@NonNull View itemView) {
             super(itemView);
-            fullNameTextView = itemView.findViewById(R.id.textView_studentItem);
-            avatarImageView = itemView.findViewById(R.id.imageView_studentAvatarItem);
+            fullNameTextView = itemView.findViewById(R.id.textView__student_Item);
+            avatarImageView = itemView.findViewById(R.id.imageView__student_Avatar_Item);
         }
+
 
         public void bind(@NonNull Student student) {
             StringBuilder stringBuilder = new StringBuilder();

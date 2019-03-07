@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,32 +15,43 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final LinkedList<Student> studentList = new LinkedList<>();
-        final StudentCreator studentCreator = new StudentCreator(this);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView_listOfStudent);
 
-        StudentAdapter studentAdapter = new StudentAdapter(studentList, student -> studentCreator.displayStudent(student));
+        final ArrayList<Student> studentList = new ArrayList<>();
+        final IStudentUI studentUI = new StudentUI(this);
+        final StudentManager studentManager = new StudentManager(studentUI);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView__list_Of_Student);
+
+        StudentAdapter studentAdapter = new StudentAdapter(studentList, student -> {
+            studentUI.displayStudent(student);
+            studentManager.setCurrentStudent(student);
+        });
 
         recyclerView.setAdapter(studentAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        studentCreator.setAddListener(student -> {
+        studentManager.setListenerForAddBtn(student -> {
             studentList.add(student);
             studentAdapter.notifyDataSetChanged();
         });
-        studentCreator.setDeleteListener(student -> {
+
+        studentManager.setListenerForDeleteBtn(student -> {
             studentList.remove(student);
             studentAdapter.notifyDataSetChanged();
+            studentAdapter.refreshSelectedPos();
         });
-        studentCreator.setSaveListener((student) -> {
+        studentManager.setListenerForSaveBtn((student) -> {
             studentAdapter.notifyDataSetChanged();
         });
+
+        studentManager.setListenerForRadioBtn(student -> {
+        });
+
     }
 
-
     public List<Student> generateExample() {
-        LinkedList<Student> students = new LinkedList<>();
+        ArrayList<Student> students = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Student student = new Student("Name " + i, "Surname " + i, Student.Gender.FEMALE, R.drawable.female_1);
             students.add(student);
