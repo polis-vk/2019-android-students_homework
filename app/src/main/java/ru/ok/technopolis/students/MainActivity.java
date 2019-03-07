@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private Button removeStudentButton;
 
     private Student activeStudent;
-    private boolean isNewStudent;
+    private int newPhoto = -1;
+    private boolean prevGender;
 
     private int[] femalesPhoto = new int[3];
     private int[] malesPhoto = new int[3];
@@ -61,25 +62,26 @@ public class MainActivity extends AppCompatActivity {
         maleGender = findViewById(R.id.student_profile__male_gender);
         maleGender.setOnCheckedChangeListener((compoundButton, isMaleGender) -> {
             if(activeStudent != null) {
-                activeStudent.setMaleGender(isMaleGender);
-                if(isNewStudent) {
-                    int photo = (isMaleGender)
+                if (prevGender != isMaleGender){
+                    prevGender = isMaleGender;
+                    newPhoto = (isMaleGender)
                             ? malesPhoto[random.nextInt(3)]
                             : femalesPhoto[random.nextInt(3)];
-                    activeStudent.setPhoto(photo);
-                    studentAvatar.setImageResource(photo);
+                    studentAvatar.setImageResource(newPhoto);
+                } else {
+                    studentAvatar.setImageResource(activeStudent.getPhoto());
                 }
+
             }
         });
 
         addStudentButton = findViewById(R.id.student_list__button_add);
         addStudentButton.setOnClickListener(view -> {
             setEnabledField(true);
+            clearFields();
             addStudentButton.setEnabled(false);
             int photo = femalesPhoto[random.nextInt(3)];
             activeStudent = new Student(photo);
-            isNewStudent = true;
-            students.add(activeStudent);
             studentAvatar.setImageResource(photo);
         });
 
@@ -103,9 +105,10 @@ public class MainActivity extends AppCompatActivity {
     private void setDefaultValues(){
         clearFields();
         addStudentButton.setEnabled(true);
-        studentsAdapter.removeHighlight();
         setEnabledField(false);
-        isNewStudent = false;
+        studentsAdapter.removeHighlight();
+        prevGender = false;
+        newPhoto = -1;
     }
 
     private void setEnabledField(boolean enabled){
@@ -140,6 +143,12 @@ public class MainActivity extends AppCompatActivity {
             activeStudent.setFirstName(firstName);
             activeStudent.setSecondName(secondName);
             activeStudent.setMaleGender(isMale);
+            if (newPhoto != -1){
+                activeStudent.setPhoto(newPhoto);
+            }
+            if (!students.contains(activeStudent)) {
+                students.add(activeStudent);
+            }
             Collections.sort(students);
             studentsAdapter.notifyDataSetChanged();
             setDefaultValues();
@@ -162,10 +171,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void onStudentClick(Student student) {
         setEnabledField(true);
+        addStudentButton.setEnabled(true);
+        prevGender = false;
+        newPhoto = -1;
         activeStudent = student;
         studentAvatar.setImageResource(activeStudent.getPhoto());
         studentSecondName.setText(activeStudent.getSecondName());
         studentFirstName.setText(activeStudent.getFirstName());
+        prevGender = activeStudent.isMaleGender();
         maleGender.setChecked(activeStudent.isMaleGender());
     }
 
