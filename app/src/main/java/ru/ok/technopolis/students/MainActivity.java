@@ -1,14 +1,10 @@
 package ru.ok.technopolis.students;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.AbsListView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -16,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -31,8 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private String prevSurname;
     private int prevPhoto;
     private int newPhoto;
-
-    Random random = new Random();
+    private Random random = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,20 +84,14 @@ public class MainActivity extends AppCompatActivity {
     private void onAddClick() {
         TextView name = findViewById(R.id.activity_main__enter_name);
         TextView surname = findViewById(R.id.activity_main__enter_surname);
-        name.setText("Name");
-        surname.setText("Surname");
+        name.setText("");
+        surname.setText("");
         setFemalePhoto();
-        RadioGroup radioGroup = findViewById(R.id.activity_main__radio);
-        radioGroup.clearCheck();
+        RadioGroup group = findViewById(R.id.activity_main__radio);
+        group.clearCheck();
         edit = false;
         studentAdapter.setFocus(-1);
         studentAdapter.notifyDataSetChanged();
-    }
-
-    private Bitmap bitmapResource(int resource, int width) {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resource);
-        int heigth = (int) ((double) width / bitmap.getWidth() * bitmap.getHeight());
-        return Bitmap.createScaledBitmap(bitmap, width, heigth, true);
     }
 
     private int getMalePhoto() {
@@ -128,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView photo = findViewById(R.id.activity_main__image);
         RadioButton male = findViewById(R.id.activity_main__radio_male);
         if (male.isChecked()) {
-            photo.setImageBitmap(bitmapResource(getMalePhoto(), 200));
+            photo.setImageResource(getMalePhoto());
         }
     }
 
@@ -156,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView photo = findViewById(R.id.activity_main__image);
         RadioButton female = findViewById(R.id.activity_main__radio_female);
         if (female.isChecked()) {
-            photo.setImageBitmap(bitmapResource(getFemalePhoto(), 200));
+            photo.setImageResource(getFemalePhoto());
         }
     }
 
@@ -166,18 +156,20 @@ public class MainActivity extends AppCompatActivity {
         String stringName = name.getText().toString();
         TextView surname = findViewById(R.id.activity_main__enter_surname);
         String stringSurname = surname.getText().toString();
-        name.setText("Name");
-        surname.setText("Surname");
+        name.setText("");
+        surname.setText("");
         setFemalePhoto();
         RadioButton male = findViewById(R.id.activity_main__radio_male);
         RadioButton female = findViewById(R.id.activity_main__radio_female);
+        RadioGroup group = findViewById(R.id.activity_main__radio);
         edit = false;
-        for (Student student : students) {
+        Iterator<Student> iterator = students.iterator();
+        while (iterator.hasNext()) {
+            Student student = iterator.next();
             if (student.getSecondName().equals(stringSurname) && student.getFirstName().equals(stringName)
                     && (student.isMaleGender() && male.isChecked() || !student.isMaleGender() && female.isChecked())) {
-                students.remove(student);
-                male.setChecked(false);
-                female.setChecked(false);
+                iterator.remove();
+                group.clearCheck();
                 studentAdapter.notifyDataSetChanged();
                 return;
             }
@@ -193,46 +185,44 @@ public class MainActivity extends AppCompatActivity {
         String stringSurname = surname.getText().toString();
         RadioButton male = findViewById(R.id.activity_main__radio_male);
         RadioButton female = findViewById(R.id.activity_main__radio_female);
+        RadioGroup group = findViewById(R.id.activity_main__radio);
         boolean maleGender = false;
-        if (stringName.equals("Name")) {
+        if (stringName.isEmpty()) {
             Toast.makeText(MainActivity.this, "enter name", LENGTH_SHORT).show();
+        }
+        if (stringSurname.isEmpty()) {
+            Toast.makeText(MainActivity.this, "enter surname", LENGTH_SHORT).show();
+        }
+        if (!male.isChecked() && !female.isChecked()) {
+            Toast.makeText(MainActivity.this, "choose gender", LENGTH_SHORT).show();
         } else {
-            if (stringSurname.equals("Surname")) {
-                Toast.makeText(MainActivity.this, "enter surname", LENGTH_SHORT).show();
-            } else {
-                if (!male.isChecked() && !female.isChecked()) {
-                    Toast.makeText(MainActivity.this, "choose gender", LENGTH_SHORT).show();
-                } else {
-                    if (male.isChecked()) {
-                        maleGender = true;
-                    }
-                    if (edit) {
-                        for (Student student : students) {
-                            if (student.getSecondName().equals(prevSurname) && student.getFirstName().equals(prevName)) {
-                                students.remove(student);
-                                break;
-                            }
-                        }
-                        if (prevGender && maleGender || !prevGender && !maleGender) {
-                            students.add(new Student(stringName, stringSurname, maleGender, prevPhoto));
-                        } else {
-                           students.add(new Student(stringName, stringSurname, maleGender, newPhoto));
-                        }
-                    } else {
-                        students.add(new Student(stringName, stringSurname, maleGender, newPhoto));
-                    }
-                    edit = false;
-                    name.setText("Name");
-                    surname.setText("Surname");
-                    male.setChecked(false);
-                    female.setChecked(false);
-                    setFemalePhoto();
-                    studentAdapter.notifyDataSetChanged();
-                }
+            if (male.isChecked()) {
+                maleGender = true;
             }
+            if (edit) {
+                for (Student student : students) {
+                    if (!student.getFirstName().isEmpty() && !student.getSecondName().isEmpty() &&
+                            student.getSecondName().equals(prevSurname) && student.getFirstName().equals(prevName)) {
+                        students.remove(student);
+                        break;
+                    }
+                }
+                if (prevGender && maleGender || !prevGender && !maleGender) {
+                    students.add(new Student(stringName, stringSurname, maleGender, prevPhoto));
+                } else {
+                    students.add(new Student(stringName, stringSurname, maleGender, newPhoto));
+                }
+            } else {
+                students.add(new Student(stringName, stringSurname, maleGender, newPhoto));
+            }
+            edit = false;
+            name.setText("");
+            surname.setText("");
+            group.clearCheck();
+            setFemalePhoto();
+            studentAdapter.notifyDataSetChanged();
         }
         studentAdapter.setFocus(-1);
         studentAdapter.notifyDataSetChanged();
     }
-
 }

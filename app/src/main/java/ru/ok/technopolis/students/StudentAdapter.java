@@ -1,7 +1,5 @@
 package ru.ok.technopolis.students;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -73,9 +71,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         private void bind(@NonNull Student student) {
             nameTextView.setText(student.getFirstName());
             surnameTextView.setText(student.getSecondName());
-            Bitmap bitmap = BitmapFactory.decodeResource(photoImageView.getResources(), student.getPhoto());
-            int heigth = (int) ((double) 100 / bitmap.getWidth() * bitmap.getHeight());
-            photoImageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100, heigth, true));
+            photoImageView.setImageResource(student.getPhoto());
         }
     }
 
