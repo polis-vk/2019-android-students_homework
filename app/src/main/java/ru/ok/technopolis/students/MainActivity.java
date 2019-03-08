@@ -280,27 +280,32 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
             if (group == getGenderRadioGroup()) {
-                if (checkedId != -1 && getSelectedStudent() == null) {
+
+                //Check, that selection is not cleared
+                if (checkedId != -1) {
                     RadioButton radioButton = findViewById(checkedId);
-                    if (radioButton.isChecked()) {
-                        switch (checkedId) {
-                            case R.id.main__male_radio: {
-                                int randomPhoto = getRandomPhoto(Gender.MALE);
-                                currentPhotoResource = randomPhoto;
-                                getStudentPhoto().setImageResource(randomPhoto);
-                                break;
-                            }
-                            case R.id.main__female_radio: {
-                                int randomPhoto = getRandomPhoto(Gender.FEMALE);
-                                currentPhotoResource = randomPhoto;
-                                getStudentPhoto().setImageResource(randomPhoto);
-                            }
-                        }
+                    if (radioButton.isChecked() && radioButton.isPressed()) {
+                        updatePhotoCard(checkedId);
                     }
                 }
-
             }
             checkRequiredFields();
+        }
+
+        private void updatePhotoCard(int checkedId) {
+            switch (checkedId) {
+                case R.id.main__male_radio: {
+                    int randomPhoto = getRandomPhoto(Gender.MALE);
+                    currentPhotoResource = randomPhoto;
+                    getStudentPhoto().setImageResource(randomPhoto);
+                    break;
+                }
+                case R.id.main__female_radio: {
+                    int randomPhoto = getRandomPhoto(Gender.FEMALE);
+                    currentPhotoResource = randomPhoto;
+                    getStudentPhoto().setImageResource(randomPhoto);
+                }
+            }
         }
     }
 }
