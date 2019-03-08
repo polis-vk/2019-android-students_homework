@@ -64,13 +64,13 @@ public class MainActivity extends AppCompatActivity {
         currentStudent = new Student("", "", false, 0);
     }
 
-    private void setupEdit(String name, String fname, Boolean isMale, int pic) {
+    private void setupEdit(String name, String familyName, Boolean isMale, int pic) {
         EditText nameEdit = findViewById(R.id.names_layout__edit_name);
-        EditText fnameEdit = findViewById(R.id.names_layout__edit_fname);
+        EditText familyNameEdit = findViewById(R.id.names_layout__edit_fname);
         CheckBox male = findViewById(R.id.sex_layout__checkbox);
         CircleImageView pics = findViewById(R.id.data_layout__edit_img);
         nameEdit.setText(name);
-        fnameEdit.setText(fname);
+        familyNameEdit.setText(familyName);
         male.setChecked(isMale);
         pics.setImageResource(pic);
     }
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void onDeleteClick() {
         if (currentStudent == null) {
-            Toast.makeText(MainActivity.this, R.string.empty_student, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.empty_student, Toast.LENGTH_SHORT).show();
         } else {
             students.remove(currentStudent);
             currentStudent = null;
@@ -98,24 +98,31 @@ public class MainActivity extends AppCompatActivity {
 
     private void onSaveClick() {
         EditText name = findViewById(R.id.names_layout__edit_name);
-        EditText fname = findViewById(R.id.names_layout__edit_fname);
+        EditText familyName = findViewById(R.id.names_layout__edit_fname);
         CheckBox male = findViewById(R.id.sex_layout__checkbox);
         CircleImageView pic = findViewById(R.id.data_layout__edit_img);
         int picId;
-        if (TextUtils.isEmpty(name.getText().toString()) || TextUtils.isEmpty(fname.getText().toString())) {
-            Toast.makeText(MainActivity.this, R.string.wrong_enter, Toast.LENGTH_SHORT).show();
-        } else {
-            if (currentStudent == null || currentStudent.getFirstName().equals("")) {
-                students.add(currentStudent = new Student(name.getText().toString(), fname.getText().toString(), male.isChecked(), picId = getRandomPick(male.isChecked())));
-                pic.setImageResource(picId);
-                studentAdapter.notifyDataSetChanged();
+        if ((name.getText() != null) && (familyName.getText() != null)) {
+            if (TextUtils.isEmpty(name.getText().toString().trim())
+                    || TextUtils.isEmpty(familyName.getText().toString().trim())) {
+                Toast.makeText(this, R.string.wrong_enter, Toast.LENGTH_SHORT).show();
             } else {
-                currentStudent.setFirstName(name.getText().toString());
-                currentStudent.setSecondName(fname.getText().toString());
-                currentStudent.setMaleGender(male.isChecked());
-                studentAdapter.notifyDataSetChanged();
+                if (currentStudent == null || currentStudent.getFirstName().equals("")) {
+                    students.add(currentStudent = new Student(name.getText().toString().trim(),
+                            familyName.getText().toString().trim(),
+                            male.isChecked(),
+                            picId = getRandomPick(male.isChecked())));
+                    pic.setImageResource(picId);
+                    studentAdapter.notifyDataSetChanged();
+                } else {
+                    currentStudent.setFirstName(name.getText().toString().trim());
+                    currentStudent.setSecondName(familyName.getText().toString().trim());
+                    currentStudent.setMaleGender(male.isChecked());
+                    studentAdapter.notifyDataSetChanged();
+                }
             }
         }
+
     }
 
     private int getRandomPick(Boolean isMale) {

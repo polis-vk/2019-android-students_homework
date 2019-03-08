@@ -14,7 +14,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread"
         app:layout_constraintVertical_weight="40" />
 
     <Button
@@ -29,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_main__rv_students"
-        app:layout_constraintVertical_weight="10" />
+        app:layout_constraintVertical_weight="5" />
 
     <View
         android:id="@+id/activity_main__sep_line"
@@ -37,164 +36,104 @@
         android:layout_height="1dp"
         android:layout_margin="5dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@id/activity_main__cl_edit"
+        app:layout_constraintBottom_toTopOf="@id/cl_edit__title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_main__btn_add"
         app:layout_constraintVertical_weight="1" />
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/activity_main__cl_edit"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/cl_edit__title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="@string/edit_title"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/data_layout__edit_img"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_main__sep_line"
-        app:layout_constraintVertical_weight="50">
+        app:layout_constraintVertical_weight="5" />
 
-        <TextView
-            android:id="@+id/cl_edit__title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="@string/edit_title"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/cl_edit__data_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/data_layout__edit_img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/names_layout__edit_fname"
+        app:layout_constraintEnd_toStartOf="@string/edit_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/names_layout__edit_name" />
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/cl_edit__data_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/cl_edit__btn_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_edit__title">
+    <EditText
+        android:id="@+id/names_layout__edit_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/edit_name"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/names_layout__edit_fname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/data_layout__edit_img"
+        app:layout_constraintTop_toBottomOf="@id/cl_edit__title"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_weight="5" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/data_layout__edit_img"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/data_layout__names_layout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    <EditText
+        android:id="@+id/names_layout__edit_fname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/edit_fname"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/sex_layout__checkbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/data_layout__edit_img"
+        app:layout_constraintTop_toBottomOf="@id/names_layout__edit_name"
+        app:layout_constraintVertical_weight="5" />
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/data_layout__names_layout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/data_layout__edit_img"
-                app:layout_constraintTop_toTopOf="parent">
+    <CheckBox
+        android:id="@+id/sex_layout__checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/cl_edit__delete"
+        app:layout_constraintEnd_toStartOf="@id/sex_layout__text"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@id/data_layout__edit_img"
+        app:layout_constraintTop_toBottomOf="@id/names_layout__edit_fname" />
 
-                <EditText
-                    android:id="@+id/names_layout__edit_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/edit_name"
-                    android:textSize="15sp"
-                    app:layout_constraintBottom_toTopOf="@id/names_layout__edit_fname"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed" />
+    <TextView
+        android:id="@+id/sex_layout__text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_checkbox"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/cl_edit__delete"
+        app:layout_constraintEnd_toEndOf="@id/names_layout__edit_fname"
+        app:layout_constraintStart_toEndOf="@id/sex_layout__checkbox"
+        app:layout_constraintTop_toBottomOf="@id/names_layout__edit_fname"
+        app:layout_constraintVertical_weight="5" />
 
-                <EditText
-                    android:id="@+id/names_layout__edit_fname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/edit_fname"
-                    android:textSize="15sp"
-                    app:layout_constraintBottom_toTopOf="@id/names_layout__sex_layout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/names_layout__edit_name" />
+    <Button
+        android:id="@+id/cl_edit__delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="@string/edit_delete"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cl_edit__save"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent" />
 
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/names_layout__sex_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/names_layout__edit_fname"
-
-                    >
-
-                    <CheckBox
-                        android:id="@+id/sex_layout__checkbox"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/sex_layout__text"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/sex_layout__text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/edit_checkbox"
-                        android:textSize="15sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/sex_layout__checkbox"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                </android.support.constraint.ConstraintLayout>
-
-            </android.support.constraint.ConstraintLayout>
-
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/cl_edit__btn_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_edit__data_layout"
-            app:layout_constraintVertical_weight="5">
-
-            <Button
-                android:id="@+id/cl_edit__delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="@string/edit_delete"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/cl_edit__save"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/cl_edit__save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="@string/edit_save"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/cl_edit__delete"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </android.support.constraint.ConstraintLayout>
-
-
-    </android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/cl_edit__save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="@string/edit_save"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cl_edit__delete" />
 
 </android.support.constraint.ConstraintLayout>

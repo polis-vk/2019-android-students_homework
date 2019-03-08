@@ -54,21 +54,21 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     static final class StudentViewHolder extends RecyclerView.ViewHolder {
 
-        private final CircleImageView pImageCircleImageView;
+        private final CircleImageView profileImage;
         private final TextView nameTextView;
-        private final TextView fNameTextView;
+        private final TextView familyNameTextView;
 
         public StudentViewHolder(@NonNull View itemView) {
             super(itemView);
-            pImageCircleImageView = itemView.findViewById(R.id.student_item__img);
+            profileImage = itemView.findViewById(R.id.student_item__img);
             nameTextView = itemView.findViewById(R.id.student_item__name);
-            fNameTextView = itemView.findViewById(R.id.student_item__fname);
+            familyNameTextView = itemView.findViewById(R.id.student_item__fname);
         }
 
         private void bind(@NonNull Student student) {
             nameTextView.setText(student.getFirstName());
-            fNameTextView.setText(student.getSecondName());
-            pImageCircleImageView.setImageResource(student.getPhoto());
+            familyNameTextView.setText(student.getSecondName());
+            profileImage.setImageResource(student.getPhoto());
         }
 
     }
