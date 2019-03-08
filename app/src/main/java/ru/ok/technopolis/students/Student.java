@@ -1,13 +1,12 @@
 package ru.ok.technopolis.students;
 
 public class Student {
-
     private String firstName;
     private String secondName;
     private boolean maleGender;
     private int photo;
 
-    Student(String firstName, String secondName, boolean maleGender, int photo) {
+    public Student(String firstName, String secondName, boolean maleGender, int photo) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.maleGender = maleGender;

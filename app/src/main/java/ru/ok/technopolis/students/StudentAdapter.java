@@ -12,7 +12,8 @@ import java.util.List;
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
     private final Listener onStudentClickListener;
-    private final List<Student> students;
+    private List<Student> students;
+    private View lastV;
 
     StudentAdapter(List<Student> students, Listener onStudentClickListener) {
         this.students = students;
@@ -27,7 +28,8 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onStudentClickListener.onStudentClick((Student) v.getTag());
+                onStudentClickListener.onStudentClick((Student) v.getTag(), v , lastV);
+                lastV = v;
             }
         });
         return new StudentViewHolder(view);
@@ -63,7 +65,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     }
 
     interface Listener {
-        void onStudentClick(Student student);
+        void onStudentClick(Student student, View view, View lastV);
     }
 
 }
