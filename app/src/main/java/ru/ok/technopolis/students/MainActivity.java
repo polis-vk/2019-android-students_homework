@@ -1,7 +1,7 @@
 package ru.ok.technopolis.students;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
@@ -14,13 +14,18 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    StudentAdapter studentAdapter;
+    private StudentAdapter studentAdapter;
 
     private List<Student> students;
 
     private int currentStudent = -1;
 
-    private int lastId = -1;
+    private EditText nameInput;
+
+    private EditText surnameInput;
+
+    private CheckBox genderCheckBox;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +41,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(studentAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
         setupButtons();
+
+        nameInput = findViewById(R.id.activity_main__name);
+        surnameInput = findViewById(R.id.activity_main__surname);
+        genderCheckBox = findViewById(R.id.activity_main__gender_checkbox);
     }
 
     private void setupButtons() {
@@ -51,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onAddStudentClick() {
-        students.add(getStudentStub(++lastId));
+        students.add(getStudentStub());
         currentStudent = students.size() - 1;
+        studentAdapter.handleStudentAddition();
         studentAdapter.notifyDataSetChanged();
         updateStudentInfo();
     }
@@ -75,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentStudent >= 0) {
             students.remove(currentStudent);
             currentStudent--;
+            studentAdapter.handleStudentRemoval();
             studentAdapter.notifyDataSetChanged();
             updateStudentInfo();
         }
@@ -82,38 +94,30 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateStudentInfo() {
         ImageView studentPhoto = findViewById(R.id.activity_main__photo);
-        EditText name = findViewById(R.id.activity_main__name);
-        EditText surname = findViewById(R.id.activity_main__surname);
-        CheckBox gender = findViewById(R.id.activity_main__gender_checkbox);
 
-        Student student = currentStudent >= 0 ? students.get(currentStudent) : getStudentStub(-1);
+        Student student = currentStudent >= 0 ? students.get(currentStudent) : getStudentStub();
         studentPhoto.setImageResource(student.getPhoto());
-        name.setText(student.getFirstName());
-        surname.setText(student.getSecondName());
-        gender.setChecked(student.isMaleGender());
+        nameInput.setText(student.getFirstName());
+        surnameInput.setText(student.getSecondName());
+        genderCheckBox.setChecked(student.isMaleGender());
     }
 
-    private Student getStudentStub(int id) {
-        Student student = new Student(
+    private Student getStudentStub() {
+        return new Student(
                 getString(R.string.name),
                 getString(R.string.surname),
                 true,
-                R.color.colorAccent
+                getMalePhoto(getString(R.string.name))
         );
-        student.setId(id);
-        return student;
     }
 
     private Student getStudentData() {
-        EditText name = findViewById(R.id.activity_main__name);
-        EditText surname = findViewById(R.id.activity_main__surname);
-        CheckBox gender = findViewById(R.id.activity_main__gender_checkbox);
-        String sname = name.getText().toString().replaceAll(" +", "");
-        int photo = gender.isChecked() ? getMalePhoto(sname) : getFemalePhoto(sname);
+        String name = nameInput.getText().toString().replaceAll(" +", "");
+        int photo = genderCheckBox.isChecked() ? getMalePhoto(name) : getFemalePhoto(name);
         return new Student(
-                sname,
-                surname.getText().toString().replaceAll(" +", ""),
-                gender.isChecked(),
+                name,
+                surnameInput.getText().toString().replaceAll(" +", ""),
+                genderCheckBox.isChecked(),
                 photo
         );
     }

@@ -2,7 +2,6 @@ package ru.ok.technopolis.students;
 
 public class Student {
 
-    private int id;
     private String firstName;
     private String secondName;
     private boolean maleGender;
@@ -13,14 +12,6 @@ public class Student {
         this.secondName = secondName;
         this.maleGender = maleGender;
         this.photo = photo;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstName() {
