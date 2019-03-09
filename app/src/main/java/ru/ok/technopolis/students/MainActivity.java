@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private void onAddClick() {
         setupEdit("", "", false, 0);
         currentStudent = new Student("", "", false, 0);
+        studentAdapter.selectionSetup(null);
     }
 
     private void setupEdit(String name, String familyName, Boolean isMale, int pic) {
@@ -117,7 +118,11 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     currentStudent.setFirstName(name.getText().toString().trim());
                     currentStudent.setSecondName(familyName.getText().toString().trim());
-                    currentStudent.setMaleGender(male.isChecked());
+                    if (currentStudent.isMaleGender() != male.isChecked()) {
+                        currentStudent.setPhoto(picId = getRandomPick(male.isChecked()));
+                        currentStudent.setMaleGender(male.isChecked());
+                        pic.setImageResource(picId);
+                    }
                     studentAdapter.notifyDataSetChanged();
                 }
             }

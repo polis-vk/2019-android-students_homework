@@ -1,5 +1,6 @@
 package ru.ok.technopolis.students;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     private final List<Student> students;
     private final Listener onStudentClickListener;
+    public static final int SELECTED_COLOR = Color.parseColor("#F0F0F0");
+    private View selectedStudent;
 
     public StudentAdapter(List<Student> students, Listener onStudentClickListener) {
         this.students = students;
@@ -29,6 +32,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             @Override
             public void onClick(View v) {
                 onStudentClickListener.onStudentClick((Student) v.getTag());
+                selectionSetup(v);
             }
         });
         return new StudentViewHolder(view);
@@ -44,6 +48,16 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     @Override
     public int getItemCount() {
         return students.size();
+    }
+
+    public void selectionSetup(View v) {
+        if (selectedStudent != null) {
+            selectedStudent.setBackgroundColor(Color.TRANSPARENT);
+        }
+        if (v != null) {
+            selectedStudent = v;
+            selectedStudent.setBackgroundColor(SELECTED_COLOR);
+        }
     }
 
     interface Listener {
