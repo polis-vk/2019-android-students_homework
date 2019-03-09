@@ -107,7 +107,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d(BuildConfig.LOG_TAG, "On add click: prevPos is " + prevPos);
         }
         if (prevPos != -1) {
-            Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(prevPos)).itemView.setBackgroundColor((Color.parseColor("#FFFFFF")));
+            try {
+                Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(prevPos)).itemView.setBackgroundColor((Color.parseColor("#FFFFFF")));
+            } catch (Exception ignore) {
+            }
             prevPos = -1;
 
         }
@@ -119,9 +122,10 @@ public class MainActivity extends AppCompatActivity {
         students.remove(student);
         dbHandler.deleteStudent(student);
         if (prevPos != -1) {
-            Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(prevPos)).itemView.setBackgroundColor((Color.parseColor("#FFFFFF")));
-
-
+            try {
+                Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(prevPos)).itemView.setBackgroundColor((Color.parseColor("#FFFFFF")));
+            } catch (Exception ignore) {
+            }
         }
         prevPos = -1;
         studentAdapter.notifyDataSetChanged();
@@ -205,9 +209,11 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.main_activity__rv_students);
         Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(pos)).itemView.setBackgroundColor((Color.parseColor("#BEBEBE")));
         if (prevPos != -1 && prevPos != pos) {
-            Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(prevPos)).itemView.setBackgroundColor((Color.parseColor("#FFFFFF")));
+            try {
+                Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(prevPos)).itemView.setBackgroundColor((Color.parseColor("#FFFFFF")));
+            } catch (Exception ignore) {
+            }
         }
-
         if (BuildConfig.LOG) {
             Log.d(BuildConfig.LOG_TAG, "Now pos is " + pos + " and prevPos is " + prevPos);
         }
