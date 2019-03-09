@@ -11,20 +11,22 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<Student> students;
+    private List<Student> students;
     private StudentAdapter studentAdapter;
     private Random random;
 
-    static final String SECOND_NAME_EXTRA = "secondName";
-    static final String FIRST_NAME_EXTRA = "firstName";
-    static final String MALE_EXTRA = "isMale";
-    static final String PHOTO_EXTRA = "photo";
-    static final String STUDENT_INDEX_EXTRA = "studentIndex";
-    static final String BUTTON_CODE_EXTRA = "buttonCode";
-
+    public static final String SECOND_NAME_EXTRA = "secondName";
+    public static final String FIRST_NAME_EXTRA = "firstName";
+    public static final String MALE_EXTRA = "isMale";
+    public static final String PHOTO_EXTRA = "photo";
+    public static final String STUDENT_INDEX_EXTRA = "studentIndex";
+    public static final String BUTTON_CODE_EXTRA = "buttonCode";
+    public static final int ADD_ACTIVITY = 1;
+    public static final int INFO_ACTIVITY = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void startAddingActivity() {
         Intent intent = new Intent(this, AdditionActivity.class);
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, ADD_ACTIVITY);
     }
 
     @Override
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         studentAdapter.notifyDataSetChanged();
     }
 
-    private ArrayList<Student> generateStudentsList() {
+    private List<Student> generateStudentsList() {
         ArrayList<Student> students = new ArrayList<>();
         int id = getResources().getIdentifier("male_2", "drawable", getPackageName());
         students.add(new Student("Иван", "Иванов", true, id));

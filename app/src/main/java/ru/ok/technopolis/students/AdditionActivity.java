@@ -3,17 +3,13 @@ package ru.ok.technopolis.students;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.RadioAccessSpecifier;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.Random;
 
@@ -24,12 +20,12 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
 
     int picID;
 
-    private static final String PROCESS_NAME = "Addition";
+    private static final String TITLE = "Addition";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTitle(PROCESS_NAME);
+        this.setTitle(TITLE);
         setContentView(R.layout.student_addition);
         Random random = new Random();
         secondName = (EditText) findViewById(R.id.student_add__et_second_name);

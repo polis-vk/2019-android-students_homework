@@ -11,14 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
 
-    private final ArrayList<Student> students;
+    private final List<Student> students;
     private Context context;
 
-    StudentAdapter(Context context, ArrayList<Student> students) {
+    StudentAdapter(Context context, List<Student> students) {
         this.students = students;
         this.context = context;
     }
@@ -88,7 +88,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             intent.putExtra(MainActivity.STUDENT_INDEX_EXTRA, this.index);
             intent.putExtra(MainActivity.PHOTO_EXTRA, this.picID);
 
-            ((MainActivity)context).startActivityForResult(intent, 2);
+            ((MainActivity)context).startActivityForResult(intent, MainActivity.INFO_ACTIVITY);
         }
     }
 }

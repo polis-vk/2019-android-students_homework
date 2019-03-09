@@ -15,12 +15,14 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
     private TextView secondName;
     private TextView firstName;
 
-    private static final String PROCESS_NAME = "Editor";
+    private static final String TITLE = "Editor";
+    private static final int SAVE = 1;
+    private static final int DELETE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTitle(PROCESS_NAME);
+        this.setTitle(TITLE);
         setContentView(R.layout.student_info);
         secondName = (EditText) findViewById(R.id.student_info__et_second_name);
         firstName = (EditText) findViewById(R.id.student_info__et_first_name);
@@ -35,7 +37,7 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         secondName.setText(data.getStringExtra(MainActivity.SECOND_NAME_EXTRA));
         firstName.setText(data.getStringExtra(MainActivity.FIRST_NAME_EXTRA));
         if (male) {
-            isMale.setChecked(true);
+            isMale.setChecked(male);
         }
         saver.setOnClickListener(this);
         deleter.setOnClickListener(this);
@@ -51,7 +53,7 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
                         (firstName.getText().toString().trim().length() != 0)) {
                     intent.putExtra(MainActivity.SECOND_NAME_EXTRA, secondName.getText().toString());
                     intent.putExtra(MainActivity.FIRST_NAME_EXTRA, firstName.getText().toString());
-                    intent.putExtra(MainActivity.BUTTON_CODE_EXTRA, 1);
+                    intent.putExtra(MainActivity.BUTTON_CODE_EXTRA, SAVE);
                     intent.putExtra(MainActivity.STUDENT_INDEX_EXTRA, getIntent().getIntExtra
                             (MainActivity.STUDENT_INDEX_EXTRA, -1));
                     intent.putExtra(MainActivity.PHOTO_EXTRA, getIntent().getIntExtra
@@ -66,9 +68,8 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
         }
-
             case R.id.student_info__b_delete:
-                intent.putExtra(MainActivity.BUTTON_CODE_EXTRA, 2);
+                intent.putExtra(MainActivity.BUTTON_CODE_EXTRA, DELETE);
                 intent.putExtra(MainActivity.STUDENT_INDEX_EXTRA, getIntent().getIntExtra
                         (MainActivity.STUDENT_INDEX_EXTRA, -1));
                 setResult(RESULT_OK, intent);
