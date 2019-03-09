@@ -9,6 +9,6 @@
     <string name="delete_button">Удалить</string>
     <string name="save_button">Сохранить</string>
     <string name="text_without_rv">пока что пуст</string>
-    <string name="profilephot">ProfilePhot</string>
-    <string name="avatarphoto">avatarPhoto</string>
+    <string name="profile_photo">ProfilePhoto</string>
+    <string name="avatar_photo">avatarPhoto</string>
 </resources>

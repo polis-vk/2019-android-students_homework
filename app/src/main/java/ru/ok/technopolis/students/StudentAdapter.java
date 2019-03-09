@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.Students
     private List<Student> students;
     private Listener onItemClickListner;
 
-    StudentAdapter(List<Student> students, Listener onItemClickListner){
+    StudentAdapter(List<Student> students, Listener onItemClickListner) {
         this.students = students;
         this.onItemClickListner = onItemClickListner;
     }
@@ -33,9 +34,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.Students
 
     @Override
     public void onBindViewHolder(@NonNull StudentsViewHolder studentsViewHolder, int i) {
-        Student student =  students.get(i);
+
+        Student student = students.get(i);
         studentsViewHolder.bind(students.get(i));
         studentsViewHolder.itemView.setTag(student);
+
     }
 
     @Override
@@ -43,10 +46,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.Students
         return students.size();
     }
 
-    static final class StudentsViewHolder extends RecyclerView.ViewHolder{
+    static final class StudentsViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView avatarImageView;
         private final TextView nameTextView;
+        LinearLayout rowLinearLayout;
 
 
         StudentsViewHolder(@NonNull View itemView) {
@@ -55,16 +59,18 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.Students
             avatarImageView = itemView.findViewById((R.id.students_item__student_avatar));
         }
 
-        private void bind(@NonNull Student student){
-            if(BuildConfig.LOG)
-                    Log.d(LOG_TAG, "Student info in Adapter " + student.getFirstName()+ " " + student.getSecondName() +  " " + student.isMaleGender() + " " + student.getPhoto() );
+        private void bind(@NonNull Student student) {
+            if (BuildConfig.LOG)
+                Log.d(LOG_TAG, "Student info in Adapter " + student.getFirstName() + " " + student.getSecondName() + " " + student.isMaleGender() + " " + student.getPhoto());
 
             avatarImageView.setImageResource(student.getPhoto());
             nameTextView.setText(String.format("%s %s", student.getFirstName(), student.getSecondName()));
-            if(BuildConfig.LOG){
+            if (BuildConfig.LOG) {
                 Log.d(LOG_TAG, "bind ok");
             }
         }
+
+
     }
 
     interface Listener {
