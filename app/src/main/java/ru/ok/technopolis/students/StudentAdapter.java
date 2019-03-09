@@ -46,7 +46,6 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         Student student = studentList.get(position);
         viewHolder.bind(student);
         viewHolder.itemView.setTag(student);
-        //viewHolder.itemView.setBackgroundColor(selectedPos==position?Color.GREEN:Color.WHITE);
         viewHolder.itemView.setSelected(selectedPos == position);
 
     }

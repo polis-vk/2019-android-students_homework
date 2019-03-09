@@ -9,70 +9,70 @@
     tools:context=".MainActivity">
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline__line_Left"
+        android:id="@+id/guideline__line_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline__line_Right"
+        android:id="@+id/guideline__line_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_end="20dp" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline__line_Top"
+        android:id="@+id/guideline__line_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline__line_Bottom"
+        android:id="@+id/guideline__line_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_end="20dp" />
 
     <TextView
-        android:id="@+id/textView__list_Of_Student"
+        android:id="@+id/textView__list_of_student"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:text="@string/label__list_Of_Student"
+        android:text="@string/label__list_of_student"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView__list_Of_Student"
-        app:layout_constraintEnd_toEndOf="@id/guideline__line_Right"
-        app:layout_constraintStart_toStartOf="@id/guideline__line_Left"
-        app:layout_constraintTop_toTopOf="@id/guideline__line_Top" />
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView__list_of_student"
+        app:layout_constraintEnd_toEndOf="@id/guideline__line_right"
+        app:layout_constraintStart_toStartOf="@id/guideline__line_left"
+        app:layout_constraintTop_toTopOf="@id/guideline__line_top" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView__list_Of_Student"
+        android:id="@+id/recyclerView__list_of_student"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/background_light"
-        app:layout_constraintBottom_toTopOf="@id/button__add_Student"
-        app:layout_constraintEnd_toEndOf="@id/guideline__line_Right"
-        app:layout_constraintStart_toStartOf="@id/guideline__line_Left"
-        app:layout_constraintTop_toBottomOf="@+id/textView__list_Of_Student" />
+        app:layout_constraintBottom_toTopOf="@id/button__add_student"
+        app:layout_constraintEnd_toEndOf="@id/guideline__line_right"
+        app:layout_constraintStart_toStartOf="@id/guideline__line_left"
+        app:layout_constraintTop_toBottomOf="@+id/textView__list_of_student" />
 
     <Button
-        android:id="@+id/button__add_Student"
+        android:id="@+id/button__add_student"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="@string/button__add_Student"
+        android:text="@string/button__add_student"
         android:textColor="@android:color/black"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@id/view__separator"
-        app:layout_constraintEnd_toEndOf="@id/guideline__line_Right"
-        app:layout_constraintStart_toStartOf="@id/guideline__line_Left"
-        app:layout_constraintTop_toBottomOf="@id/recyclerView__list_Of_Student"
+        app:layout_constraintEnd_toEndOf="@id/guideline__line_right"
+        app:layout_constraintStart_toStartOf="@id/guideline__line_left"
+        app:layout_constraintTop_toBottomOf="@id/recyclerView__list_of_student"
         />
 
     <View
@@ -82,9 +82,9 @@
         android:layout_marginBottom="10dp"
         android:background="#AAAAAA"
         app:layout_constraintBottom_toTopOf="@id/textView__student"
-        app:layout_constraintEnd_toEndOf="@id/guideline__line_Right"
-        app:layout_constraintStart_toStartOf="@id/guideline__line_Left"
-        app:layout_constraintTop_toBottomOf="@id/button__add_Student" />
+        app:layout_constraintEnd_toEndOf="@id/guideline__line_right"
+        app:layout_constraintStart_toStartOf="@id/guideline__line_left"
+        app:layout_constraintTop_toBottomOf="@id/button__add_student" />
 
     <TextView
         android:id="@+id/textView__student"
@@ -95,24 +95,24 @@
         android:text="@string/label__student"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/cardView__student_Avatar"
-        app:layout_constraintEnd_toEndOf="@id/guideline__line_Right"
-        app:layout_constraintStart_toStartOf="@id/guideline__line_Left"
+        app:layout_constraintBottom_toTopOf="@id/cardView__student_avatar"
+        app:layout_constraintEnd_toEndOf="@id/guideline__line_right"
+        app:layout_constraintStart_toStartOf="@id/guideline__line_left"
         app:layout_constraintTop_toBottomOf="@id/view__separator" />
 
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cardView__student_Avatar"
+        android:id="@+id/cardView__student_avatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/background_light"
         app:cardCornerRadius="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/button__delete_Student"
-        app:layout_constraintStart_toStartOf="@id/guideline__line_Left"
+        app:layout_constraintBottom_toTopOf="@+id/button__delete_student"
+        app:layout_constraintStart_toStartOf="@id/guideline__line_left"
         app:layout_constraintTop_toBottomOf="@id/textView__student">
 
         <ImageView
-            android:id="@+id/imageView__student_Avatar"
+            android:id="@+id/imageView__student_avatar"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:background="@android:color/background_light"
@@ -130,7 +130,7 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@id/editText__name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cardView__student_Avatar"
+        app:layout_constraintStart_toEndOf="@+id/cardView__student_avatar"
         app:layout_constraintTop_toBottomOf="@id/textView__student" />
 
     <EditText
@@ -143,7 +143,7 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@id/radioGroup__gender"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cardView__student_Avatar"
+        app:layout_constraintStart_toEndOf="@+id/cardView__student_avatar"
         app:layout_constraintTop_toBottomOf="@id/editText__surname" />
 
     <RadioGroup
@@ -152,9 +152,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toBottomOf="@id/cardView__student_Avatar"
+        app:layout_constraintBottom_toBottomOf="@id/cardView__student_avatar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cardView__student_Avatar"
+        app:layout_constraintStart_toEndOf="@id/cardView__student_avatar"
         app:layout_constraintTop_toBottomOf="@id/editText__name"
         android:orientation="horizontal">
 
@@ -172,26 +172,26 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/button__delete_Student"
+        android:id="@+id/button__delete_student"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/cardView__student_Avatar"
-        app:layout_constraintBottom_toBottomOf="@id/guideline__line_Bottom"
-        app:layout_constraintStart_toStartOf="@id/guideline__line_Left"
+        app:layout_constraintTop_toBottomOf="@id/cardView__student_avatar"
+        app:layout_constraintBottom_toBottomOf="@id/guideline__line_bottom"
+        app:layout_constraintStart_toStartOf="@id/guideline__line_left"
         android:layout_marginTop="20dp"
-        android:text="@string/button__delete_Student"
+        android:text="@string/button__delete_student"
         android:gravity="center"
         />
 
     <Button
-        android:id="@+id/button__save_Student"
+        android:id="@+id/button__save_student"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/cardView__student_Avatar"
-        app:layout_constraintBottom_toBottomOf="@id/guideline__line_Bottom"
-        app:layout_constraintEnd_toEndOf="@id/guideline__line_Right"
+        app:layout_constraintTop_toBottomOf="@id/cardView__student_avatar"
+        app:layout_constraintBottom_toBottomOf="@id/guideline__line_bottom"
+        app:layout_constraintEnd_toEndOf="@id/guideline__line_right"
         android:layout_marginTop="20dp"
-        android:text="@string/button__save_Student"
+        android:text="@string/button__save_student"
         android:gravity="center"
         />
 

@@ -24,7 +24,7 @@ public class StudentUI implements IStudentUI {
         editTextSurname = view.findViewById(R.id.editText__surname);
         btnMale = view.findViewById(R.id.radioButton__male);
         btnFemale = view.findViewById(R.id.radioButton__female);
-        imageViewPhoto = view.findViewById(R.id.imageView__student_Avatar);
+        imageViewPhoto = view.findViewById(R.id.imageView__student_avatar);
     }
 
     @Override
@@ -96,11 +96,11 @@ public class StudentUI implements IStudentUI {
     public Button getBtn(BtnType btnType) {
         switch (btnType) {
             case ADD:
-                return view.findViewById(R.id.button__add_Student);
+                return view.findViewById(R.id.button__add_student);
             case SAVE:
-                return view.findViewById(R.id.button__save_Student);
+                return view.findViewById(R.id.button__save_student);
             case DELETE:
-                return view.findViewById(R.id.button__delete_Student);
+                return view.findViewById(R.id.button__delete_student);
         }
         return null;
     }

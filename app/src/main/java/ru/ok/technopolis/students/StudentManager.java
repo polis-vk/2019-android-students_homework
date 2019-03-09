@@ -23,17 +23,17 @@ public class StudentManager {
     public Student createNewStudent() {
         name = studentUI.getName();
         if (name == null) {
-            studentUI.setToast(R.string.error_Of_Add_Set_Name);
+            studentUI.setToast(R.string.error_of_add_set_name);
             return null;
         }
         surname = studentUI.getSurname();
         if (surname == null) {
-            studentUI.setToast(R.string.error_Of_Add_Set_Surname);
+            studentUI.setToast(R.string.error_of_add_set_surname);
             return null;
         }
         gender = studentUI.getGender();
         if (gender == null) {
-            studentUI.setToast(R.string.error_Of_Add_Set_Gender);
+            studentUI.setToast(R.string.error_of_add_set_gender);
             return null;
         }
         return new Student(name, surname, gender, photo);
@@ -45,12 +45,12 @@ public class StudentManager {
             public void onClick(View v) {
                 Student student = createNewStudent();
                 if (student == null) {
-                    studentUI.setToast(R.string.error_Of_Add);
+                    studentUI.setToast(R.string.error_of_add);
                     return;
                 } else {
                     listener.onClick(student);
                     studentUI.displayStudent(student);
-                    studentUI.setToast(R.string.was_Added);
+                    studentUI.setToast(R.string.was_added);
                     studentUI.clearFields();
                 }
             }
@@ -62,22 +62,21 @@ public class StudentManager {
             @Override
             public void onClick(View v) {
                 if (currentStudent == null) {
-                    studentUI.setToast(R.string.error_Of_Save_Not_Selected);
+                    studentUI.setToast(R.string.error_of_save_not_selected);
                     return;
                 }
                 name = studentUI.getName();
                 surname = studentUI.getSurname();
                 gender = studentUI.getGender();
-                //photo = studentUI.getPhoto();
                 if (name == null || surname == null || gender == null) {
-                    studentUI.setToast(R.string.error_Of_Save);
+                    studentUI.setToast(R.string.error_of_save);
                 } else {
                     currentStudent.setFirstName(name);
                     currentStudent.setSecondName(surname);
                     currentStudent.setGender(gender);
                     currentStudent.setPhoto(photo);
                     listener.onClick(currentStudent);
-                    studentUI.setToast(R.string.was_Saved);
+                    studentUI.setToast(R.string.was_saved);
                 }
             }
         });
@@ -89,11 +88,11 @@ public class StudentManager {
             @Override
             public void onClick(View v) {
                 if (currentStudent == null) {
-                    studentUI.setToast(R.string.error_Of_Delete_Not_Selected);
+                    studentUI.setToast(R.string.error_of_delete_not_selected);
                 } else {
                     listener.onClick(currentStudent);
                     studentUI.clearFields();
-                    studentUI.setToast(R.string.was_Deleted);
+                    studentUI.setToast(R.string.was_deleted);
                 }
             }
         });

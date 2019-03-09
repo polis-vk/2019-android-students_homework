@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         final IStudentUI studentUI = new StudentUI(this);
         final StudentManager studentManager = new StudentManager(studentUI);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView__list_Of_Student);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView__list_of_student);
 
         StudentAdapter studentAdapter = new StudentAdapter(studentList, student -> {
             studentUI.displayStudent(student);
