@@ -3,7 +3,6 @@ package ru.ok.technopolis.students;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,7 +18,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     private final ArrayList<Student> students;
     private Context context;
 
-    public StudentAdapter(Context context, ArrayList<Student> students) {
+    StudentAdapter(Context context, ArrayList<Student> students) {
         this.students = students;
         this.context = context;
     }
@@ -35,10 +34,10 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     public void onBindViewHolder(@NonNull StudentViewHolder studentViewHolder, int i) {
         Student student = students.get(i);
         studentViewHolder.photo.setImageResource(student.getPhoto());
-        studentViewHolder.second_name.setText(students.get(i).getSecondName());
-        studentViewHolder.first_name.setText(students.get(i).getFirstName());
+        studentViewHolder.secondName.setText(students.get(i).getSecondName());
+        studentViewHolder.firstName.setText(students.get(i).getFirstName());
         studentViewHolder.index = i;
-        studentViewHolder.pic_id = student.getPhoto();
+        studentViewHolder.picID = student.getPhoto();
         studentViewHolder.student = student;
     }
 
@@ -50,9 +49,9 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     class StudentViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView photo;
-        private final TextView second_name;
-        private final TextView first_name;
-        private int pic_id;
+        private final TextView secondName;
+        private final TextView firstName;
+        private int picID;
         private int index;
         private View view;
         private ConstraintLayout mainLayout;
@@ -64,8 +63,8 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             view = itemView;
             photo = itemView.findViewById(R.id.student__iv_photo);
             this.index = i;
-            second_name = itemView.findViewById(R.id.student__tv_second_name);
-            first_name = itemView.findViewById(R.id.student__tv_first_name);
+            secondName = itemView.findViewById(R.id.student__tv_second_name);
+            firstName = itemView.findViewById(R.id.student__tv_first_name);
             mainLayout = view.findViewById(R.id.constraintLayout);
             this.context = context;
             mainLayout.setOnClickListener(new View.OnClickListener(){
@@ -80,14 +79,14 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             });
         }
 
-        public void startInfoActivity(Student student) {
+        void startInfoActivity(Student student) {
             Intent intent = new Intent(context, InfoActivity.class);
-            intent.putExtra("second_name", student.getSecondName());
-            intent.putExtra("first_name", student.getFirstName());
-            intent.putExtra("male", student.isMale());
-            intent.putExtra("photo", student.getPhoto());
-            intent.putExtra("index", this.index);
-            intent.putExtra("pic_id", this.pic_id);
+            intent.putExtra(MainActivity.SECOND_NAME_EXTRA, student.getSecondName());
+            intent.putExtra(MainActivity.FIRST_NAME_EXTRA, student.getFirstName());
+            intent.putExtra(MainActivity.MALE_EXTRA, student.isMale());
+            intent.putExtra(MainActivity.PHOTO_EXTRA, student.getPhoto());
+            intent.putExtra(MainActivity.STUDENT_INDEX_EXTRA, this.index);
+            intent.putExtra(MainActivity.PHOTO_EXTRA, this.picID);
 
             ((MainActivity)context).startActivityForResult(intent, 2);
         }

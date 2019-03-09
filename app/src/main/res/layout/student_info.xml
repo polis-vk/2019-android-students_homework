@@ -45,7 +45,7 @@
                     android:maxLines="2"
                     android:paddingStart="10dp"
                     android:paddingEnd="0dp"
-                    android:hint="@string/SecondName"
+                    android:hint="@string/second_name"
                     android:textSize="20sp"
                     app:fontFamily="sans-serif-medium" />
 
@@ -57,7 +57,7 @@
                     android:maxLines="2"
                     android:paddingStart="10dp"
                     android:paddingEnd="0dp"
-                    android:hint="@string/FirstName"
+                    android:hint="@string/first_name"
                     android:textSize="20sp"
                     app:fontFamily="sans-serif-medium"/>
 
@@ -73,14 +73,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:checked="true"
-                        android:text="@string/F"
+                        android:text="@string/f"
                         android:clickable="false"/>
                     <RadioButton
                         android:id="@+id/student_info__rb_male"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/M"
+                        android:text="@string/m"
                         android:clickable="false"/>
                 </RadioGroup>
 
@@ -100,7 +100,7 @@
              android:layout_height="wrap_content"
              android:orientation="horizontal"
              android:layout_marginStart="140dp"
-             android:text="@string/Delete"
+             android:text="@string/delete"
              />
 
          <Button
@@ -109,7 +109,7 @@
              android:layout_height="wrap_content"
              android:orientation="horizontal"
              android:layout_marginStart="20dp"
-             android:text="@string/Save"
+             android:text="@string/save"
              />
 
      </LinearLayout>

@@ -20,29 +20,26 @@ import java.util.Random;
 public class AdditionActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView secondName;
     private TextView firstName;
-    private ImageView photo;
-    private RadioButton isFemale;
     private RadioButton isMale;
-    private Button saver;
 
-    private String[] imageNames;
-    int pic_id;
+    int picID;
+
+    private static final String PROCESS_NAME = "Addition";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTitle("Addition");
+        this.setTitle(PROCESS_NAME);
         setContentView(R.layout.student_addition);
         Random random = new Random();
         secondName = (EditText) findViewById(R.id.student_add__et_second_name);
         firstName = (EditText) findViewById(R.id.student_add__et_first_name);
-        imageNames = getResources().getStringArray(R.array.image_names);
-        photo = findViewById(R.id.student_add__iv_photo);
-        isFemale = findViewById(R.id.student_add__rb_female);
+        String[] imageNames = getResources().getStringArray(R.array.image_names);
+        ImageView photo = findViewById(R.id.student_add__iv_photo);
         isMale = findViewById(R.id.student_add__rb_male);
-        saver = findViewById(R.id.student_add__b_save);
-        pic_id = getResources().getIdentifier(imageNames[random.nextInt(5)], "drawable", getPackageName());
-        photo.setImageResource(pic_id);
+        Button saver = findViewById(R.id.student_add__b_save);
+        picID = getResources().getIdentifier(imageNames[random.nextInt(5)], "drawable", getPackageName());
+        photo.setImageResource(picID);
         saver.setOnClickListener(this);
     }
 
@@ -50,18 +47,19 @@ public class AdditionActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         boolean male = isMale.isChecked();
         Intent intent = new Intent();
-        if ((secondName.getText().toString().trim().length() != 0) ||
-                (firstName.getText().toString().trim().length() != 0)) {
-            intent.putExtra("secondName", secondName.getText().toString());
-            intent.putExtra("firstName", firstName.getText().toString());
-            intent.putExtra("sex", male);
-            intent.putExtra("photo", pic_id);
-            setResult(RESULT_OK, intent);
-            finish();
-        }
-        else {
-            setResult(RESULT_CANCELED, intent);
-            Toast.makeText(this, "Please fill the FirstName and the SecondName fields!", Toast.LENGTH_LONG).show();
+        if ((secondName.getText() != null) && (firstName.getText() != null)) {
+            if ((secondName.getText().toString().trim().length() != 0) &&
+                    (firstName.getText().toString().trim().length() != 0)) {
+                intent.putExtra(MainActivity.SECOND_NAME_EXTRA, secondName.getText().toString());
+                intent.putExtra(MainActivity.FIRST_NAME_EXTRA, firstName.getText().toString());
+                intent.putExtra(MainActivity.MALE_EXTRA, male);
+                intent.putExtra(MainActivity.PHOTO_EXTRA, picID);
+                setResult(RESULT_OK, intent);
+                finish();
+            } else {
+                setResult(RESULT_CANCELED, intent);
+                Toast.makeText(this, "Please fill the FirstName and the SecondName fields!", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

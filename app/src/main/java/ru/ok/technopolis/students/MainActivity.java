@@ -16,8 +16,15 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     private ArrayList<Student> students;
     private StudentAdapter studentAdapter;
-    private String[] imageNames;
-    Random random;
+    private Random random;
+
+    static final String SECOND_NAME_EXTRA = "secondName";
+    static final String FIRST_NAME_EXTRA = "firstName";
+    static final String MALE_EXTRA = "isMale";
+    static final String PHOTO_EXTRA = "photo";
+    static final String STUDENT_INDEX_EXTRA = "studentIndex";
+    static final String BUTTON_CODE_EXTRA = "buttonCode";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         RecyclerView recyclerView = findViewById(R.id.activity_main__rv_students);
 
-        imageNames = getResources().getStringArray(R.array.image_names);
         students = generateStudentsList();
         studentAdapter = new StudentAdapter(this, students);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -51,37 +57,40 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            String secondName = data.getStringExtra("secondName");
-            String firstName = data.getStringExtra("firstName");
-            int pic_id = data.getIntExtra("photo", random.nextInt(6));
-            Student newStudent = new Student(firstName, secondName, data.getBooleanExtra("sex", false), pic_id);
+            String secondName = data.getStringExtra(SECOND_NAME_EXTRA);
+            String firstName = data.getStringExtra(FIRST_NAME_EXTRA);
+            int pic_id = data.getIntExtra(PHOTO_EXTRA, random.nextInt(6));
+            Student newStudent = new Student(firstName, secondName, data.getBooleanExtra(MALE_EXTRA, false), pic_id);
             students.add(newStudent);
         }
         if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
-            int op = data.getIntExtra("button_code", 1);
-            int index = data.getIntExtra("index", -1);
+            int op = data.getIntExtra(BUTTON_CODE_EXTRA, 1);
+            int index = data.getIntExtra(STUDENT_INDEX_EXTRA, -1);
             switch (op) {
                 case 2:
-                    if (students.isEmpty())
+                    if (students.isEmpty()) {
                         return;
-                    //deleting student according to item index
-                    if (index != -1)
+                    }
+                    /*deleting student according to item index **/
+                    if (index != -1) {
                         students.remove(index);
-                    else
+                    }
+                    else {
                         Toast.makeText(this, "No such element", Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 default:
-                    //getting possible to edit data
-                    String secondName = data.getStringExtra("secondName");
-                    String firstName = data.getStringExtra("firstName");
-                    int pic_id = data.getIntExtra("photo", 1);
-                    boolean isMale = data.getBooleanExtra("isMale", false);
-                    Student student_to_change = students.get(index);
-                    student_to_change.setSecondName(secondName);
-                    student_to_change.setFirstName(firstName);
-                    student_to_change.setIsMale(isMale);
-                    student_to_change.setPhoto(pic_id);
-                    students.set(index, student_to_change);
+                    /*getting possible to edit data **/
+                    String secondName = data.getStringExtra(SECOND_NAME_EXTRA);
+                    String firstName = data.getStringExtra(FIRST_NAME_EXTRA);
+                    int picID = data.getIntExtra(PHOTO_EXTRA, 1);
+                    boolean isMale = data.getBooleanExtra(MALE_EXTRA, false);
+                    Student studentToChange = students.get(index);
+                    studentToChange.setSecondName(secondName);
+                    studentToChange.setFirstName(firstName);
+                    studentToChange.setIsMale(isMale);
+                    studentToChange.setPhoto(picID);
+                    students.set(index, studentToChange);
                     break;
             }
         }
