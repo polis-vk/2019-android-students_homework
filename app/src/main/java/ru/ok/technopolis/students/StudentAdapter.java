@@ -16,8 +16,8 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     private final List<Student> students;
     private final Listener onStudentClickListener;
-    public static final int SELECTED_COLOR = Color.parseColor("#F0F0F0");
-    private View selectedStudent;
+    private static final int SELECTED_COLOR = Color.parseColor("#F0F0F0");
+    private int selectedPosition;
 
     public StudentAdapter(List<Student> students, Listener onStudentClickListener) {
         this.students = students;
@@ -32,7 +32,8 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             @Override
             public void onClick(View v) {
                 onStudentClickListener.onStudentClick((Student) v.getTag());
-                selectionSetup(v);
+                selectedPosition = ((RecyclerView.LayoutParams) v.getLayoutParams()).getViewLayoutPosition();
+                notifyDataSetChanged();
             }
         });
         return new StudentViewHolder(view);
@@ -43,6 +44,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         Student student = students.get(position);
         holder.bind(student);
         holder.itemView.setTag(student);
+        selectionSetup(holder);
     }
 
     @Override
@@ -50,14 +52,16 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         return students.size();
     }
 
-    public void selectionSetup(View v) {
-        if (selectedStudent != null) {
-            selectedStudent.setBackgroundColor(Color.TRANSPARENT);
+    private void selectionSetup(StudentViewHolder holder) {
+        if (selectedPosition == holder.getLayoutPosition()) {
+            holder.itemView.setBackgroundColor(SELECTED_COLOR);
+        } else {
+            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
-        if (v != null) {
-            selectedStudent = v;
-            selectedStudent.setBackgroundColor(SELECTED_COLOR);
-        }
+    }
+
+    public void resetSelectionPos() {
+        selectedPosition = RecyclerView.NO_POSITION;
     }
 
     interface Listener {

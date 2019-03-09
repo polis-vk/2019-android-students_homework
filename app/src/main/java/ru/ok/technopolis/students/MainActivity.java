@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
     private void onAddClick() {
         setupEdit("", "", false, 0);
         currentStudent = new Student("", "", false, 0);
-        studentAdapter.selectionSetup(null);
+        studentAdapter.resetSelectionPos();
+        studentAdapter.notifyDataSetChanged();
     }
 
     private void setupEdit(String name, String familyName, Boolean isMale, int pic) {
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             students.remove(currentStudent);
             currentStudent = null;
+            studentAdapter.resetSelectionPos();
             studentAdapter.notifyDataSetChanged();
             setupEdit("", "", Boolean.FALSE, 0);
         }
@@ -114,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                             male.isChecked(),
                             picId = getRandomPick(male.isChecked())));
                     pic.setImageResource(picId);
+                    studentAdapter.resetSelectionPos();
                     studentAdapter.notifyDataSetChanged();
                 } else {
                     currentStudent.setFirstName(name.getText().toString().trim());
