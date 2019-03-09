@@ -16,7 +16,6 @@
                 android:id="@+id/student_info__cv_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 android:layout_margin="10dp"
@@ -46,7 +45,7 @@
                     android:maxLines="2"
                     android:paddingStart="10dp"
                     android:paddingEnd="0dp"
-                    android:text="Фамилия"
+                    android:hint="@string/SecondName"
                     android:textSize="20sp"
                     app:fontFamily="sans-serif-medium" />
 
@@ -58,8 +57,7 @@
                     android:maxLines="2"
                     android:paddingStart="10dp"
                     android:paddingEnd="0dp"
-
-                    android:text="Имя"
+                    android:hint="@string/FirstName"
                     android:textSize="20sp"
                     app:fontFamily="sans-serif-medium"/>
 
@@ -75,14 +73,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:checked="true"
-                        android:text="Ж"
+                        android:text="@string/F"
                         android:clickable="false"/>
                     <RadioButton
                         android:id="@+id/student_info__rb_male"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="М"
+                        android:text="@string/M"
                         android:clickable="false"/>
                 </RadioGroup>
 
@@ -102,7 +100,7 @@
              android:layout_height="wrap_content"
              android:orientation="horizontal"
              android:layout_marginStart="140dp"
-             android:text="Удалить"
+             android:text="@string/Delete"
              />
 
          <Button
@@ -111,7 +109,7 @@
              android:layout_height="wrap_content"
              android:orientation="horizontal"
              android:layout_marginStart="20dp"
-             android:text="Сохранить"
+             android:text="@string/Save"
              />
 
      </LinearLayout>

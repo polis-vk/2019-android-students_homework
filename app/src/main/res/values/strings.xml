@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Students</string>
+    <string name="SecondName">SecondName</string>
+    <string name="FirstName">FirstName</string>
+    <string name="F">F</string>
+    <string name="M">M</string>
+    <string name="Delete">Delete</string>
+    <string name="Save">Save</string>
 
     <string-array name="image_names">
         <item>female_1</item>

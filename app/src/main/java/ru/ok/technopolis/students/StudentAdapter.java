@@ -34,11 +34,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder studentViewHolder, int i) {
         Student student = students.get(i);
-        studentViewHolder.photo.setImageResource(student.photo);
-        studentViewHolder.second_name.setText(students.get(i).secondName);
-        studentViewHolder.first_name.setText(students.get(i).firstName);
+        studentViewHolder.photo.setImageResource(student.getPhoto());
+        studentViewHolder.second_name.setText(students.get(i).getSecondName());
+        studentViewHolder.first_name.setText(students.get(i).getFirstName());
         studentViewHolder.index = i;
-        studentViewHolder.pic_id = student.photo;
+        studentViewHolder.pic_id = student.getPhoto();
         studentViewHolder.student = student;
     }
 
@@ -82,10 +82,10 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
         public void startInfoActivity(Student student) {
             Intent intent = new Intent(context, InfoActivity.class);
-            intent.putExtra("second_name", student.secondName);
-            intent.putExtra("first_name", student.firstName);
-            intent.putExtra("male", student.isMale);
-            intent.putExtra("photo", student.photo);
+            intent.putExtra("second_name", student.getSecondName());
+            intent.putExtra("first_name", student.getFirstName());
+            intent.putExtra("male", student.isMale());
+            intent.putExtra("photo", student.getPhoto());
             intent.putExtra("index", this.index);
             intent.putExtra("pic_id", this.pic_id);
 

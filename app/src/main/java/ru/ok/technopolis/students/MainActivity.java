@@ -16,7 +16,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     private ArrayList<Student> students;
     private StudentAdapter studentAdapter;
-    private String[] image_names;
+    private String[] imageNames;
     Random random;
 
     @Override
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         RecyclerView recyclerView = findViewById(R.id.activity_main__rv_students);
 
-        image_names = getResources().getStringArray(R.array.image_names);
+        imageNames = getResources().getStringArray(R.array.image_names);
         students = generateStudentsList();
         studentAdapter = new StudentAdapter(this, students);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -77,10 +77,10 @@ public class MainActivity extends AppCompatActivity {
                     int pic_id = data.getIntExtra("photo", 1);
                     boolean isMale = data.getBooleanExtra("isMale", false);
                     Student student_to_change = students.get(index);
-                    student_to_change.secondName = secondName;
-                    student_to_change.firstName = firstName;
-                    student_to_change.isMale = isMale;
-                    student_to_change.photo = pic_id;
+                    student_to_change.setSecondName(secondName);
+                    student_to_change.setFirstName(firstName);
+                    student_to_change.setIsMale(isMale);
+                    student_to_change.setPhoto(pic_id);
                     students.set(index, student_to_change);
                     break;
             }
