@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private String gender;
     private ImageView photoView;
     private int photoResId = 0;
-    private RecyclerView recyclerView;
     private StudentAdapter studentAdapter;
 
     @Override
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView = findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         studentAdapter = new StudentAdapter(students, new StudentAdapter.Listener() {
             @Override
             public void onStudentClick(Student student) {
