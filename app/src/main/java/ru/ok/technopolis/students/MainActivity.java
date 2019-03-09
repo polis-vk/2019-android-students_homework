@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setVisibility(View.VISIBLE);
         }
         if (BuildConfig.LOG) {
-            Log.d(BuildConfig.LOG_TAG,  "On add click: prevPos is " + prevPos);
+            Log.d(BuildConfig.LOG_TAG, "On add click: prevPos is " + prevPos);
         }
         if (prevPos != -1) {
             Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(prevPos)).itemView.setBackgroundColor((Color.parseColor("#FFFFFF")));
@@ -204,9 +204,8 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.main_activity__rv_students);
         Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(pos)).itemView.setBackgroundColor((Color.parseColor("#BEBEBE")));
-        if (prevPos != -1) {
+        if (prevPos != -1 && prevPos != pos) {
             Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(prevPos)).itemView.setBackgroundColor((Color.parseColor("#FFFFFF")));
-
         }
 
         if (BuildConfig.LOG) {
