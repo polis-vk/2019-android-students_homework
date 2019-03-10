@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
     private CheckBox genderCheckBox;
 
+    private Animation shake;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         setupButtons();
 
+        shake = AnimationUtils.loadAnimation(this, R.anim.shake);
         nameInput = findViewById(R.id.activity_main__name);
         surnameInput = findViewById(R.id.activity_main__surname);
         genderCheckBox = findViewById(R.id.activity_main__gender_checkbox);
@@ -69,16 +74,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onSaveStudentClick() {
+        boolean inputCorrect = true;
         if (currentStudent >= 0) {
             Student student = students.get(currentStudent);
             Student userData = getStudentData();
-            student.setFirstName(userData.getFirstName());
-            student.setSecondName(userData.getSecondName());
+
+
+            if (userData.getFirstName().equals(getString(R.string.name)) || userData.getFirstName().isEmpty()) {
+                inputCorrect = false;
+                nameInput.startAnimation(shake);
+            } else {
+                student.setFirstName(userData.getFirstName());
+            }
+
+            if (userData.getSecondName().equals(getString(R.string.surname)) || userData.getSecondName().isEmpty()) {
+                inputCorrect = false;
+                surnameInput.startAnimation(shake);
+            } else {
+                student.setSecondName(userData.getSecondName());
+            }
+
             student.setMaleGender(userData.isMaleGender());
             student.setPhoto(userData.getPhoto());
 
-            studentAdapter.notifyDataSetChanged();
-            updateStudentInfo();
+            if (inputCorrect) {
+                studentAdapter.notifyDataSetChanged();
+                updateStudentInfo();
+            }
         }
     }
 
