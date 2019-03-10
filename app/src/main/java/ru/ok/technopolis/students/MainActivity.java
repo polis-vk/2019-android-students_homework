@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (student == null) {
+                if (student == null || surnameEdit.getText().toString().equals("") || nameEdit.getText().toString().equals("")) {
                     Toast.makeText(MainActivity.this, "Необходимо заполнить все пропуски и нажать \"добавить студента\"", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     student.setMaleGender(false);
                 }
-                clear();
                 studentAdapter.notifyDataSetChanged();
+                clear();
             }
         });
     }
@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         surnameEdit.setHint(R.string.surname_student);
         male.setChecked(false);
         photo.setImageResource(R.drawable.ic_launcher_background);
+        student = null;
     }
 
     private void deleteButton() {
@@ -92,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 students.remove(student);
-                clear();
                 studentAdapter.notifyDataSetChanged();
+                clear();
             }
         });
     }
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         String surnameEditLocal =  surnameEdit.getText().toString();
         nameEdit =  findViewById(R.id.activity_name_student);
         String nameEdit_s =  nameEdit.getText().toString();
-        if (surnameEdit.getText().toString()==null || nameEdit.getText().toString()==null || student==null) {
+        if (surnameEdit.getText().toString().equals("") || nameEdit.getText().toString().equals("")) {
             Toast.makeText(MainActivity.this, "Заполните все поля", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -131,8 +132,8 @@ public class MainActivity extends AppCompatActivity {
         }
         student = generateNewStudent(nameEdit_s, surnameEditLocal+" ", maleGender);
         students.add(student);
-        clear();
         studentAdapter.notifyDataSetChanged();
+        clear();
     }
 
     private Student generateNewStudent(String firstName, String secondName, boolean maleGender) {
