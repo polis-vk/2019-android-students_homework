@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.LinkedList;
@@ -20,11 +19,16 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private Random random = new Random();
-    private int r;
+    private int[] iconArrMale = {R.drawable.male_1, R.drawable.male_2, R.drawable.male_3};
+    private int[] iconsArrFemale = {R.drawable.female_1, R.drawable.female_2, R.drawable.female_3};
+    private int randomVal;
     private int randomIcon;
     private boolean sexOfStudent;
-    private Student currentStudent;
+    private int index;
 
+    private View currentView;
+    private RadioButton maleRadioBtn;
+    private RadioButton femaleRadioBtn;
     private List<Student> students;
     private EditText firstNameText;
     private EditText secondNameText;
@@ -32,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton addBtn;
     private View bottomView;
     private RadioGroup sexRadioGroup;
-    private RadioButton maleRadioBtn;
-    private RadioButton femaleRadioBtn;
     private Button deleteBtn;
     private Button saveBtn;
     private StudentAdapter studentAdapter;
@@ -47,28 +49,7 @@ public class MainActivity extends AppCompatActivity {
         findViews();
 
         studentAdapter = new StudentAdapter(generateStudentList(),
-                new StudentAdapter.Listener() {
-                    @Override
-                    public void onStudentClick(Student student, View v, View lastV) {
-                        currentStudent = student;
-                        firstNameText.setText(student.getFirstName());
-                        secondNameText.setText(student.getSecondName());
-                        icon.setImageResource(student.getPhoto());
-                        addBtn.hide();
-                        bottomView.setVisibility(View.VISIBLE);
-
-                        if (student.isMaleGender()) {
-                            maleRadioBtn.toggle();
-                        } else {
-                            femaleRadioBtn.toggle();
-                        }
-
-                        v.setBackgroundResource(R.color.colorPrimary);
-                        if (lastV != null) {
-                            lastV.setBackgroundResource(R.color.white);
-                        }
-                    }
-                });
+                this::onStudentClick);
 
         recyclerView.setAdapter(studentAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -78,6 +59,29 @@ public class MainActivity extends AppCompatActivity {
         setDeleteAddBtn();
         setSaveBtn();
         setSexRadioGroup();
+    }
+
+    private void onStudentClick(View view, int i) {
+        firstNameText.setText(students.get(i).getFirstName());
+        secondNameText.setText(students.get(i).getSecondName());
+        icon.setImageResource(students.get(i).getPhoto());
+        addBtn.hide();
+        if (students.get(i).isMaleGender()) {
+            maleRadioBtn.toggle();
+        } else {
+            femaleRadioBtn.toggle();
+        }
+        index = i;
+
+        if (currentView != null) {
+            currentView.setBackgroundResource(R.color.white);
+        }
+        if (view != null) {
+            view.setBackgroundResource(R.color.colorPrimaryDark);
+        }
+
+        currentView = view;
+        bottomView.setVisibility(View.VISIBLE);
     }
 
     private void findViews() {
@@ -95,90 +99,58 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setSexRadioGroup() {
-        sexRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.activity_main_sex_male) {
-                    sexOfStudent = true;
-                } else if (checkedId == R.id.activity_main_sex_female) {
-                    sexOfStudent = false;
-                }
-                if (sexOfStudent) {
-                    switch (r) {
-                        case 0:
-                            randomIcon = R.drawable.male_1;
-                            break;
-                        case 1:
-                            randomIcon = R.drawable.male_2;
-                            break;
-                        case 2:
-                            randomIcon = R.drawable.male_3;
-                            break;
-                    }
-                } else {
-                    switch (r) {
-                        case 0:
-                            randomIcon = R.drawable.female_1;
-                            break;
-                        case 1:
-                            randomIcon = R.drawable.female_2;
-                            break;
-                        case 2:
-                            randomIcon = R.drawable.female_3;
-                            break;
-                    }
-                }
-                icon.setImageResource(randomIcon);
+        sexRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.activity_main_sex_male) {
+                sexOfStudent = true;
+                randomIcon = iconArrMale[randomVal];
+            } else if (checkedId == R.id.activity_main_sex_female) {
+                sexOfStudent = false;
+                randomIcon = iconsArrFemale[randomVal];
             }
+
+            icon.setImageResource(randomIcon);
         });
     }
 
     private void setSaveBtn() {
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!firstNameText.getText().toString().equals("") &&
-                        !secondNameText.getText().toString().equals("")) {
-                    Student student = new Student(firstNameText.getText().toString(),
-                            secondNameText.getText().toString(),
-                            sexOfStudent,
-                            randomIcon);
-                    students.add(student);
+        saveBtn.setOnClickListener(v -> {
+            if (firstNameText.getText() != null && secondNameText.getText() != null &&
+                    !firstNameText.getText().toString().equals("") &&
+                    !secondNameText.getText().toString().equals("")) {
+                Student student = new Student(firstNameText.getText().toString(),
+                        secondNameText.getText().toString(),
+                        sexOfStudent,
+                        randomIcon);
+                students.add(student);
 
-                    bottomView.setVisibility(View.GONE);
-                    addBtn.show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Имя или фамилия не заданы",
-                            Toast.LENGTH_SHORT).show();
-                }
+                bottomView.setVisibility(View.GONE);
+                addBtn.show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Имя или фамилия не заданы",
+                        Toast.LENGTH_SHORT).show();
             }
         });
+        studentAdapter.notifyDataSetChanged();
     }
 
     private void setDeleteAddBtn() {
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                students.remove(currentStudent);
-                studentAdapter.notifyDataSetChanged();
-                bottomView.setVisibility(View.GONE);
-                addBtn.show();
-            }
+        deleteBtn.setOnClickListener(v -> {
+            students.remove(index);
+            studentAdapter.notifyDataSetChanged();
+            bottomView.setVisibility(View.GONE);
+            addBtn.show();
         });
     }
 
     private void setAddBtn() {
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addBtn.hide();
-                bottomView.setVisibility(View.VISIBLE);
+        addBtn.setOnClickListener(v -> {
+            addBtn.hide();
+            bottomView.setVisibility(View.VISIBLE);
 
-                firstNameText.setText("");
-                secondNameText.setText("");
-                sexRadioGroup.clearCheck();
-                r = random.nextInt(3);
-            }
+            firstNameText.setText("");
+            secondNameText.setText("");
+            sexRadioGroup.clearCheck();
+            randomVal = random.nextInt(3);
         });
     }
 

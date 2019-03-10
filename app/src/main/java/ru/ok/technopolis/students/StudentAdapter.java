@@ -13,7 +13,6 @@ import java.util.List;
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
     private final Listener onStudentClickListener;
     private List<Student> students;
-    private View lastV;
 
     StudentAdapter(List<Student> students, Listener onStudentClickListener) {
         this.students = students;
@@ -25,13 +24,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item,
                 viewGroup, false);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onStudentClickListener.onStudentClick((Student) v.getTag(), v , lastV);
-                lastV = v;
-            }
-        });
+        view.setOnClickListener(v -> onStudentClickListener.onStudentClick(view, (Integer) v.getTag()));
         return new StudentViewHolder(view);
     }
 
@@ -39,7 +32,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     public void onBindViewHolder(@NonNull StudentViewHolder viewHolder, int i) {
         Student student = students.get(i);
         viewHolder.bind(student);
-        viewHolder.itemView.setTag(student);
+        viewHolder.itemView.setTag(i);
     }
 
     @Override
@@ -65,7 +58,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     }
 
     interface Listener {
-        void onStudentClick(Student student, View view, View lastV);
+        void onStudentClick(View view, int i);
     }
 
 }
