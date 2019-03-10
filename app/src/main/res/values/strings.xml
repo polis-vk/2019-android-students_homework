@@ -4,8 +4,7 @@
     <string name="add_student">+ Добавить студента</string>
     <string name="surname_student">Фамилия</string>
     <string name="name_student"> Имя</string>
-    <string name="men_student">M</string>
-    <string name="women_student">Ж</string>
+    <string name="men_student">Мужской пол?</string>
     <string name="delete_button">Удалить</string>
     <string name="save_button">Сохранить</string>
 

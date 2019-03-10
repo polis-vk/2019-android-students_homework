@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +21,11 @@ public class MainActivity extends AppCompatActivity {
     private StudentAdapter studentAdapter;
     private TextView surnameEdit;
     private TextView nameEdit;
-    private Button save;
-    private Button delete;
-    private Button add;
+    private Button saveButton;
+    private Button deleteButton;
+    private Button addButton;
     private CheckBox male;
-    private CheckBox female;
+    private ImageView photo;
 
 
     @Override
@@ -37,73 +38,68 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(studentAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        add = findViewById(R.id.add_student);
-        save = findViewById(R.id.save_button);
-        delete = findViewById(R.id.delete_button);
+        addButton = findViewById(R.id.add_student);
+        saveButton = findViewById(R.id.save_button);
+        deleteButton = findViewById(R.id.delete_button);
         surnameEdit =  findViewById(R.id.activity_surname_student);
         nameEdit =  findViewById(R.id.activity_name_student);
         male = findViewById(R.id.men_student);
-        female = findViewById(R.id.women_student);
+        photo = findViewById(R.id.photo_student);
         addButton();
         saveButton();
         deleteButton();
     }
 
     private void saveButton() {
-        save.setOnClickListener(new View.OnClickListener() {
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (student == null) {
-                    Toast.makeText(MainActivity.this, "Fill all gaps and click \"add student\"", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Необходимо заполнить все пропуски и нажать \"добавить студента\"", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (!(student.getSecondName().equals(surnameEdit.getText().toString()) && student.getFirstName().equals(nameEdit.getText().toString()))) {
                     student.setSecondName(surnameEdit.getText().toString()+" ");
                     student.setFirstName(nameEdit.getText().toString());
                 }
-                if (male.isChecked() && female.isChecked() || !male.isChecked() && !female.isChecked()) {
-                    Toast.makeText(MainActivity.this, "Choose gender", Toast.LENGTH_SHORT).show();
-                    return;
+                if (male.isChecked()) {
+                    student.setMaleGender(true);
                 } else {
-                    if (male.isChecked()) {
-                        student.setMaleGender(true);
-                    } else {
-                        if (female.isChecked()) {
-                            student.setMaleGender(false);
-                        }
-                    }
+                    student.setMaleGender(false);
                 }
-                clean();
+                clear();
                 studentAdapter.notifyDataSetChanged();
             }
         });
     }
 
-    private void clean() {
-        nameEdit.setText("Имя");
-        surnameEdit.setText("Фамилия");
+    private void clear() {
+        nameEdit.setText("");
+        nameEdit.setHint(R.string.name_student);
+        surnameEdit.setText("");
+        surnameEdit.setHint(R.string.surname_student);
         male.setChecked(false);
-        female.setChecked(false);
-
+        photo.setImageResource(R.drawable.ic_launcher_background);
     }
 
     private void deleteButton() {
-        delete.setOnClickListener(new View.OnClickListener() {
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (student == null) {
-                    Toast.makeText(MainActivity.this, "Choose student", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Выберите студента", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 students.remove(student);
-                clean();
+                clear();
                 studentAdapter.notifyDataSetChanged();
             }
         });
     }
 
     private void addButton() {
-        add.setOnClickListener(v -> onAddClick());
+        addButton.setOnClickListener(v -> onAddClick());
     }
 
     private void onStudentClick(Student student) {
@@ -111,39 +107,31 @@ public class MainActivity extends AppCompatActivity {
         nameEdit.setText(student.getFirstName());
         if (student.isMaleGender()) {
             male.setChecked(true);
-            female.setChecked(false);
         } else {
             male.setChecked(false);
-            female.setChecked(true);
         }
+        photo.setImageResource(student.getPhoto());
         this.student = student;
     }
 
     private void onAddClick() {
         surnameEdit =  findViewById(R.id.activity_surname_student);
-        String surnameEdit_s =  surnameEdit.getText().toString();
+        String surnameEditLocal =  surnameEdit.getText().toString();
         nameEdit =  findViewById(R.id.activity_name_student);
         String nameEdit_s =  nameEdit.getText().toString();
-        if (surnameEdit_s.equals("Фамилия") || nameEdit_s.equals(" Имя")) {
-            Toast.makeText(MainActivity.this, "Fill all gaps", Toast.LENGTH_SHORT).show();
+        if (surnameEdit.getText().toString()==null || nameEdit.getText().toString()==null || student==null) {
+            Toast.makeText(MainActivity.this, "Заполните все поля", Toast.LENGTH_SHORT).show();
             return;
         }
         boolean maleGender = true;
-        if (male.isChecked() && female.isChecked() || !male.isChecked() && !female.isChecked()) {
-            Toast.makeText(MainActivity.this, "Choose gender", Toast.LENGTH_SHORT).show();
-            return;
+        if (male.isChecked()) {
+            maleGender = true;
         } else {
-            if (male.isChecked()) {
-                maleGender = true;
-            } else {
-                if (female.isChecked()) {
-                    maleGender = false;
-                }
-            }
+            maleGender = false;
         }
-        student = generateNewStudent(nameEdit_s, surnameEdit_s+" ", maleGender);
+        student = generateNewStudent(nameEdit_s, surnameEditLocal+" ", maleGender);
         students.add(student);
-        clean();
+        clear();
         studentAdapter.notifyDataSetChanged();
     }
 
@@ -159,14 +147,9 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Student> generateStudentList() {
         List<Student> students = new ArrayList<>();
-        students.add(new Student("Ivan ",
-                "Ivanov ", true,
-                R.drawable.male_1));
-        students.add(new Student("Denis ",
-"Akimov ", true,              R.drawable.male_2));
-        students.add(new Student("Alexa ",
-                "Donova ", false,
-                R.drawable.female_3));
+        students.add(new Student("Ivan ", "Ivanov ", true, R.drawable.male_1));
+        students.add(new Student("Denis ", "Akimov ", true,R.drawable.male_2));
+        students.add(new Student("Alexa ", "Donova ", false, R.drawable.female_3));
         return students;
     }
 

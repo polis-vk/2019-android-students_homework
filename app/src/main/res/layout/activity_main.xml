@@ -43,7 +43,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="10dp"
-        android:background="@android:color/darker_gray"
+        android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toTopOf="@+id/delete_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_student"
@@ -56,8 +56,9 @@
         android:id="@+id/activity_surname_student"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/surname_student"
-        android:textSize="18dp"
+        android:hint="@string/surname_student"
+        android:maxLength="12"
+        android:maxHeight="50dp"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintTop_toTopOf="@+id/photo_student"
         app:layout_constraintStart_toEndOf="@+id/photo_student"
@@ -70,8 +71,9 @@
         android:id="@+id/activity_name_student"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18dp"
-        android:text="@string/name_student"
+        android:maxLength="11"
+        android:maxHeight="50dp"
+        android:hint="@string/name_student"
         app:layout_constraintTop_toBottomOf="@+id/activity_surname_student"
         app:layout_constraintStart_toEndOf="@+id/photo_student"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,16 +91,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_name_student"
         />
-    <CheckBox
-        android:id="@+id/women_student"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/women_student"
-        app:layout_constraintStart_toEndOf="@+id/men_student"
-        app:layout_constraintBottom_toTopOf="@+id/save_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_name_student"
-        />
+
 
     <Button
         android:id="@+id/delete_button"
@@ -109,7 +102,7 @@
         android:layout_marginLeft="40dp"
         android:text="@string/delete_button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/save_button"
+        app:layout_constraintEnd_toStartOf="@+id/save_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/photo_student" />
 
@@ -121,9 +114,8 @@
         android:text="@string/save_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toEndOf="@+id/delete_button"
         app:layout_constraintTop_toBottomOf="@+id/photo_student"
-         />
+        app:layout_constraintVertical_bias="0.6" />
 
 </android.support.constraint.ConstraintLayout>
