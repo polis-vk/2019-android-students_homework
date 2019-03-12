@@ -1,7 +1,6 @@
 package ru.ok.technopolis.students;
 
 public class Student {
-
     private String firstName;
     private String secondName;
     private boolean maleGender;
@@ -14,7 +13,7 @@ public class Student {
         this.photo = photo;
     }
 
-    public String getFirstName() {
+    String getFirstName() {
         return firstName;
     }
 
@@ -38,7 +37,7 @@ public class Student {
         this.maleGender = maleGender;
     }
 
-    public int getPhoto() {
+    int getPhoto() {
         return photo;
     }
 
