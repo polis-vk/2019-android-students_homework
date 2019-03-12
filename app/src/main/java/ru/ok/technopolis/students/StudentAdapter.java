@@ -14,6 +14,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     private final List<Student> students;
     private final Listener onStudentClickListener;
+    private int selectPos = RecyclerView.NO_POSITION;
 
     public StudentAdapter(List<Student> students, Listener onStudentClickListener) {
         this.students = students;
@@ -24,8 +25,17 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student_item, viewGroup, false);
-        view.setOnClickListener(v -> onStudentClickListener.onStudentClick((Student) v.getTag()));
-        return new StudentViewHolder(view);
+        StudentViewHolder studentViewHolder = new StudentViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onStudentClickListener.onStudentClick((Student) v.getTag());
+                notifyItemChanged(selectPos);
+                selectPos = studentViewHolder.getAdapterPosition();
+                notifyItemChanged(selectPos);
+            }
+        });
+        return studentViewHolder;
     }
 
     @Override
@@ -33,6 +43,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         Student student = students.get(i);
         viewHolder.bind(student);
         viewHolder.itemView.setTag(student);
+        viewHolder.itemView.setSelected(selectPos==i);
 
     }
 
@@ -53,13 +64,13 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             nameTextView = itemView.findViewById(R.id.name_student);
             surnameTextView = itemView.findViewById(R.id.surname_student);
             photoImageView = itemView.findViewById(R.id.photo_student);
+            itemView.setSelected(true);
         }
 
         private void bind(@NonNull Student student) {
             nameTextView.setText(student.getFirstName());
             surnameTextView.setText(student.getSecondName());
             photoImageView.setImageResource(student.getPhoto());
-
         }
     }
 
