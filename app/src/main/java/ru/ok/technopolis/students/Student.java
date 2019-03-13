@@ -8,6 +8,7 @@ class Student {
     private boolean maleGender;
     private int photo;
 
+
     Student(int _id, String firstName, String secondName, boolean maleGender, int photo) {
         this._id = _id;
         this.firstName = firstName;
@@ -23,18 +24,18 @@ class Student {
         this.photo = photo;
     }
 
-    Student(){
+    Student() {
         firstName = "";
         secondName = "";
         maleGender = false;
         photo = 0;
     }
 
-    int getID(){
+    int getID() {
         return _id;
     }
 
-    void setId(int _id){
+    void setId(int _id) {
         this._id = _id;
     }
 
@@ -69,4 +70,5 @@ class Student {
     void setPhoto(int photo) {
         this.photo = photo;
     }
+
 }

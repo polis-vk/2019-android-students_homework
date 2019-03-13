@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,18 +16,19 @@ import static ru.ok.technopolis.students.BuildConfig.LOG_TAG;
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentsViewHolder> {
 
     private List<Student> students;
-    private Listener onItemClickListner;
+    private Listener onItemClickListener;
+    private Integer activeId = null;
 
     StudentAdapter(List<Student> students, Listener onItemClickListner) {
         this.students = students;
-        this.onItemClickListner = onItemClickListner;
+        this.onItemClickListener = onItemClickListner;
     }
 
     @NonNull
     @Override
     public StudentsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.students_item, viewGroup, false);
-        view.setOnClickListener(v -> onItemClickListner.onItemClick((Student) v.getTag()));
+        view.setOnClickListener(v -> onItemClickListener.onItemClick((Student) v.getTag()));
         return new StudentsViewHolder(view);
     }
 
@@ -38,6 +38,21 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.Students
         Student student = students.get(i);
         studentsViewHolder.bind(students.get(i));
         studentsViewHolder.itemView.setTag(student);
+
+        Integer active = activeId;
+        if (active != null && active.equals(i)) {
+            studentsViewHolder.itemView.setBackgroundResource(R.color.colorPrimaryDark);
+        } else {
+            studentsViewHolder.itemView.setBackgroundResource(R.color.colorPrimary);
+        }
+
+        studentsViewHolder.itemView.setOnClickListener(v -> {
+            Student position = (Student) v.getTag();
+            //position.setActive(true);
+            setActiveId(students.indexOf(position));
+            onItemClickListener.onItemClick(position);
+            notifyDataSetChanged();
+        });
 
     }
 
@@ -50,7 +65,6 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.Students
 
         private final ImageView avatarImageView;
         private final TextView nameTextView;
-        LinearLayout rowLinearLayout;
 
 
         StudentsViewHolder(@NonNull View itemView) {
@@ -71,6 +85,10 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.Students
         }
 
 
+    }
+
+    void setActiveId(Integer activeId) {
+        this.activeId = activeId;
     }
 
     interface Listener {

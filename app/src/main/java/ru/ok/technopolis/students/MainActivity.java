@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Random random = new Random();
     private int[] malePhoto = {R.drawable.male_avatar_1, R.drawable.male_avatar_3, R.drawable.male_avatar_2};
     private int[] femalePhoto = {R.drawable.female_avatar_1, R.drawable.female_avatar_2, R.drawable.female_avatar_3};
-    private int prevPos = -1;
+    //private int prevPos = -1;
 
 
     @Override
@@ -103,31 +103,33 @@ public class MainActivity extends AppCompatActivity {
 
             recyclerView.setVisibility(View.VISIBLE);
         }
-        if (BuildConfig.LOG) {
+        studentAdapter.setActiveId(null);
+        studentAdapter.notifyDataSetChanged();
+        /*if (BuildConfig.LOG) {
             Log.d(BuildConfig.LOG_TAG, "On add click: prevPos is " + prevPos);
-        }
-        if (prevPos != -1) {
+        }*/
+        /*if (prevPos != -1) {
             try {
                 Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(prevPos)).itemView.setBackgroundColor((Color.parseColor("#FFFFFF")));
             } catch (Exception ignore) {
             }
             prevPos = -1;
 
-        }
+        }*/
         generateNewStudent();
     }
 
     private void onDeleteClick(Student student) {
-        RecyclerView recyclerView = findViewById(R.id.main_activity__rv_students);
+       /* RecyclerView recyclerView = findViewById(R.id.main_activity__rv_students);*/
         students.remove(student);
         dbHandler.deleteStudent(student);
-        if (prevPos != -1) {
+        /*if (prevPos != -1) {
             try {
                 Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(prevPos)).itemView.setBackgroundColor((Color.parseColor("#FFFFFF")));
             } catch (Exception ignore) {
             }
         }
-        prevPos = -1;
+        prevPos = -1;*/
         studentAdapter.notifyDataSetChanged();
         onAddClick();
         if (BuildConfig.LOG) {
@@ -204,25 +206,28 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("NewApi")
     private void onItemClick(Student student) {
-        int pos = students.indexOf(student);
+        /*int pos = students.indexOf(student);*/
 
-        RecyclerView recyclerView = findViewById(R.id.main_activity__rv_students);
+       /* RecyclerView recyclerView = findViewById(R.id.main_activity__rv_students);
         Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(pos)).itemView.setBackgroundColor((Color.parseColor("#BEBEBE")));
         if (prevPos != -1 && prevPos != pos) {
             try {
                 Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(prevPos)).itemView.setBackgroundColor((Color.parseColor("#FFFFFF")));
             } catch (Exception ignore) {
             }
-        }
-        if (BuildConfig.LOG) {
+        }*/
+        /*if (BuildConfig.LOG) {
             Log.d(BuildConfig.LOG_TAG, "Now pos is " + pos + " and prevPos is " + prevPos);
-        }
-        prevPos = pos;
+        }*/
+       /* prevPos = pos;*/
         if (!VISIBILITY_LAYOUTS) {
             VISIBILITY_LAYOUTS = true;
             LinearLayout linearLayout = findViewById(R.id.main_activity_input_layout);
 
             linearLayout.setVisibility(View.VISIBLE);
+            /*int position = (int) v.getTag();
+            students.get(i).setActive(true);
+            studentAdapter.setActiveId();*/
 
         }
         setupMenu(student);
