@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Студенты</string>
+    <string name="student_list">Лист студентов:</string>
+    <string name="add_student">+ Добавить студента</string>
+    <string name="student">Студент</string>
+    <string name="male_gender">Мужской пол</string>
+    <string name="delete">Удалить</string>
+    <string name="save">Сохранить</string>
+</resources>
