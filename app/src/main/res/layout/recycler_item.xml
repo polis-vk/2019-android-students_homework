@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recycler_item__main_layout"
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:orientation="horizontal"
@@ -13,7 +14,7 @@
         android:id="@+id/recycler_item__image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        tools:src="@drawable/female_2"
+        tools:src="@drawable/male_2"
         android:scaleType="centerCrop"/>
 
     <Space
@@ -25,7 +26,7 @@
         tools:text="Алексей Корнеев"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center|left"
+        android:gravity="center|start"
         android:textSize="20sp" />
 
 </LinearLayout>

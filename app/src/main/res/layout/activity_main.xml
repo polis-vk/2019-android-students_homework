@@ -7,7 +7,8 @@
     android:orientation="vertical"
     android:divider="@drawable/divider_vertical"
     android:dividerPadding="10dp"
-    android:showDividers="middle">
+    android:showDividers="middle"
+    android:background="@color/colorNotActive">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/activity_main__recycler"

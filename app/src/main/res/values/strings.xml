@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Students</string>
+    <string name="hint__first_name">Имя</string>
+    <string name="hint__second_name">Фамилия</string>
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    <string name="delete">Удалить</string>
+    <string name="save">Сохранить</string>
 </resources>

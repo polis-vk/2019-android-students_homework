@@ -16,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="40"
             android:scaleType="centerCrop" />
 
@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="30"
-                android:hint="Имя"
+                android:hint="@string/hint__first_name"
                 android:maxLines="1" />
 
             <EditText
@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="30"
-                android:hint="Фамилия"
+                android:hint="@string/hint__second_name"
                 android:maxLines="1" />
 
             <RadioGroup
@@ -54,14 +54,14 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="50"
-                    android:text="Мужской" />
+                    android:text="@string/male" />
 
                 <RadioButton
                     android:id="@+id/activity_main__gender_female"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="50"
-                    android:text="Женский" />
+                    android:text="@string/female" />
 
             </RadioGroup>
 
@@ -80,7 +80,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="45"
-            android:text="Удалить" />
+            android:text="@string/delete" />
 
         <Space
             android:layout_width="0dp"
@@ -92,7 +92,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="45"
-            android:text="Сохранить" />
+            android:text="@string/save" />
 
     </LinearLayout>
 

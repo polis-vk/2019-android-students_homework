@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,10 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
-
+import android.widget.Toast;
 import java.util.Random;
-
-import static ru.ok.technopolis.students.LoaderLargeImage.*;
 
 public class MainActivity extends AppCompatActivity implements StudentsRecyclerAdapter.OnActionInRecyclerViewListener {
 
@@ -25,12 +24,14 @@ public class MainActivity extends AppCompatActivity implements StudentsRecyclerA
     private EditText edtFirstName, edtSecondName;
     private RadioGroup radioGroup;
 
-    //TODO поработать со стилем
+    private final int[] imgMale = {R.drawable.male_1, R.drawable.male_2, R.drawable.male_3};
+    private final int[] imgFemale = {R.drawable.female_1, R.drawable.female_2, R.drawable.female_3};
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.a_main);
+        setContentView(R.layout.activity_main);
 
         setupRecyclerView();
 
@@ -42,23 +43,14 @@ public class MainActivity extends AppCompatActivity implements StudentsRecyclerA
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int[] imgMale = {R.drawable.male_1, R.drawable.male_2, R.drawable.male_3};
-                int[] imgFemale = {R.drawable.female_1, R.drawable.female_2, R.drawable.female_3};
-
-                int i;
+                int i = new Random().nextInt(3);
                 switch (radioGroup.getCheckedRadioButtonId()) {
                     case R.id.activity_main__gender_male:
-                        i = new Random().nextInt(3);
-                        imgPhoto.setImageBitmap(
-                                decodeSampledBitmapFromResource(getResources(), imgMale[i], 200, 200)
-                        );
+                        imgPhoto.setImageDrawable(getResources().getDrawable(imgMale[i]));
                         currentPhotoId = imgMale[i];
                         break;
                     case R.id.activity_main__gender_female:
-                        i = new Random().nextInt(3);
-                        imgPhoto.setImageBitmap(
-                                decodeSampledBitmapFromResource(getResources(), imgFemale[i], 200, 200)
-                        );
+                        imgPhoto.setImageDrawable(getResources().getDrawable(imgFemale[i]));
                         currentPhotoId = imgFemale[i];
                         break;
                     default:
@@ -72,10 +64,16 @@ public class MainActivity extends AppCompatActivity implements StudentsRecyclerA
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String firstName = edtFirstName.getText().toString(); //TODO проверка на пустоту данных
-                String secondName = edtSecondName.getText().toString(); //TODO проверка на пустоту данных
+                Editable tempFN = edtFirstName.getText();
+                Editable tempSN = edtSecondName.getText();
+                String firstName = null;
+                String secondName = null;
+                if (tempFN != null)
+                    firstName = tempFN.toString();
+                if (tempSN != null)
+                    secondName = tempSN.toString();
 
-                boolean gender;
+                Boolean gender = null;
                 switch (radioGroup.getCheckedRadioButtonId()) {
                     case R.id.activity_main__gender_male:
                         gender = true;
@@ -83,9 +81,12 @@ public class MainActivity extends AppCompatActivity implements StudentsRecyclerA
                     case R.id.activity_main__gender_female:
                         gender = false;
                         break;
-                    default:
-                        return; //TODO проверка на пустоту данных, сообщение ошибки добавить
-                    //break;
+                }
+
+                if (gender == null || firstName == null || secondName == null
+                        || firstName.equals("") || secondName.equals("")){
+                    Toast.makeText(MainActivity.this, "Заполните все поля.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
                 Student student = new Student(firstName, secondName, gender, currentPhotoId);
@@ -135,7 +136,6 @@ public class MainActivity extends AppCompatActivity implements StudentsRecyclerA
 
     @Override
     public void onActionStudent(String fName, String sName, boolean gender, int photo) {
-        //TODO определить размеры фото
         edtFirstName.setText(fName);
         edtSecondName.setText(sName);
         if (gender) {
@@ -143,6 +143,6 @@ public class MainActivity extends AppCompatActivity implements StudentsRecyclerA
         } else {
             radioGroup.check(R.id.activity_main__gender_female);
         }
-        imgPhoto.setImageBitmap(decodeSampledBitmapFromResource(getResources(), photo, 200, 200));
+        imgPhoto.setImageDrawable(getResources().getDrawable(photo));
     }
 }

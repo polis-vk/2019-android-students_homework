@@ -1,26 +1,23 @@
 package ru.ok.technopolis.students;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.ok.technopolis.students.LoaderLargeImage.decodeSampledBitmapFromResource;
-
 public class StudentsRecyclerAdapter extends RecyclerView.Adapter<StudentsRecyclerAdapter.StudentViewHolder> {
 
     public interface OnActionInRecyclerViewListener {
         void onClearFields();
+
         void onActionStudent(String fName, String sName, boolean gender, int photo);
     }
 
@@ -34,14 +31,15 @@ public class StudentsRecyclerAdapter extends RecyclerView.Adapter<StudentsRecycl
 
     //TODO сделать разделители
 
-    public StudentsRecyclerAdapter(Context context){
+    public StudentsRecyclerAdapter(Context context) {
         this.context = context;
         this.onActionInRecyclerViewListener = (OnActionInRecyclerViewListener) context;
     }
 
-    public void saveStudent(Student newStudent){
-        if (actionStudent == NO_ACTION_STUDENT){
+    public void saveStudent(Student newStudent) {
+        if (actionStudent == NO_ACTION_STUDENT) {
             studentList.add(newStudent);
+            newStudent.setActive(true);
             notifyItemInserted(studentList.size() - 1);
             actionStudent = studentList.size() - 1;
         } else {
@@ -54,8 +52,8 @@ public class StudentsRecyclerAdapter extends RecyclerView.Adapter<StudentsRecycl
         }
     }
 
-    public void deleteStudent(){
-        if (actionStudent != NO_ACTION_STUDENT){
+    public void deleteStudent() {
+        if (actionStudent != NO_ACTION_STUDENT) {
             studentList.remove(actionStudent);
             notifyItemRemoved(actionStudent);
             actionStudent = NO_ACTION_STUDENT;
@@ -66,7 +64,12 @@ public class StudentsRecyclerAdapter extends RecyclerView.Adapter<StudentsRecycl
     }
 
     public void setActionStudent(int actionStudent) {
+        if (this.actionStudent != NO_ACTION_STUDENT)
+            studentList.get(this.actionStudent).setActive(false);
         this.actionStudent = actionStudent;
+        if (this.actionStudent != NO_ACTION_STUDENT)
+            studentList.get(this.actionStudent).setActive(true);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -91,37 +94,44 @@ public class StudentsRecyclerAdapter extends RecyclerView.Adapter<StudentsRecycl
 
         private ImageView avatar;
         private TextView name;
+        private LinearLayout layout;
 
         StudentViewHolder(@NonNull View itemView) {
             super(itemView);
+            layout = itemView.findViewById(R.id.recycler_item__main_layout);
             avatar = itemView.findViewById(R.id.recycler_item__image);
             name = itemView.findViewById(R.id.recycler_item__text);
-            //TODO графтческое выделение записи нажатой
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (actionStudent != NO_ACTION_STUDENT)
+                        studentList.get(actionStudent).setActive(false);
                     actionStudent = getAdapterPosition();
-
                     Student student = studentList.get(getAdapterPosition());
+                    student.setActive(true);
                     onActionInRecyclerViewListener.onActionStudent(
                             student.getFirstName(),
                             student.getSecondName(),
                             student.isMaleGender(),
                             student.getPhoto()
                     );
+                    notifyDataSetChanged();
                 }
             });
         }
 
-        private void bind(Student student){
-
-            //TODO размеры картинки определить
-            avatar.setImageBitmap(decodeSampledBitmapFromResource(context.getResources(), student.getPhoto(), 100, 100));
-
-            String stringBuilder = student.getFirstName() +
+        private void bind(Student student) {
+            if (student.isActive()) {
+                layout.setBackgroundColor(context.getResources().getColor(R.color.colorActive));
+            } else {
+                layout.setBackgroundColor(context.getResources().getColor(R.color.colorNotActive));
+            }
+            avatar.setImageDrawable(context.getResources().getDrawable(student.getPhoto()));
+            String fsName = student.getFirstName() +
                     " " +
                     student.getSecondName();
-            name.setText(stringBuilder);
+            name.setText(fsName);
         }
     }
 }
