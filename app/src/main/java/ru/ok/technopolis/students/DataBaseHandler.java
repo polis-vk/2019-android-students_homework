@@ -26,7 +26,6 @@ public class DataBaseHandler extends SQLiteOpenHelper implements IDataBaseHendle
     private static final String KEY_GENDER = "gender";
     private static final String KEY_PH_ID = "photoId";
 
-
     DataBaseHandler(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -145,8 +144,9 @@ public class DataBaseHandler extends SQLiteOpenHelper implements IDataBaseHendle
         values.put(KEY_NAME, student.getFirstName());
         values.put(KEY_L_NAME, student.getSecondName());
         int studentIntGender = 0;
-        if (student.isMaleGender())
+        if (student.isMaleGender()) {
             studentIntGender = 1;
+        }
         values.put(KEY_GENDER, studentIntGender);
         values.put(KEY_PH_ID, student.getPhoto());
 

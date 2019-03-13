@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private Random random = new Random();
     private int[] malePhoto = {R.drawable.male_avatar_1, R.drawable.male_avatar_3, R.drawable.male_avatar_2};
     private int[] femalePhoto = {R.drawable.female_avatar_1, R.drawable.female_avatar_2, R.drawable.female_avatar_3};
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
