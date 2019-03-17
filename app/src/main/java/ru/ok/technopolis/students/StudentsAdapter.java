@@ -55,9 +55,12 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
 
         private void bind(@NonNull Student student) {
             nameTextView.setText(student.getFirstName() + " " + student.getSecondName());
-            if (student.isMaleGender()) posterImageView.setImageResource(student.getPhoto());
-            else posterImageView.setImageResource(student.getPhoto());
-            ;
+            if (student.isMaleGender()){
+                posterImageView.setImageResource(student.getPhoto());
+            }
+            else {
+                posterImageView.setImageResource(student.getPhoto());
+            }
         }
     }
 

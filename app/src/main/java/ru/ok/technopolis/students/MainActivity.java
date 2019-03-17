@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +32,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         setContentView(R.layout.activity_main);
         setupRecyclerView();
 
-        btnAddStudent =  findViewById(R.id.button6);
-        btnDelStudent =  findViewById(R.id.button4);
-        btnSaveStudent = findViewById(R.id.button5);
+        btnAddStudent =  findViewById(R.id.activity_main_add_button);
+        btnDelStudent =  findViewById(R.id.activity_main_delete);
+        btnSaveStudent = findViewById(R.id.activity_main_save);
 
         btnAddStudent.setOnClickListener(this);
         btnDelStudent.setOnClickListener(this);
@@ -43,15 +44,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.button6:
+            case R.id.activity_main_add_button:
                 onAddClick();
                 setupRecyclerView();
                 break;
-            case R.id.button4:
+            case R.id.activity_main_delete:
                 onDellClick();
                 setupRecyclerView();
                 break;
-            case R.id.button5:
+            case R.id.activity_main_save:
                 onSaveStudent();
                 setupRecyclerView();
                 break;
@@ -71,39 +72,40 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     }
 
     private void onStudentClick(Student student, String id) {
-        TextInputEditText firstname = findViewById(R.id.texInputEdit4);
-        TextInputEditText secondname = findViewById(R.id.texInputEdit5);
-        ImageView posterImageView = findViewById(R.id.imageView4);
-        CheckBox male =findViewById(R.id.checkBox2);
+        TextView firstname = findViewById(R.id.edit_name);
+        TextView secondname = findViewById(R.id.edit_secondname);
+        ImageView posterImageView = findViewById(R.id.activity_main_avatarka);
+        CheckBox male =findViewById(R.id.sex_checkbox);
         firstname.setText(student.getFirstName());
         secondname.setText(student.getSecondName());
         posterImageView.setImageResource(student.getPhoto());
         male.setChecked(student.isMaleGender());
-        Button dellId = findViewById(R.id.button4);
+        Button dellId = findViewById(R.id.activity_main_delete);
         dellId.setContentDescription(id);
     }
 
     private void onDellClick() {
         String str= (String) btnDelStudent.getContentDescription();
-        TextInputEditText firstname = findViewById(R.id.texInputEdit4);
-        TextInputEditText secondname = findViewById(R.id.texInputEdit5);
-        ImageView posterImageView = findViewById(R.id.imageView4);
-        CheckBox male =findViewById(R.id.checkBox2);
+        TextView firstname = findViewById(R.id.edit_name);
+        TextView secondname = findViewById(R.id.edit_secondname);
+        ImageView posterImageView = findViewById(R.id.activity_main_avatarka);
+        CheckBox male =findViewById(R.id.sex_checkbox);
         firstname.setText("");
         secondname.setText("");
         posterImageView.setImageResource(R.mipmap.ic_launcher);
         male.setChecked(false);
         btnDelStudent.setContentDescription("1000");
         int id = Integer.parseInt(str);
-
-        if (students.get(id).getSecondName().length()>0) students.remove(id);
+        if ( id >= 0 && id != 1000 ) {
+            students.remove(id);
+        }
     }
 
     private  void onAddClick(){
-        TextInputEditText firstname = findViewById(R.id.texInputEdit4);
-        TextInputEditText secondname = findViewById(R.id.texInputEdit5);
-        ImageView posterImageView = findViewById(R.id.imageView4);
-        CheckBox male =findViewById(R.id.checkBox2);
+        TextView firstname = findViewById(R.id.edit_name);
+        TextView secondname = findViewById(R.id.edit_secondname);
+        ImageView posterImageView = findViewById(R.id.activity_main_avatarka);
+        CheckBox male =findViewById(R.id.sex_checkbox);
         firstname.setText("");
         secondname.setText("");
         posterImageView.setImageResource(R.mipmap.ic_launcher);
@@ -114,16 +116,20 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     private void onSaveStudent() {
         int id = Integer.parseInt((String) btnDelStudent.getContentDescription());
 
-        TextInputEditText firstname = findViewById(R.id.texInputEdit4);
-        TextInputEditText secondname = findViewById(R.id.texInputEdit5);
-        ImageView posterImageView = findViewById(R.id.imageView4);
-        CheckBox male = findViewById(R.id.checkBox2);
+        TextView firstname = findViewById(R.id.edit_name);
+        TextView secondname = findViewById(R.id.edit_secondname);
+        ImageView posterImageView = findViewById(R.id.activity_main_avatarka);
+        CheckBox male = findViewById(R.id.sex_checkbox);
         int imgSrc= genImgSrc(male.isChecked());
-
+        if (firstname.length() < 2 || secondname.length()< 2){
+            id = -1;
+        }
         if (id == 1000) {
             if (firstname.getText().length()>1 && secondname.getText().length() > 1)
                 students.add(new Student(firstname.getText().toString(), secondname.getText().toString(), male.isChecked(), imgSrc));
-        } else {
+        }else if (id == -1){
+            ;
+        }else {
             Student student;
             student = students.get(id);
             student.setFirstName(firstname.getText().toString());
@@ -184,4 +190,3 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     }
 
 }
-
