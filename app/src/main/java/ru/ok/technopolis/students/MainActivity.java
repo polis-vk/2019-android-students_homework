@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Random random = new Random();
+    private final Random random = new Random();
     private List<Student> students;
     private EditText firstName;
     private EditText secondName;
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 selectStudent = student;
 
                 profile.setVisibility(View.VISIBLE);
+                profile.requestFocus();
         });
         recyclerView.setAdapter(studentAdapter);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupButtons() {
         findViewById(R.id.profile__save_button).setOnClickListener(v -> onSaveClick());
         findViewById(R.id.profile__delete_button).setOnClickListener(v -> onDeleteClick());
-        findViewById(R.id.add_button).setOnClickListener(v -> onAddClick());
+        findViewById(R.id.activity_main__add_button).setOnClickListener(v -> onAddClick());
         gender.setOnClickListener(v -> onChecked());
     }
 
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         imageResource = getPhoto(random.nextInt(3), EMPTY_STUDENT.isMaleGender());
         avatar.setImageResource(imageResource);
         profile.setVisibility(View.VISIBLE);
+        profile.requestFocus();
     }
 
     private void onSaveClick() {
@@ -136,16 +138,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean checkFields() {
-        if (firstName.getText().toString().trim().length() > 0 && secondName.getText().toString().trim().length() > 0) {
+        if (firstName.getText() != null && secondName.getText() != null && firstName.getText().toString().trim().length() > 0 && secondName.getText().toString().trim().length() > 0) {
             firstName.setError(null);
             secondName.setError(null);
             return true;
         }
-        if (firstName.getText().toString().trim().length() == 0) {
-            firstName.setError(getResources().getString(R.string.miss_first_name));
+        if (firstName.getText() != null && firstName.getText().toString().trim().length() == 0) {
+            firstName.setError(getString(R.string.miss_first_name));
         }
-        if (secondName.getText().toString().trim().length() == 0) {
-            secondName.setError(getResources().getString(R.string.miss_second_name));
+        if (secondName.getText() != null && secondName.getText().toString().trim().length() == 0) {
+            secondName.setError(getString(R.string.miss_second_name));
         }
         return false;
     }

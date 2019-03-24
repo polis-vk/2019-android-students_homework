@@ -1,53 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main__scroll"
+    android:scrollbars="none"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:id="@+id/activity_main__tv_students_list"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textSize="22sp"
-        android:gravity="center"
-        android:text="@string/students_list"
-        app:layout_constraintBottom_toTopOf="@id/activity_main__rv_students"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/activity_main__rv_students"
+    android:layout_height="match_parent">
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="210dp"
-        app:layout_constraintBottom_toTopOf="@id/add_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_main__tv_students_list" />
-
-    <Button
-        android:id="@+id/add_button"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/add_student"
-        app:layout_constraintBottom_toTopOf="@id/profile"
-        app:layout_constraintTop_toBottomOf="@id/activity_main__rv_students"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        tools:context=".MainActivity">
 
-    <include
-        layout="@layout/profile"
-        android:id="@+id/profile"
-        android:layout_width="0dp"
-        android:layout_height="250dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/add_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/activity_main__tv_students_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:text="@string/students_list"
+            app:layout_constraintBottom_toTopOf="@id/activity_main__rv_students"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_main__rv_students"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            app:layout_constraintBottom_toTopOf="@id/activity_main__add_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_main__tv_students_list" />
+
+        <Button
+            android:id="@+id/activity_main__add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/add_student"
+            app:layout_constraintBottom_toTopOf="@id/profile"
+            app:layout_constraintTop_toBottomOf="@id/activity_main__rv_students"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            layout="@layout/profile"
+            android:id="@+id/profile"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:visibility="gone"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:layout_constraintTop_toBottomOf="@id/activity_main__add_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
