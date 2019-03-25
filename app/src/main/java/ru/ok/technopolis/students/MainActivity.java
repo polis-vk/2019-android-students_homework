@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private int imageResource;
     private StudentAdapter studentAdapter;
     private Student selectStudent;
+    public static int selectedPosition = -1;
     private final static Student EMPTY_STUDENT = new Student("","", false,0);
     private View profile;
 
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 gender.setChecked(student.isMaleGender());
                 avatar.setImageResource(student.getPhoto());
                 selectStudent = student;
+                selectedPosition = students.indexOf(student);
 
                 profile.setVisibility(View.VISIBLE);
                 profile.requestFocus();
@@ -80,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onAddClick() {
+        clearProfile();
+        selectedPosition = -1;
+        studentAdapter.notifyDataSetChanged();
         selectStudent = EMPTY_STUDENT;
         imageResource = getPhoto(random.nextInt(3), EMPTY_STUDENT.isMaleGender());
         avatar.setImageResource(imageResource);
@@ -110,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void onDeleteClick() {
         students.remove(selectStudent);
+        selectedPosition = -1;
         studentAdapter.notifyDataSetChanged();
         profile.setVisibility(View.GONE);
         clearProfile();

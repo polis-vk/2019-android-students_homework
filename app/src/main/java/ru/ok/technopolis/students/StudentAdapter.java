@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 
+import static ru.ok.technopolis.students.MainActivity.selectedPosition;
+
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
 
@@ -24,7 +26,10 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student_item, viewGroup, false);
-        view.setOnClickListener(v -> onStudentClickListener.onStudentClick((Student) v.getTag()));
+        view.setOnClickListener(v -> {
+            onStudentClickListener.onStudentClick((Student) v.getTag());
+            notifyDataSetChanged();
+        });
         return new StudentViewHolder(view);
     }
 
@@ -33,6 +38,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         Student student = list.get(i);
         viewHolder.bind(student);
         viewHolder.itemView.setTag(student);
+        viewHolder.itemView.setSelected(selectedPosition == i);
     }
 
     @Override
