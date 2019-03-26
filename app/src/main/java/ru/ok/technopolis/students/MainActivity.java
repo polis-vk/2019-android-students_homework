@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class MainActivity extends Activity {
 
     private final String DEFAULTFIRSTNAME = "Firstname";
     private final String DEFAULTSECONDNAME = "Secondname";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,15 +139,21 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (currentStudent != null) {
-                    int index = students.indexOf(currentStudent);
                     EditText firstNameInfo = findViewById(R.id.first_name_info);
-                    currentStudent.setFirstName(firstNameInfo.getText().toString());
                     EditText secondInfo = findViewById(R.id.second_name_info);
-                    currentStudent.setSecondName(secondInfo.getText().toString());
-                    CheckBox checkBox = findViewById(R.id.checkbox);
-                    currentStudent.setMaleGender(checkBox.isChecked());
-                    students.set(index, currentStudent);
-                    studentAdapter.notifyDataSetChanged();
+                    if (!firstNameInfo.getText().toString().contains(" ") && !firstNameInfo.getText().toString().equals("") &&
+                    !secondInfo.getText().toString().equals("") && !secondInfo.getText().toString().contains(" ")) {
+                        int index = students.indexOf(currentStudent);
+                        currentStudent.setFirstName(firstNameInfo.getText().toString());
+                        currentStudent.setSecondName(secondInfo.getText().toString());
+                        CheckBox checkBox = findViewById(R.id.checkbox);
+                        currentStudent.setMaleGender(checkBox.isChecked());
+                        students.set(index, currentStudent);
+                        studentAdapter.notifyDataSetChanged();
+                    }
+                    else {
+                        Toast.makeText(MainActivity.this, "Заполните корректно поля", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
