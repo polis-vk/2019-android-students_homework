@@ -15,7 +15,6 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     private final List<Student> students;
     private final Listener studentListener;
 
-
     StudentAdapter(List<Student> students, Listener studentListener) {
         this.students = students;
         this.studentListener = studentListener;

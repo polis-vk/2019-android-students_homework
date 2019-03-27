@@ -16,15 +16,15 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    List<Student> students;
-    StudentAdapter studentAdapter;
-    RecyclerView recyclerView;
-    Student currentStudent;
-    View currentView = null;
-    EditText name, surname;
-    CheckBox male;
-    ImageView avatar;
-    Random random = new Random();
+    private List<Student> students;
+    private StudentAdapter studentAdapter;
+    private RecyclerView recyclerView;
+    private Student currentStudent;
+    private View currentView = null;
+    private EditText name, surname;
+    private CheckBox male;
+    private ImageView avatar;
+    private Random random = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         male = findViewById(R.id.main_check_male);
         avatar = findViewById(R.id.main_image_avatar);
 
+        cleanCard();
         addClickListener();
         saveClickListener();
         deleteClickListener();
@@ -58,25 +59,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void saveClickListener() {
         findViewById(R.id.main_button_save).setOnClickListener(v -> {
-            if (name.getText().toString().isEmpty())
+            if (name.getText().toString().isEmpty()) {
                 Toast.makeText(MainActivity.this, "Введите имя", Toast.LENGTH_SHORT).show();
-            else if (surname.getText().toString().isEmpty())
+            } else if (surname.getText().toString().isEmpty()) {
                 Toast.makeText(MainActivity.this, "Введите фамилию", Toast.LENGTH_SHORT).show();
-
-            else if (currentStudent == null)
+            } else if (currentStudent == null) {
                 students.add(new Student(name.getText().toString(), surname.getText().toString(),
                         male.isChecked(), randomAvatar(male.isChecked())));
-            else {
+                cleanCard();
+            } else {
                 currentStudent.setFirstName(name.getText().toString());
                 currentStudent.setSecondName(surname.getText().toString());
                 if (currentStudent.isMaleGender() != male.isChecked()) {
                     currentStudent.setMaleGender(male.isChecked());
                     currentStudent.setPhoto(randomAvatar(currentStudent.isMaleGender()));
                 }
+                cleanCard();
             }
             studentAdapter.notifyDataSetChanged();
             currentView.setBackgroundResource(R.color.white);
-            cleanCard();
         });
     }
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -113,48 +112,46 @@
 
         </android.support.v7.widget.CardView>
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/main_edit_text_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:orientation="vertical"
+            android:hint="@string/first_name"
+            android:inputType="text"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat"
+            android:textSize="20sp"
 
             app:layout_constraintLeft_toRightOf="@+id/main_card_avatar"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_text_view_student">
+            app:layout_constraintTop_toBottomOf="@+id/main_text_view_student" />
 
-            <EditText
-                android:id="@+id/main_edit_text_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/first_name"
-                android:inputType="text"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat"
-                android:textSize="20sp"
-                tools:ignore="Autofill" />
+        <EditText
+            android:id="@+id/main_edit_text_surname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/second_name"
+            android:inputType="text"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat"
+            android:textSize="20sp"
 
-            <EditText
-                android:id="@+id/main_edit_text_surname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/second_name"
-                android:inputType="text"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat"
-                android:textSize="20sp"
-                tools:ignore="Autofill" />
+            app:layout_constraintLeft_toRightOf="@+id/main_card_avatar"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_edit_text_name" />
 
-            <CheckBox
-                android:id="@+id/main_check_male"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/male"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat"
-                android:textSize="20sp" />
+        <CheckBox
+            android:id="@+id/main_check_male"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/male"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat"
+            android:textSize="20sp"
 
-        </LinearLayout>
+            app:layout_constraintLeft_toRightOf="@+id/main_card_avatar"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_edit_text_surname" />
 
         <Button
             android:id="@+id/main_button_delete"

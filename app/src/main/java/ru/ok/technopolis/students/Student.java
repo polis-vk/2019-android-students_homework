@@ -1,6 +1,6 @@
 package ru.ok.technopolis.students;
 
-class Student {
+public class Student {
 
     private String firstName;
     private String secondName;
