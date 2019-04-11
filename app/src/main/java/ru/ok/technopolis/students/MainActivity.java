@@ -18,10 +18,10 @@ public class MainActivity extends AppCompatActivity {
     private StudentAdapter adapter;
     private ImageView photo;
     private int photoId;
-    private EditText firstName;
-    private EditText lastName;
+    private EditText firstNameField;
+    private EditText lastNameField;
     private RadioGroup radioGroup;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +33,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         photo = findViewById(R.id.activity_main__photo);
-        firstName = findViewById(R.id.activity_main__firstName);
-        lastName = findViewById(R.id.activity_main__lastName);
+        firstNameField = findViewById(R.id.activity_main__firstName);
+        lastNameField = findViewById(R.id.activity_main__lastName);
         radioGroup = findViewById(R.id.activity_main__radio);
-        
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 clearFields();
-                adapter.setActiveStudent(adapter.NO_STUDENT);
+                adapter.setActiveStudent(StudentAdapter.NO_STUDENT);
             }
         });
 
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 saveStudent();
             }
         });
-        
+
         Button deleteButton = findViewById(R.id.activity_main__delete);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 deleteStudent();
             }
         });
-        
     }
 
     private void deleteStudent() {
@@ -76,11 +75,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveStudent() {
-
-        String firstNameStr = firstName.getText().toString();
-        String lastNameStr = lastName.getText().toString();
+        String firstNameStr = firstNameField.getText() == null ? "" : firstNameField.getText().toString();
+        String lastNameStr = lastNameField.getText() == null ? "" : lastNameField.getText().toString();
         Boolean gender = null;
-        switch (radioGroup.getCheckedRadioButtonId()){
+        switch (radioGroup.getCheckedRadioButtonId()) {
             case R.id.activity_main__radio_male:
                 gender = true;
                 break;
@@ -89,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        if (firstNameStr.isEmpty() || lastNameStr.isEmpty() || gender == null){
+        if (firstNameStr.isEmpty() || lastNameStr.isEmpty() || gender == null) {
             Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -127,16 +125,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void clearFields() {
         photo.setImageDrawable(null);
-        firstName.setText("");
-        lastName.setText("");
+        firstNameField.setText("");
+        lastNameField.setText("");
         radioGroup.clearCheck();
     }
 
     public void setActiveStudent(Student student) {
         photo.setImageDrawable(getResources().getDrawable(student.getPhoto()));
-        firstName.setText(student.getFirstName());
-        lastName.setText(student.getSecondName());
-        if (student.isMale()){
+        firstNameField.setText(student.getFirstName());
+        lastNameField.setText(student.getSecondName());
+        if (student.isMale()) {
             radioGroup.check(R.id.activity_main__radio_male);
         } else {
             radioGroup.check(R.id.activity_main__radio_woman);

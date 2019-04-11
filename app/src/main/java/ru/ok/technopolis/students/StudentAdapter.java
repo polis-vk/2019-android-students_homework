@@ -18,7 +18,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     public static final int NO_STUDENT = -1;
     private MainActivity context;
-    private List<Student> students = new LinkedList<>();
+    private List<Student> students = new ArrayList<>();
     private int activeStudent = NO_STUDENT;
 
     public StudentAdapter(Context context) {
@@ -64,14 +64,12 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         studentViewHolder.bind(students.get(i));
     }
 
-
     @Override
     public int getItemCount() {
         return students.size();
     }
 
     public class StudentViewHolder extends RecyclerView.ViewHolder {
-
         private ImageView face;
         private TextView fullName;
 

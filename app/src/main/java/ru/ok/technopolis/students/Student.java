@@ -4,13 +4,13 @@ public class Student {
 
     private String firstName;
     private String secondName;
-    private boolean isMale;
+    private boolean male;
     private int photo;
 
     public Student(String firstName, String secondName, boolean maleGender, int photo) {
         this.firstName = firstName;
         this.secondName = secondName;
-        this.isMale = maleGender;
+        this.male = maleGender;
         this.photo = photo;
     }
 
@@ -31,11 +31,11 @@ public class Student {
     }
 
     public boolean isMale() {
-        return isMale;
+        return male;
     }
 
     public void setMale(boolean male) {
-        this.isMale = male;
+        this.male = male;
     }
 
     public int getPhoto() {
@@ -49,7 +49,8 @@ public class Student {
     public void copy(Student student) {
         this.firstName = student.firstName;
         this.secondName = student.secondName;
-        this.isMale = student.isMale;
+        this.male = student.male;
         this.photo = student.photo;
     }
+
 }
