@@ -47,10 +47,10 @@ public class Student {
     }
 
     public void copy(Student student) {
-        this.firstName = student.firstName;
-        this.secondName = student.secondName;
-        this.male = student.male;
-        this.photo = student.photo;
+        this.firstName = new String(student.firstName);
+        this.secondName = new String(student.secondName);
+        this.male = new Boolean(student.male);
+        this.photo = new Integer(student.photo);
     }
 
 }
