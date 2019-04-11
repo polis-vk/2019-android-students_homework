@@ -2,6 +2,7 @@ package ru.ok.technopolis.students;
 
 public class Student {
 
+    private Boolean selected;
     private String firstName;
     private String secondName;
     private boolean male;
@@ -12,6 +13,14 @@ public class Student {
         this.secondName = secondName;
         this.male = maleGender;
         this.photo = photo;
+    }
+
+    public Boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(Boolean selected) {
+        this.selected = selected;
     }
 
     public String getFirstName() {
