@@ -7,4 +7,5 @@
     <string name="activity_student__checkbox_gender">Мужской пол</string>
     <string name="activity_student__first_name_string">Имя</string>
     <string name="activity_student__second_name_string">Фамилия</string>
+    <string name="bottom_sheet_fragment__toast_fill">Please, fill all the fields</string>
 </resources>

@@ -3,12 +3,22 @@ package ru.ok.technopolis.students.dao;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import ru.ok.technopolis.students.model.Student;
 
 public class StudentDAO  {
 
     private static final StudentDAO Instance = new StudentDAO();
+
+    public Student getStudentById(UUID id) {
+        for(Student student : students) {
+            if(student.getId().equals(id)){
+                return student;
+            }
+        }
+        return null;
+    }
 
     public static StudentDAO getInstance() {
         return Instance;

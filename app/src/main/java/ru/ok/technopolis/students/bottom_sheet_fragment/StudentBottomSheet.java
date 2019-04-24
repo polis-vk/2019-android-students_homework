@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 import ru.ok.technopolis.students.R;
 import ru.ok.technopolis.students.app.App;
@@ -25,7 +26,9 @@ import ru.ok.technopolis.students.model.Student;
 
 public class StudentBottomSheet extends BottomSheetDialogFragment implements View.OnClickListener {
 
-    private static final String STUDENT_TAG = "STUDENT_TAG";
+    public static final String BOTTOM_SHEET_TAG = "BOTTOM_SHEET";
+
+    private static final String STUDENT_TAG_ID = "STUDENT_TAG_ID";
     private BottomSheetListener bottomSheetListener;
     private EditText firstNameEditText;
     private EditText secondNameEditText;
@@ -37,10 +40,10 @@ public class StudentBottomSheet extends BottomSheetDialogFragment implements Vie
     private StudentsPhotoDAO studentsPhotoDAO;
     private boolean createStudent = false;
 
-    public static BottomSheetDialogFragment newInstance (Student student) {
+    public static BottomSheetDialogFragment newInstance (UUID studentId) {
         final BottomSheetDialogFragment result = new StudentBottomSheet();
         final Bundle args = new Bundle();
-        args.putSerializable(STUDENT_TAG, student);
+        args.putSerializable(STUDENT_TAG_ID, studentId);
         result.setArguments(args);
         return result;
     }
@@ -48,12 +51,12 @@ public class StudentBottomSheet extends BottomSheetDialogFragment implements Vie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Student argsStudent = (Student) getArguments().getSerializable(STUDENT_TAG);
-        if(argsStudent != null) {
-            student = argsStudent;
+        assert getArguments() != null;
+        UUID argsStudentId = (UUID) getArguments().getSerializable(STUDENT_TAG_ID);
+        if(argsStudentId != null) {
+            student = studentDAO.getStudentById(argsStudentId);
             createStudent = false;
-        }
-        else {
+        } else {
             createStudent = true;
             student = new Student();
         }
@@ -95,16 +98,10 @@ public class StudentBottomSheet extends BottomSheetDialogFragment implements Vie
         studentsPhotoDAO = App.getInstance().getStudentsPhotoDAO();
     }
 
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.student__bottom_sheet, container, false);
+        View view = inflater.inflate(R.layout.student_bottom_sheet, container, false);
         genderCheckbox = view.findViewById(R.id.checkBox__gender);
         studentPhoto = view.findViewById(R.id.student_bottom_sheet__photo);
         Button saveStudentButton = view.findViewById(R.id.student_bottom_sheet__save_button);
@@ -113,8 +110,7 @@ public class StudentBottomSheet extends BottomSheetDialogFragment implements Vie
         secondNameEditText = view.findViewById(R.id.set_text__second_name_student);
         if(createStudent) {
             deleteStudentButton.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             setupExistingStudent();
             genderCheckbox.setOnCheckedChangeListener(onCheckedChangeListener);
         }
@@ -125,29 +121,30 @@ public class StudentBottomSheet extends BottomSheetDialogFragment implements Vie
 
     @Override
     public void onClick(View v) {
-        if(createStudent) {
-            createStudent();
+        if (firstNameEditText != null && secondNameEditText != null) {
+            if (createStudent) {
+                createStudent();
+            }
+            switch (v.getId()) {
+                case R.id.student_bottom_sheet__delete_button:
+                    studentDAO.delete(student);
+                    break;
+                case R.id.student_bottom_sheet__save_button:
+                    if (firstNameEditText.getText().toString().equals("") || secondNameEditText.getText().toString().equals("")) {
+                        Toast.makeText(getActivity(), R.string.bottom_sheet_fragment__toast_fill, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    if (createStudent) {
+                        studentDAO.insert(student);
+                    } else {
+                        updateStudent();
+                        studentDAO.update(student);
+                    }
+                    break;
+            }
+            bottomSheetListener.onButtonClicked();
+            dismiss();
         }
-        switch (v.getId()) {
-            case R.id.student_bottom_sheet__delete_button:
-                studentDAO.delete(student);
-                break;
-            case R.id.student_bottom_sheet__save_button:
-                if(firstNameEditText.getText().toString().equals("") || secondNameEditText.getText().toString().equals("")){
-                    Toast.makeText(getActivity(), "Please, fill all the fields", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if(createStudent) {
-                    studentDAO.insert(student);
-                }
-                else  {
-                    updateStudent();
-                    studentDAO.update(student);
-                }
-                break;
-        }
-        bottomSheetListener.onButtonClicked();
-        dismiss();
     }
 
     private void updateStudent() {
@@ -165,8 +162,7 @@ public class StudentBottomSheet extends BottomSheetDialogFragment implements Vie
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if(isChecked) {
                 photo = studentsPhotoDAO.getMalePhoto();
-            }
-            else {
+            } else {
                 photo = studentsPhotoDAO.getFemalePhoto();
             }
             studentPhoto.setImageResource(photo);

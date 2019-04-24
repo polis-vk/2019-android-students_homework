@@ -1,9 +1,8 @@
 package ru.ok.technopolis.students.model;
 
-import java.io.Serializable;
 import java.util.UUID;
 
-public class Student implements Serializable {
+public class Student  {
 
     private String firstName;
     private String secondName;
@@ -12,15 +11,6 @@ public class Student implements Serializable {
     private UUID id;
 
     public Student() {
-        id = UUID.randomUUID();
-    }
-
-
-    public Student(String firstName, String secondName, boolean maleGender, int photo) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.maleGender = maleGender;
-        this.photo = photo;
         id = UUID.randomUUID();
     }
 

@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
+import java.util.UUID;
+
 import ru.ok.technopolis.students.adapter.MainActivityAdapter;
 import ru.ok.technopolis.students.app.App;
 import ru.ok.technopolis.students.bottom_sheet_fragment.StudentBottomSheet;
@@ -17,7 +19,6 @@ import ru.ok.technopolis.students.model.Student;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, StudentBottomSheet.BottomSheetListener {
 
     private MainActivityAdapter mainActivityAdapter;
-    private static final String BOTTOM_SHEET_TAG = "BOTTOM_SHEET";
     private StudentDAO studentDAO;
 
     @Override
@@ -43,8 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void onStudentClick(Student student) {
+        UUID studentId = student.getId();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        StudentBottomSheet.newInstance(student).show(transaction, BOTTOM_SHEET_TAG);
+        StudentBottomSheet.newInstance(studentId).show(transaction, StudentBottomSheet.BOTTOM_SHEET_TAG);
     }
 
     @Override
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.activity_main__add_button:
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                StudentBottomSheet.newInstance(null).show(transaction, BOTTOM_SHEET_TAG);
+                StudentBottomSheet.newInstance(null).show(transaction, StudentBottomSheet.BOTTOM_SHEET_TAG);
                 break;
         }
     }
