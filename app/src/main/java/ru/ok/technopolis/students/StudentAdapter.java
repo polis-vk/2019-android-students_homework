@@ -14,10 +14,12 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     private final List<Student> students;
     private final Listener listener;
+    private View prevStudent;
 
     public StudentAdapter(List<Student> list, Listener listener) {
         this.students = list;
         this.listener = listener;
+        this.prevStudent = null;
     }
 
     @NonNull
@@ -28,6 +30,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             @Override
             public void onClick(View v) {
                 listener.onStudentClick((Student)v.getTag());
+                if (prevStudent != null) {
+                    prevStudent.setBackgroundResource(R.color.activity_color);
+                }
+                v.setBackgroundResource(R.color.current_student_color);
+                prevStudent = v;
             }
         });
         return new StudentViewHolder(view);
@@ -59,9 +66,24 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         }
 
         private void bind(Student student) {
-            firstNameTextView.setText(student.getFirstName());
-            secondNameTextView.setText(student.getSecondName());
+            firstNameTextView.setText(reflectTextInTextView(student.getFirstName()));
+            if (firstNameTextView.getText().toString().equals("")) {
+                firstNameTextView.setHint(R.string.default_firstname);
+            }
+            secondNameTextView.setText(reflectTextInTextView(student.getSecondName()));
+            if (secondNameTextView.getText().toString().equals("")) {
+                secondNameTextView.setHint(R.string.default_secondname);
+            }
             photoTextView.setImageResource(student.getPhoto());
+        }
+
+        private String reflectTextInTextView(String text) {
+            if (text.length() > 10) {
+                return text.substring(0, 9) + ".";
+            }
+            else {
+                return text;
+            }
         }
 
     }

@@ -9,4 +9,5 @@
     <string name="default_firstname">Firstname</string>
     <string name="default_secondname">Secondname</string>
     <string name="checkbox_name">Male gender</string>
+    <string name="toast_invalid">Fill gaps correctly</string>
 </resources>

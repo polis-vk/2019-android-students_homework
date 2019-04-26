@@ -78,7 +78,7 @@
         android:id="@+id/first_name_info"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:text="@string/default_firstname"
+        android:hint="@string/default_firstname"
         app:layout_constraintStart_toEndOf="@id/big_photo"
         app:layout_constraintTop_toBottomOf="@id/info_header"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -88,7 +88,7 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:text="@string/default_secondname"
+        android:hint="@string/default_secondname"
         app:layout_constraintStart_toEndOf="@id/big_photo"
         app:layout_constraintTop_toBottomOf="@id/first_name_info"
         app:layout_constraintEnd_toEndOf="parent" />

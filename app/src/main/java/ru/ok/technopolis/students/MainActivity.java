@@ -21,10 +21,6 @@ public class MainActivity extends Activity {
     private StudentAdapter studentAdapter;
     private Student currentStudent;
 
-    private final String DEFAULTFIRSTNAME = "Firstname";
-    private final String DEFAULTSECONDNAME = "Secondname";
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +32,14 @@ public class MainActivity extends Activity {
             public void onStudentClick(Student student) {
                 EditText firstName = findViewById(R.id.first_name_info);
                 firstName.setText(student.getFirstName());
+                if (student.getFirstName().equals("")) {
+                    firstName.setHint(R.string.default_firstname);
+                }
                 EditText secondName = findViewById(R.id.second_name_info);
                 secondName.setText(student.getSecondName());
+                if (student.getSecondName().equals("")) {
+                    secondName.setHint(R.string.default_secondname);
+                }
                 ImageView photo = findViewById(R.id.big_photo);
                 photo.setImageResource(student.getPhoto());
                 CheckBox checkBox = findViewById(R.id.checkbox);
@@ -80,7 +82,7 @@ public class MainActivity extends Activity {
                             break;
                     }
                 }
-                students.add(new Student(DEFAULTFIRSTNAME, DEFAULTSECONDNAME, maleGender, startPhoto));
+                students.add(new Student("", "", maleGender, startPhoto));
                 studentAdapter.notifyDataSetChanged();
             }
         });
@@ -119,11 +121,13 @@ public class MainActivity extends Activity {
                         students.remove(currentStudent);
                         currentStudent = null;
                         EditText firstName = findViewById(R.id.first_name_info);
-                        firstName.setText(DEFAULTFIRSTNAME);
+                        firstName.setText("");
+                        firstName.setHint(R.string.default_firstname);
                         EditText secondName = findViewById(R.id.second_name_info);
-                        secondName.setText(DEFAULTSECONDNAME);
+                        secondName.setText("");
+                        secondName.setHint(R.string.default_secondname);
                         ImageView photo = findViewById(R.id.big_photo);
-                        photo.setImageResource(0);
+                        photo.setImageResource(android.R.color.transparent);
                         CheckBox checkBox = findViewById(R.id.checkbox);
                         checkBox.setChecked(false);
                     }
@@ -140,23 +144,48 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 if (currentStudent != null) {
                     EditText firstNameInfo = findViewById(R.id.first_name_info);
-                    EditText secondInfo = findViewById(R.id.second_name_info);
-                    if (!firstNameInfo.getText().toString().contains(" ") && !firstNameInfo.getText().toString().equals("") &&
-                    !secondInfo.getText().toString().equals("") && !secondInfo.getText().toString().contains(" ")) {
+                    EditText secondNameInfo = findViewById(R.id.second_name_info);
+                    firstNameInfo.setText(firstNameInfo.getText().toString().trim().replace("\n", "").replace(" ", ""));
+                    secondNameInfo.setText(secondNameInfo.getText().toString().trim().replace("\n", "").replace(" ", ""));
+                        if (!firstNameInfo.getText().toString().equals("") &&
+                        !secondNameInfo.getText().toString().equals("")) {
                         int index = students.indexOf(currentStudent);
                         currentStudent.setFirstName(firstNameInfo.getText().toString());
-                        currentStudent.setSecondName(secondInfo.getText().toString());
+                        currentStudent.setSecondName(secondNameInfo.getText().toString());
+                        ImageView image = findViewById(R.id.big_photo);
                         CheckBox checkBox = findViewById(R.id.checkbox);
+                        if (checkBox.isChecked() != currentStudent.isMaleGender()) {
+                            Random random = new Random();
+                            if (checkBox.isChecked()) {
+                                switch (random.nextInt(3)) {
+                                    case 0: currentStudent.setPhoto(R.drawable.male_1);
+                                        break;
+                                    case 1: currentStudent.setPhoto(R.drawable.male_2);
+                                        break;
+                                    case 2: currentStudent.setPhoto(R.drawable.male_3);
+                                        break;
+                                }
+                            } else {
+                                switch (random.nextInt(3)) {
+                                    case 0: currentStudent.setPhoto(R.drawable.female_1);
+                                        break;
+                                    case 1: currentStudent.setPhoto(R.drawable.female_2);
+                                        break;
+                                    case 2: currentStudent.setPhoto(R.drawable.female_3);
+                                        break;
+                                }
+                            }
+                        }
+                        image.setImageResource(currentStudent.getPhoto());
                         currentStudent.setMaleGender(checkBox.isChecked());
                         students.set(index, currentStudent);
                         studentAdapter.notifyDataSetChanged();
                     }
                     else {
-                        Toast.makeText(MainActivity.this, "Заполните корректно поля", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.toast_invalid, Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
     }
-
 }

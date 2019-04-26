@@ -10,4 +10,5 @@
     <string name="default_firstname">Фамилия</string>
     <string name="default_secondname">Имя</string>
     <string name="checkbox_name">Мужской пол</string>
+    <string name="toast_invalid">Заполните корректно поля</string>
 </resources>
