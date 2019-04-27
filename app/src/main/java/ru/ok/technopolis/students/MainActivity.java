@@ -20,6 +20,8 @@ public class MainActivity extends Activity {
     private List<Student> students;
     private StudentAdapter studentAdapter;
     private Student currentStudent;
+    private Student prevStudent;
+    private final Student DEFAULTPREV = new Student(" ", " ", false, android.R.color.transparent);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         RecyclerView recyclerView = findViewById(R.id.list);
         students = new ArrayList<>();
+        prevStudent = DEFAULTPREV;
         studentAdapter = new StudentAdapter(students, new StudentAdapter.Listener() {
             @Override
             public void onStudentClick(Student student) {
@@ -44,7 +47,15 @@ public class MainActivity extends Activity {
                 photo.setImageResource(student.getPhoto());
                 CheckBox checkBox = findViewById(R.id.checkbox);
                 checkBox.setChecked(student.isMaleGender());
+                student.setInFocus(true);
+                if (currentStudent != null) {
+                    prevStudent = currentStudent;
+                }
                 currentStudent = student;
+                if (!prevStudent.equals(currentStudent)) {
+                    prevStudent.setInFocus(false);
+                }
+                studentAdapter.notifyDataSetChanged();
             }
         });
         recyclerView.setAdapter(studentAdapter);
@@ -108,6 +119,7 @@ public class MainActivity extends Activity {
                         }
                         Student tempStd = currentStudent;
                         currentStudent = students.get(index);
+                        currentStudent.setInFocus(true);
                         students.remove(tempStd);
                         EditText firstName = findViewById(R.id.first_name_info);
                         firstName.setText(currentStudent.getFirstName());
@@ -120,6 +132,7 @@ public class MainActivity extends Activity {
                     } else {
                         students.remove(currentStudent);
                         currentStudent = null;
+                        prevStudent = DEFAULTPREV;
                         EditText firstName = findViewById(R.id.first_name_info);
                         firstName.setText("");
                         firstName.setHint(R.string.default_firstname);

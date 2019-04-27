@@ -14,12 +14,10 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     private final List<Student> students;
     private final Listener listener;
-    private View prevStudent;
 
     public StudentAdapter(List<Student> list, Listener listener) {
         this.students = list;
         this.listener = listener;
-        this.prevStudent = null;
     }
 
     @NonNull
@@ -30,11 +28,6 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             @Override
             public void onClick(View v) {
                 listener.onStudentClick((Student)v.getTag());
-                if (prevStudent != null) {
-                    prevStudent.setBackgroundResource(R.color.activity_color);
-                }
-                v.setBackgroundResource(R.color.current_student_color);
-                prevStudent = v;
             }
         });
         return new StudentViewHolder(view);
@@ -56,6 +49,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         private final TextView firstNameTextView;
         private final TextView secondNameTextView;
         private final ImageView photoTextView;
+        private final View studentView;
 
 
         public StudentViewHolder(@NonNull View itemView) {
@@ -63,6 +57,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             firstNameTextView = itemView.findViewById(R.id.firstname);
             secondNameTextView = itemView.findViewById(R.id.secondname);
             photoTextView = itemView.findViewById(R.id.small_photo);
+            studentView = itemView;
         }
 
         private void bind(Student student) {
@@ -75,6 +70,13 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
                 secondNameTextView.setHint(R.string.default_secondname);
             }
             photoTextView.setImageResource(student.getPhoto());
+
+            if (student.getInFocus()) {
+                studentView.setBackgroundResource(R.color.current_student_color);
+            }
+            else {
+                studentView.setBackgroundResource(R.color.activity_color);
+            }
         }
 
         private String reflectTextInTextView(String text) {
