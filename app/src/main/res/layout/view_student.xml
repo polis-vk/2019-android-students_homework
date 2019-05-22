@@ -12,22 +12,31 @@
         android:layout_margin="10dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/student_item__tv_Name"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/student_item__border"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/female_1" />
 
     <TextView
         android:id="@+id/student_item__tv_Name"
         android:layout_width="315dp"
-        android:layout_height="15dp"
+        android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:fontFamily="sans-serif-medium"
         android:maxLines="1"
         android:textSize="14sp"
         android:textStyle="bold"
+        app:fontFamily="sans-serif-medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/student_item__iv_poster"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Student Name" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/student_item__border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1"/>
 </android.support.constraint.ConstraintLayout>

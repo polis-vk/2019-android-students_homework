@@ -25,7 +25,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_student, viewGroup, false);
         view.setOnClickListener(v -> onStudentClickListener.onStudentClick((Student) v.getTag(), (String) v.getContentDescription(
-        )));
+        ), view));
         return new StudentViewHolder(view);
     }
 
@@ -55,16 +55,15 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
 
         private void bind(@NonNull Student student) {
             nameTextView.setText(student.getFirstName() + " " + student.getSecondName());
-            if (student.isMaleGender()){
+            if (student.isMaleGender()) {
                 posterImageView.setImageResource(student.getPhoto());
-            }
-            else {
+            } else {
                 posterImageView.setImageResource(student.getPhoto());
             }
         }
     }
 
     interface Listener {
-        void onStudentClick(Student student, String id);
+        void onStudentClick(Student student, String id, View v);
     }
 }
