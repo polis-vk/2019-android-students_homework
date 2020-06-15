@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Students</string>
+    <string name="StudentName">Имя</string>
+    <string name="StudentSurname">Фамилия</string>
+    <string name="gender">Мужской пол</string>
+    <string name="student_view_hide">скрыть</string>
+    <string name="student_view_remove">Удалить</string>
+    <string name="student_view_save">Сохранить</string>
+    <string name="Student">Студент</string>
+    <string name="student_list">Список студентов</string>
+    <string name="Add_student">Добавить студента</string>
+    <string name="error_insert_first_name_and_second_name">Введите имя и фамилию студента!</string>
 </resources>
