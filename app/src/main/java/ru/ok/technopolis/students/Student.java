@@ -1,6 +1,8 @@
 package ru.ok.technopolis.students;
 
-public class Student {
+import android.support.annotation.NonNull;
+
+public class Student implements Comparable<Student> {
 
     private String firstName;
     private String secondName;
@@ -11,6 +13,10 @@ public class Student {
         this.firstName = firstName;
         this.secondName = secondName;
         this.maleGender = maleGender;
+        this.photo = photo;
+    }
+
+    public Student(int photo) {
         this.photo = photo;
     }
 
@@ -44,5 +50,14 @@ public class Student {
 
     public void setPhoto(int photo) {
         this.photo = photo;
+    }
+
+    @Override
+    public int compareTo(@NonNull Student student) {
+        int res = secondName.toLowerCase().compareTo(student.getSecondName().toLowerCase());
+        if (res != 0) {
+            return res;
+        }
+        return firstName.toLowerCase().compareTo(student.getFirstName().toLowerCase());
     }
 }
