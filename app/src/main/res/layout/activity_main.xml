@@ -3,7 +3,137 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/activity_main__app_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/activity_main__student_list"
+        android:text="@string/app_header"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_main__student_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/activity_main__app_header"
+        app:layout_constraintBottom_toTopOf="@id/activity_main__add_student_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"/>
+
+    <Button
+        android:id="@+id/activity_main__add_student_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/activity_main__separator"
+        app:layout_constraintTop_toBottomOf="@id/activity_main__student_list"
+        android:text="@string/add_student_btn"
+        android:layout_margin="8dp"/>
+
+    <View
+        android:id="@+id/activity_main__separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@android:color/darker_gray">
+    </View>
+
+    <TextView
+        android:id="@+id/activity_main__student_card_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/activity_main__separator"
+        app:layout_constraintBottom_toTopOf="@id/activity_main__surname"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/student_card_header"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/activity_main__photo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_margin="4dp"
+        app:layout_constraintTop_toBottomOf="@id/activity_main__separator"
+        app:layout_constraintBottom_toTopOf="@id/activity_main__remove_student_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/activity_main__vertical"
+        android:scaleType="centerCrop"
+        android:src="@color/colorAccent">
+    </de.hdodenhof.circleimageview.CircleImageView>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/activity_main__vertical"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <EditText
+        android:id="@+id/activity_main__surname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/activity_main__vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_main__student_card_header"
+        app:layout_constraintBottom_toTopOf="@id/activity_main__name"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/activity_main__name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/activity_main__vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_main__surname"
+        app:layout_constraintBottom_toTopOf="@id/activity_main__gender_checkbox"
+        android:inputType="text"/>
+
+    <CheckBox
+        android:id="@+id/activity_main__gender_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/activity_main__name"
+        app:layout_constraintBottom_toTopOf="@id/activity_main__save_student_btn"
+        app:layout_constraintStart_toEndOf="@id/activity_main__vertical"
+        android:checked="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/activity_main__gender_checkbox"
+        app:layout_constraintBottom_toBottomOf="@id/activity_main__gender_checkbox"
+        app:layout_constraintStart_toEndOf="@id/activity_main__gender_checkbox"
+        android:text="@string/gender_choice"/>
+
+    <Button
+        android:id="@+id/activity_main__remove_student_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/activity_main__save_student_btn"
+        app:layout_constraintTop_toBottomOf="@id/activity_main__gender_checkbox"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/remove_student_btn"/>
+
+    <Button
+        android:id="@+id/activity_main__save_student_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/activity_main__remove_student_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_main__gender_checkbox"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/save_student_btn"/>
 
 </android.support.constraint.ConstraintLayout>
