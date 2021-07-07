@@ -7,6 +7,8 @@ public class Student {
     private boolean maleGender;
     private int photo;
 
+    private boolean isActive = false;
+
     public Student(String firstName, String secondName, boolean maleGender, int photo) {
         this.firstName = firstName;
         this.secondName = secondName;
@@ -44,5 +46,13 @@ public class Student {
 
     public void setPhoto(int photo) {
         this.photo = photo;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }
