@@ -2,16 +2,25 @@ package ru.ok.technopolis.students;
 
 public class Student {
 
+    private Boolean selected;
     private String firstName;
     private String secondName;
-    private boolean maleGender;
+    private boolean male;
     private int photo;
 
     public Student(String firstName, String secondName, boolean maleGender, int photo) {
         this.firstName = firstName;
         this.secondName = secondName;
-        this.maleGender = maleGender;
+        this.male = maleGender;
         this.photo = photo;
+    }
+
+    public Boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(Boolean selected) {
+        this.selected = selected;
     }
 
     public String getFirstName() {
@@ -30,12 +39,12 @@ public class Student {
         this.secondName = secondName;
     }
 
-    public boolean isMaleGender() {
-        return maleGender;
+    public boolean isMale() {
+        return male;
     }
 
-    public void setMaleGender(boolean maleGender) {
-        this.maleGender = maleGender;
+    public void setMale(boolean male) {
+        this.male = male;
     }
 
     public int getPhoto() {
@@ -45,4 +54,12 @@ public class Student {
     public void setPhoto(int photo) {
         this.photo = photo;
     }
+
+    public void copy(Student student) {
+        this.firstName = new String(student.firstName);
+        this.secondName = new String(student.secondName);
+        this.male = new Boolean(student.male);
+        this.photo = new Integer(student.photo);
+    }
+
 }
