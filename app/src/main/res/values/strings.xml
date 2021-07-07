@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">Students</string>
+    <string name="students_list">Список студентов</string>
+    <string name="add_student">+ Добавить студента</string>
+    <string name="student">Студент</string>
+    <string name="second_name">Фамилия</string>
+    <string name="first_name">Имя</string>
+    <string name="delete">Удалить</string>
+    <string name="save">Сохранить</string>
+    <string name="invalid_profile_toast">Введены неверные данные.</string>
+
+    <string-array name="genders">
+        <item>Агендер</item>
+        <item>Андрогин</item>
+        <item>Бердаш</item>
+        <item>Бигендер</item>
+        <item>Гендерквир</item>
+        <item>Гендерфлюид</item>
+        <item>Гермафродит</item>
+        <item>Дрэг</item>
+        <item>Интерсексуал</item>
+        <item>Небинарный</item>
+        <item>Трансгендер</item>
+        <item>Транссексуал</item>
+        <item>Тригендер</item>
+    </string-array>
 </resources>
