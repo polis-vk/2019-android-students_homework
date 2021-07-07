@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Students</string>
+    <string name="btn_add">+ Добавить студента</string>
+    <string name="edit_title">Студент</string>
+    <string name="edit_checkbox">Мужской пол</string>
+    <string name="edit_name">Имя</string>
+    <string name="edit_fname">Фамилия</string>
+    <string name="edit_delete">Удалить</string>
+    <string name="edit_save">Сохранить</string>
+    <string name="wrong_enter">Имя не может быть пустым</string>
+    <string name="empty_student">Некого удалять</string>
 </resources>
