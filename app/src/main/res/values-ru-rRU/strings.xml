@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Студенты</string>
+    <string name="main__student_list_title">Список студентов</string>
+    <string name="main__student_title">Студент</string>
+    <string name="main__add_student">+ Добавить студента</string>
+    <string name="main__delete_button">Удалить</string>
+    <string name="main__save_button">Сохранить</string>
+    <string name="main__male_radio">Мужской</string>
+    <string name="main__female_radio">Женский</string>
+    <string name="main__last_name_hint">Фамилия</string>
+    <string name="main__first_name_hint">Имя</string>
+    <string name="student_item_default_name">Имя отсутствует</string>
+</resources>
