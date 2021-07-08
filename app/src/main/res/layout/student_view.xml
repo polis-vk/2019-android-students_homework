@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/student_view__hr"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGray"
+        app:layout_constraintBottom_toTopOf="@id/student_view__header"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/student_view__header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/student"
+        android:textSize="@dimen/header_text_size"
+        app:layout_constraintBottom_toTopOf="@id/student_view__photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/student_view__hr" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/student_view__photo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/margin"
+        android:contentDescription="@string/student_photo"
+        android:padding="@dimen/margin"
+        android:scaleType="centerCrop"
+        app:civ_border_color="@color/colorAccent"
+        app:civ_border_width="1dp"
+        app:layout_constraintBottom_toTopOf="@id/student_view__barrier"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toStartOf="@id/student_view__guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/student_view__header"
+        tools:src="@drawable/male_1" />
+
+    <EditText
+        android:id="@+id/student_view__first_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/first_name"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@id/student_view__second_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/student_view__guideline"
+        app:layout_constraintTop_toBottomOf="@id/student_view__header"
+        app:layout_constraintVertical_chainStyle="spread"
+        tools:ignore="UnusedAttribute"
+        tools:text="@string/first_name" />
+
+    <EditText
+        android:id="@+id/student_view__second_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/second_name"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@id/student_view__is_male"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/student_view__guideline"
+        app:layout_constraintTop_toBottomOf="@id/student_view__first_name"
+        tools:ignore="UnusedAttribute"
+        tools:text="@string/second_name" />
+
+    <CheckBox
+        android:id="@+id/student_view__is_male"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/male_gender"
+        android:textSize="@dimen/regular_text_size"
+        app:layout_constraintBottom_toTopOf="@id/student_view__barrier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/student_view__guideline"
+        app:layout_constraintTop_toBottomOf="@id/student_view__second_name" />
+
+    <Button
+        android:id="@+id/student_view__remove"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/remove"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/student_view__hide"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/student_view__barrier" />
+
+    <Button
+        android:id="@+id/student_view__hide"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/hide"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/student_view__save"
+        app:layout_constraintStart_toEndOf="@id/student_view__remove"
+        app:layout_constraintTop_toBottomOf="@id/student_view__barrier" />
+
+    <Button
+        android:id="@+id/student_view__save"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/student_view__hide"
+        app:layout_constraintTop_toBottomOf="@id/student_view__barrier" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/student_view__barrier"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="student_view__photo,student_view__is_male" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/student_view__guideline"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+</android.support.constraint.ConstraintLayout>
