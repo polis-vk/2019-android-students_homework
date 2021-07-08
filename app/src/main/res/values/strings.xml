@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Students</string>
+    <string name="student">Студент</string>
+    <string name="stud_list">Список студентов</string>
+    <string name="add_student">+ Добавить студента</string>
+    <string name="delete_student">Удалить</string>
+    <string name="save_student">Сохранить</string>
+    <string name="surName">Фамилия</string>
+    <string name="name">Имя</string>
+    <string name="gender">Мужской пол</string>
+    <string name="student_avatar">Изображение студента</string>
+    <string name="student_saved">Студент сохранён</string>
+    <string name="student_removed">Студент удалён</string>
+    <string name="studentSurName_error">Фамилия не может быть пустой</string>
+    <string name="studentName_error">Имя не может быть пустым</string>
+    <string name="userShouldSave_warning">Вам следует сохранить изменения</string>
+    <string name="userShouldSaveCreated_warning">Для начала сохраните уже созданного студента</string>
 </resources>
