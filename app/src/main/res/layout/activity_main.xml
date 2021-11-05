@@ -1,9 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <android.support.constraint.Guideline
+        android:id="@+id/activity_main_line_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/activity_main_line_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/activity_main_line_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_main_students_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_main_button_add"
+        app:layout_constraintEnd_toStartOf="@+id/activity_main_line_right"
+        app:layout_constraintStart_toEndOf="@+id/activity_main_line_left"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/activity_main_button_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_add"
+        app:layout_constraintBottom_toTopOf="@id/activity_main_student_photo"
+        app:layout_constraintEnd_toStartOf="@id/activity_main_line_right"
+        app:layout_constraintStart_toEndOf="@id/activity_main_line_left" />
+
+    <Button
+        android:id="@+id/activity_main_button_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_delete"
+        app:layout_constraintBottom_toTopOf="@id/activity_main_line_bottom"
+        app:layout_constraintStart_toEndOf="@id/activity_main_line_left" />
+
+    <Button
+        android:id="@+id/activity_main_button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_save"
+        app:layout_constraintBottom_toTopOf="@id/activity_main_line_bottom"
+        app:layout_constraintEnd_toStartOf="@id/activity_main_line_right" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/activity_main_student_photo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@color/colorGray"
+        app:layout_constraintBottom_toBottomOf="@id/activity_main_student_first_name"
+        app:layout_constraintStart_toEndOf="@id/activity_main_line_left" />
+
+    <EditText
+        android:id="@+id/activity_main_student_last_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/last_name"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@id/activity_main_student_first_name"
+        app:layout_constraintEnd_toStartOf="@id/activity_main_line_right"
+        app:layout_constraintStart_toEndOf="@id/activity_main_student_photo" />
+
+    <EditText
+        android:id="@+id/activity_main_student_first_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/first_name"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@id/activity_main_student_gender"
+        app:layout_constraintEnd_toStartOf="@id/activity_main_line_right"
+        app:layout_constraintStart_toEndOf="@id/activity_main_student_photo" />
+
+
+    <CheckBox
+        android:id="@+id/activity_main_student_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/male"
+        app:layout_constraintBottom_toTopOf="@id/activity_main_button_delete"
+        app:layout_constraintStart_toEndOf="@id/activity_main_student_photo" />
 
 </android.support.constraint.ConstraintLayout>

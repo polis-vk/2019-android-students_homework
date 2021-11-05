@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Students</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_save">Save</string>
+    <string name="button_add">+Add</string>
+    <string name="first_name">Enter first name</string>
+    <string name="last_name">Enter last name</string>
+    <string name="male">Male?</string>
 </resources>
