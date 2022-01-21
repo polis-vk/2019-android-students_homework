@@ -6,12 +6,14 @@ public class Student {
     private String secondName;
     private boolean maleGender;
     private int photo;
+    private boolean inFocus;
 
     public Student(String firstName, String secondName, boolean maleGender, int photo) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.maleGender = maleGender;
         this.photo = photo;
+        this.inFocus = false;
     }
 
     public String getFirstName() {
@@ -44,5 +46,13 @@ public class Student {
 
     public void setPhoto(int photo) {
         this.photo = photo;
+    }
+
+    public void setInFocus(boolean focus) {
+        this.inFocus = focus;
+    }
+
+    public boolean getInFocus() {
+        return this.inFocus;
     }
 }

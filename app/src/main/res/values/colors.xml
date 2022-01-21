@@ -3,4 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="activity_color">#E9E6E6</color>
+    <color name="screen_divider_color">#FF000000</color>
+    <color name="current_student_color">#008577</color>
 </resources>
