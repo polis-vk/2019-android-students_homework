@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Students</string>
+    <string name="students_list">Список студентов</string>
+    <string name="student_name">Фамилия, Имя студента</string>
+    <string name="add_student">+ Добавить студента</string>
+    <string name="student">Студент</string>
+    <string name="male_gender">Мужской пол</string>
+    <string name="delete">Удалить</string>
+    <string name="save">Сохранить</string>
+    <string name="miss_first_name">Введите Имя</string>
+    <string name="miss_second_name">Введите Фамилию</string>
 </resources>
