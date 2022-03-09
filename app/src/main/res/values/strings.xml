@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Students</string>
+    <string name="label__list_of_student">Список студентов</string>
+    <string name="button__add_student">+Добавить студента</string>
+    <string name="label__student">Студент</string>
+    <string name="placeholder__name">Имя</string>
+    <string name="placeholder__surname">Фамилия</string>
+    <string name="gender__male">М</string>
+    <string name="gender__female">Ж</string>
+    <string name="button__delete_student">Удалить</string>
+    <string name="button__save_student">Сохранить</string>
+    <string name="error_of_add">Студент не добавлен</string>
+    <string name="error_of_add_set_name">Заполните Имя</string>
+    <string name="error_of_add_set_surname">Заполните Фамилию</string>
+    <string name="error_of_add_set_gender">Заполните Пол</string>
+    <string name="was_added">Студент добавлен</string>
+    <string name="error_of_delete_not_selected">Выбирите студента </string>
+    <string name="was_deleted">Студент был удален</string>
+    <string name="error_of_save">Для сохранения изменений, поля должны быть заполнены</string>
+    <string name="error_of_save_not_selected">Выбирите студента</string>
+    <string name="was_saved">Изменения сохранены</string>
 </resources>
