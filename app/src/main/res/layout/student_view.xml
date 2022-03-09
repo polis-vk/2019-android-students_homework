@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#FFFFFFFF">
+
+    <TextView
+        android:id="@+id/textStudent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/editView_photo"
+
+        android:text="@string/Student"
+        android:textSize="25sp"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/editView_photo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="7dp"
+        android:padding="10dp"
+        android:scaleType="centerCrop"
+        app:civ_border_color="@color/colorAccent"
+        app:civ_border_width="1dp"
+        tools:src="@drawable/male_1"
+
+        app:layout_constraintTop_toBottomOf="@id/textStudent"
+        app:layout_constraintBottom_toTopOf="@id/barrier"
+        app:layout_constraintEnd_toStartOf="@id/guideLine_Vertical"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/StudentName"
+        android:inputType="textPersonName"
+        android:importantForAutofill="no"
+        tools:ignore="UnusedAttribute"
+        tools:text="@string/StudentName"
+
+        app:layout_constraintTop_toBottomOf="@id/textStudent"
+        app:layout_constraintStart_toEndOf="@id/guideLine_Vertical"
+        app:layout_constraintBottom_toTopOf="@id/editText2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+
+        />
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/StudentSurname"
+        android:inputType="textPersonName"
+        android:importantForAutofill="no"
+        tools:ignore="UnusedAttribute"
+        tools:text="@string/StudentSurname"
+
+        app:layout_constraintTop_toBottomOf="@+id/editText1"
+        app:layout_constraintBottom_toTopOf="@id/checkBox"
+        app:layout_constraintStart_toEndOf="@id/guideLine_Vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/gender"
+        android:textSize="18sp"
+
+        app:layout_constraintBottom_toTopOf="@id/barrier"
+        app:layout_constraintStart_toEndOf="@id/guideLine_Vertical"
+        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <Button
+        android:id="@+id/student_view_remove"
+        style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/student_view_remove"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barrier"
+        app:layout_constraintEnd_toStartOf="@id/student_view_hide"/>
+
+    <Button
+        android:id="@+id/student_view_hide"
+        style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/student_view_hide"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/student_view_remove"
+        app:layout_constraintEnd_toStartOf="@id/student_view_save"
+        app:layout_constraintTop_toBottomOf="@+id/barrier"/>
+    <Button
+        android:id="@+id/student_view_save"
+        style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/student_view_save"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barrier"
+        app:layout_constraintStart_toEndOf="@+id/student_view_hide"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <android.support.constraint.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="editView_photo,checkBox"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideLine_Vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.42"/>
+
+
+
+</android.support.constraint.ConstraintLayout>

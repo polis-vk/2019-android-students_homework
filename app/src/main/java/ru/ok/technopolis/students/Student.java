@@ -1,5 +1,7 @@
 package ru.ok.technopolis.students;
 
+import java.util.List;
+
 public class Student {
 
     private String firstName;
